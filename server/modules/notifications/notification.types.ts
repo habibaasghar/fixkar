@@ -1,0 +1,31 @@
+/**
+ * Reusable event hooks — business modules only ever call
+ * NotificationService.trigger(userId, event, metadata). They never touch a
+ * channel/provider directly (Phase 16 principle: "business modules publish
+ * events, the notification layer decides delivery").
+ */
+export const NOTIFICATION_EVENTS = {
+  LEAD_CREATED: "LEAD_CREATED",
+  LEAD_ASSIGNED: "LEAD_ASSIGNED",
+  VENDOR_ACCEPTED: "VENDOR_ACCEPTED",
+  VENDOR_REJECTED: "VENDOR_REJECTED",
+  BOOKING_CONFIRMED: "BOOKING_CONFIRMED",
+  BOOKING_CANCELLED: "BOOKING_CANCELLED",
+  BOOKING_COMPLETED: "BOOKING_COMPLETED",
+  // Admin platform (Phase 14)
+  VENDOR_VERIFICATION_APPROVED: "VENDOR_VERIFICATION_APPROVED",
+  VENDOR_VERIFICATION_REJECTED: "VENDOR_VERIFICATION_REJECTED",
+  VENDOR_SUSPENDED: "VENDOR_SUSPENDED",
+  VENDOR_RESTORED: "VENDOR_RESTORED",
+  CUSTOMER_SUSPENDED: "CUSTOMER_SUSPENDED",
+  CUSTOMER_RESTORED: "CUSTOMER_RESTORED",
+  // Financial engine (Phase 15)
+  SETTLEMENT_CREATED: "SETTLEMENT_CREATED",
+  SETTLEMENT_COMPLETED: "SETTLEMENT_COMPLETED",
+  REFUND_ISSUED: "REFUND_ISSUED",
+  // Communication platform (Phase 16)
+  VENDOR_REGISTERED: "VENDOR_REGISTERED",
+  CUSTOMER_REGISTERED: "CUSTOMER_REGISTERED",
+} as const;
+
+export type NotificationEvent = (typeof NOTIFICATION_EVENTS)[keyof typeof NOTIFICATION_EVENTS];

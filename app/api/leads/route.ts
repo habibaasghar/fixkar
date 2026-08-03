@@ -1,17 +1,16 @@
-// MVP placeholder: logs the lead server-side.
-// TODO: replace with a Supabase insert once the DB is set up (see BUSINESS_PLAN.md).
-export async function POST(request: Request) {
+import { withErrorHandler, apiSuccess } from "@/server/shared/response";
+import { createLeadSchema } from "@/server/modules/leads/lead.validators";
+import { LeadService } from "@/server/modules/leads/lead.service";
+import { applyRateLimit, getClientIp } from "@/server/shared/middleware/rate-limit.middleware";
+import { RATE_LIMITS } from "@/server/shared/rate-limit.config";
+
+export const POST = withErrorHandler(async (request: Request) => {
+  await applyRateLimit(`lead-submission:${getClientIp(request)}`, RATE_LIMITS.leadSubmission.limit, RATE_LIMITS.leadSubmission.windowMs);
+
   const body = await request.json();
-  const { name, phone, city, service, area } = body ?? {};
+  const validatedInput = createLeadSchema.parse(body);
 
-  if (!name || !phone || !service) {
-    return Response.json(
-      { ok: false, error: "Name, phone, and service are required." },
-      { status: 400 }
-    );
-  }
+  const lead = await LeadService.createLead(validatedInput);
 
-  console.log("[lead]", { name, phone, city, service, area, at: new Date().toISOString() });
-
-  return Response.json({ ok: true });
-}
+  return apiSuccess({ leadId: lead.id, status: lead.status }, undefined, 201);
+});

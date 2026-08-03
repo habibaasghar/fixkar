@@ -1,0 +1,29 @@
+# Production container config — points at real external Supabase Postgres
+# and a real external Redis (Upstash, a managed Redis, etc.), not local
+# containers. All secrets come from the environment/secret manager at deploy
+# time — nothing is baked into the image. NOT RUN in this environment.
+#
+# Usage: docker compose -f docker-compose.prod.yml up -d
+# Requires a real .env.production (see .env.example) — never commit it.
+
+services:
+  app:
+    build:
+      context: .
+      target: runner
+    image: fixkar-web:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/v1/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M

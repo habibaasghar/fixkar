@@ -1,0 +1,30 @@
+"use client";
+
+import React from "react";
+import { IconChevron } from "@/components/icons";
+
+export function AccordionItem({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [isOpen, setIsOpen] = React.useState(defaultOpen);
+
+  return (
+    <div className="border-b border-gray-200 py-4">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between text-left font-semibold text-gray-900 focus:outline-none"
+      >
+        <span className="text-base">{title}</span>
+        <IconChevron size={18} direction={isOpen ? "up" : "down"} className="text-gray-500 shrink-0 ml-4" />
+      </button>
+      {isOpen && <div className="mt-3 text-sm leading-relaxed text-gray-600">{children}</div>}
+    </div>
+  );
+}

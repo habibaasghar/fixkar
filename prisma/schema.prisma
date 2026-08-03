@@ -1,0 +1,797 @@
+// Soft-delete policy (Phase 10 finalized decision):
+// - Actor/account entities that can be deactivated get `deletedAt`: User, CustomerProfile,
+//   VendorProfile, Booking. Deactivation must be reversible and shouldn't erase history.
+// - Append-only / historical records never get `deletedAt` — they are immutable facts,
+//   not "things a user turned off": Lead, Review, Transaction, BookingStatusLog,
+//   BookingItem, Notification, AuditLog, Dispute, SystemSetting, City, Area,
+//   ServiceCategory, Service, Wallet, VendorVerification, VendorAvailability,
+//   VendorDocument, PortfolioItem (all follow their parent VendorProfile via cascade),
+//   CustomerAddress (follows its parent CustomerProfile via cascade). Phase 15's
+//   LedgerTransaction/LedgerEntry are append-only/immutable by design (never
+//   updated or deleted); Settlement follows the Booking pattern (status
+//   updates in place, no deletedAt); CommissionRule is config (deactivate via
+//   isActive, not soft-delete).
+// Use the NOT_DELETED filter + softDeleteData() helpers in server/shared/soft-delete.ts
+// rather than Prisma Client Extensions, so soft-delete filtering stays explicit and
+// auditable per query instead of an implicit global interceptor.
+
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CUSTOMER
+  VENDOR
+  SUPPORT
+  OPERATIONS
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum CityStatus {
+  ACTIVE
+  COMING_SOON
+}
+
+enum VerificationStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+  SUSPENDED
+}
+
+enum VendorDocumentType {
+  BUSINESS_DOCUMENT
+  CERTIFICATION
+}
+
+enum Language {
+  EN
+  ROMAN_UR
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+enum AddressLabel {
+  HOME
+  OFFICE
+  OTHER
+}
+
+enum VerificationTier {
+  TIER1_BASIC
+  TIER2_MASTER
+}
+
+enum LeadStatus {
+  UNASSIGNED // created, not yet matched to a candidate vendor
+  ASSIGNED   // matched + assigned to a specific vendor, awaiting accept/reject
+  ACCEPTED   // vendor accepted -> Booking created
+  EXPIRED    // candidates exhausted / no vendor accepted in time
+  CANCELLED  // customer cancelled before acceptance
+}
+
+enum LeadEventType {
+  CREATED
+  ASSIGNED
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CANCELLED
+}
+
+// Booking is only ever created *after* a vendor has already accepted the
+// Lead (see LeadStatus/LeadEventType.ACCEPTED) — there is no separate
+// "awaiting vendor response" phase at the Booking level, so a Booking starts
+// directly at ASSIGNED ("confirmed" in Phase 13's workflow diagram) rather
+// than needing its own redundant ACCEPTED state.
+enum BookingStatus {
+  ASSIGNED
+  EN_ROUTE
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+// Phase 15 financial engine enums.
+enum WalletOwnerType {
+  CUSTOMER
+  VENDOR
+  PLATFORM
+}
+
+enum WalletBalanceField {
+  AVAILABLE   // vendor: prepaid spendable credit (top-ups, lead-fee/commission deductions on instant bookings) — the original Phase 1/9.1 concept.
+              // customer: usable credit (refunds, promos). platform: retained commission revenue.
+  PENDING     // vendor: earnings from completed bookings, owed but not yet batched into a settlement.
+  SETTLEMENT  // vendor: earnings currently locked in an in-progress Settlement; zeroed out when the Settlement completes (paid out).
+}
+
+enum LedgerEntryType {
+  DEBIT
+  CREDIT
+}
+
+enum LedgerTransactionType {
+  BOOKING_PAYMENT
+  VENDOR_EARNING
+  PLATFORM_COMMISSION
+  REFUND
+  ADJUSTMENT
+  MANUAL_CORRECTION
+  WALLET_TOPUP
+  LEAD_FEE
+  SETTLEMENT
+}
+
+enum CommissionType {
+  FLAT
+  PERCENTAGE
+}
+
+enum SettlementStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+// Phase 16 communication platform enums.
+enum NotificationChannel {
+  IN_APP
+  SMS
+  WHATSAPP
+  EMAIL
+  PUSH
+}
+
+enum NotificationDeliveryStatus {
+  PENDING
+  PROCESSING
+  SENT
+  DELIVERED
+  FAILED
+  CANCELLED
+}
+
+model User {
+  id            String          @id @default(uuid())
+  phone         String          @unique
+  email         String?         @unique
+  role          Role            @default(CUSTOMER)
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  deletedAt     DateTime?       @map("deleted_at")
+
+  customerProfile CustomerProfile?
+  vendorProfile   VendorProfile?
+  notifications   Notification[]
+  notificationPreference  NotificationPreference?
+  notificationDispatches  NotificationDispatch[]
+  auditLogs       AuditLog[]      @relation("AdminAuditLogs")
+
+  @@map("users")
+}
+
+model CustomerProfile {
+  id                String        @id @default(uuid())
+  userId            String        @unique @map("user_id")
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Nullable: the profile row is lazily auto-created on first authenticated
+  // request (mirrors the bare-User auto-create in auth.middleware.ts) before
+  // the customer has necessarily told us their name via PATCH.
+  name              String?
+  preferredArea     String?       @map("preferred_area")
+  preferredLanguage Language      @default(EN) @map("preferred_language")
+  // Schema-ready only: no write path is exposed yet (no avatar upload/bucket
+  // flow built in this phase) — see Phase 12 technical debt note.
+  profilePhotoUrl   String?       @map("profile_photo_url")
+  accountStatus     AccountStatus @default(ACTIVE) @map("account_status")
+  isCorporate       Boolean       @default(false) @map("is_corporate")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+  deletedAt         DateTime?     @map("deleted_at")
+
+  addresses     CustomerAddress[]
+  leads         Lead[]
+  bookings      Booking[]
+  reviews       Review[]
+  wallet        Wallet?
+
+  @@map("customer_profiles")
+}
+
+model CustomerAddress {
+  id         String          @id @default(uuid())
+  customerId String          @map("customer_id")
+  customer   CustomerProfile @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  label      AddressLabel    @default(HOME)
+  cityId     String          @map("city_id")
+  city       City            @relation(fields: [cityId], references: [id])
+  areaId     String          @map("area_id")
+  area       Area            @relation(fields: [areaId], references: [id])
+  street     String
+  landmark   String?
+  latitude   Float?
+  longitude  Float?
+  isDefault  Boolean         @default(false) @map("is_default")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+
+  @@index([customerId])
+  @@map("customer_addresses")
+}
+
+model VendorProfile {
+  id               String              @id @default(uuid())
+  userId           String              @unique @map("user_id")
+  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug             String              @unique
+  fullName         String              @map("full_name")
+  businessName     String?             @map("business_name")
+  tagline          String?
+  bio              String?
+  profilePhotoUrl  String?             @map("profile_photo_url")
+  skills           String[]
+  languagesSpoken  String[]            @map("languages_spoken")
+  experienceYears  Int                 @default(1) @map("experience_years")
+  cityId           String              @map("city_id")
+  city             City                @relation(fields: [cityId], references: [id])
+  areas            Area[]              @relation("VendorWorkingAreas")
+  categories       ServiceCategory[]   @relation("VendorServiceCategories")
+  verificationTier VerificationTier    @default(TIER1_BASIC) @map("verification_tier")
+  isFeatured       Boolean             @default(false) @map("is_featured")
+  isOnDuty         Boolean             @default(true) @map("is_on_duty")
+  averageRating    Float               @default(5.0) @map("average_rating")
+  totalReviews     Int                 @default(0) @map("total_reviews")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+  deletedAt        DateTime?           @map("deleted_at")
+
+  verification     VendorVerification?
+  availability     VendorAvailability?
+  documents        VendorDocument[]
+  portfolioItems   PortfolioItem[]
+  wallet           Wallet?
+  settlements      Settlement[]
+  bookings         Booking[]
+  reviews          Review[]
+  assignedLeads    Lead[]              @relation("CurrentVendorLeads")
+  leadStatusLogs   LeadStatusLog[]
+
+  // [isOnDuty, verificationTier] serves public/marketing listings filtered by
+  // badge tier (e.g. "Master Fixer" featured listings) — NOT the dispatch
+  // engine, which actually filters cityId+isOnDuty directly plus a join on
+  // VendorVerification.status (see dispatch.engine.ts); that real query
+  // pattern is what [cityId, isOnDuty] below covers (Phase 17 audit fix —
+  // the original comment here was inaccurate).
+  @@index([isOnDuty, verificationTier])
+  @@index([cityId, isOnDuty])
+  @@map("vendor_profiles")
+}
+
+model VendorVerification {
+  id             String             @id @default(uuid())
+  vendorId       String             @unique @map("vendor_id")
+  vendor         VendorProfile      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cnicNumber     String             @map("cnic_number")
+  cnicFrontUrl   String             @map("cnic_front_url")
+  cnicBackUrl    String             @map("cnic_back_url")
+  selfieUrl      String?            @map("selfie_url")
+  policeCertUrl  String?            @map("police_cert_url")
+  status         VerificationStatus @default(PENDING)
+  notes          String?
+  verifiedAt     DateTime?          @map("verified_at")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+
+  // Phase 17 audit: joined by status in both the dispatch engine and admin
+  // vendor listing/dashboard counts — had no index.
+  @@index([status])
+  @@map("vendor_verifications")
+}
+
+model VendorAvailability {
+  id                   String        @id @default(uuid())
+  vendorId             String        @unique @map("vendor_id")
+  vendor               VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  workingDays          Int[]         @map("working_days") // 0=Sunday .. 6=Saturday
+  workingHoursStart    String?       @map("working_hours_start") // "09:00"
+  workingHoursEnd      String?       @map("working_hours_end") // "18:00"
+  isVacationMode       Boolean       @default(false) @map("is_vacation_mode")
+  vacationStart        DateTime?     @map("vacation_start")
+  vacationEnd          DateTime?     @map("vacation_end")
+  isEmergencyAvailable Boolean       @default(false) @map("is_emergency_available")
+  updatedAt            DateTime      @updatedAt @map("updated_at")
+
+  @@map("vendor_availability")
+}
+
+model VendorDocument {
+  id        String             @id @default(uuid())
+  vendorId  String             @map("vendor_id")
+  vendor    VendorProfile      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  type      VendorDocumentType
+  fileUrl   String             @map("file_url")
+  bucket    String
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  @@index([vendorId])
+  @@map("vendor_documents")
+}
+
+model PortfolioItem {
+  id        String        @id @default(uuid())
+  vendorId  String        @map("vendor_id")
+  vendor    VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  imageUrl  String        @map("image_url")
+  caption   String?
+  sortOrder Int           @default(0) @map("sort_order")
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  @@index([vendorId])
+  @@map("portfolio_items")
+}
+
+model City {
+  id        String     @id @default(uuid())
+  slug      String     @unique
+  name      String
+  status    CityStatus @default(COMING_SOON)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  areas     Area[]
+  vendors   VendorProfile[]
+  customerAddresses CustomerAddress[]
+  leads     Lead[]
+  bookings  Booking[]
+  commissionRules CommissionRule[]
+
+  @@map("cities")
+}
+
+model Area {
+  id        String   @id @default(uuid())
+  cityId    String   @map("city_id")
+  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  slug      String
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  vendors   VendorProfile[] @relation("VendorWorkingAreas")
+  customerAddresses CustomerAddress[]
+  leads     Lead[]
+
+  @@unique([cityId, slug])
+  @@map("areas")
+}
+
+model ServiceCategory {
+  id              String    @id @default(uuid())
+  slug            String    @unique
+  name            String
+  shortName       String    @map("short_name")
+  iconUrl         String?   @map("icon_url")
+  sortOrder       Int       @default(0) @map("sort_order")
+  metaTitle       String?   @map("meta_title")
+  metaDescription String?   @map("meta_description")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  services  Service[]
+  vendors   VendorProfile[] @relation("VendorServiceCategories")
+  leads     Lead[]
+  bookings  Booking[]
+  commissionRules CommissionRule[]
+
+  @@map("service_categories")
+}
+
+model Service {
+  id          String          @id @default(uuid())
+  categoryId  String          @map("category_id")
+  category    ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  slug        String
+  name        String
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@unique([categoryId, slug])
+  @@map("services")
+}
+
+model Lead {
+  id                String           @id @default(uuid())
+  // Human-friendly unique reference (e.g. "FK-4821"), per Phase 13's "every
+  // lead must have a unique reference ID" — distinct from the internal uuid.
+  referenceCode     String           @unique
+  customerId        String?          @map("customer_id")
+  customer          CustomerProfile? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName      String           @map("customer_name")
+  customerPhone     String           @map("customer_phone")
+  // Denormalized display/back-compat fields (existing, kept as-is — the
+  // original /api/leads contract reads these exact names).
+  citySlug          String           @map("city_slug")
+  areaName          String           @map("area_name")
+  serviceSlug       String           @map("service_slug")
+  // Resolved FKs added for the matching engine, which needs real relational
+  // joins against VendorProfile.cityId/areas/categories — the slug/name
+  // strings above aren't enough to match correctly on their own.
+  cityId            String           @map("city_id")
+  city              City             @relation(fields: [cityId], references: [id])
+  areaId            String           @map("area_id")
+  area              Area             @relation(fields: [areaId], references: [id])
+  categoryId        String           @map("category_id")
+  category          ServiceCategory  @relation(fields: [categoryId], references: [id])
+  description       String?
+  preferredDate     String?          @map("preferred_date")
+  preferredTimeSlot String?          @map("preferred_time_slot")
+  status            LeadStatus       @default(UNASSIGNED)
+  // Fast "who is this assigned to right now" pointer. LeadStatusLog below is
+  // the full history; this is just the current state for quick lookups
+  // (e.g. "GET /vendors/me/leads" filters directly on this).
+  currentVendorId   String?          @map("current_vendor_id")
+  currentVendor     VendorProfile?   @relation("CurrentVendorLeads", fields: [currentVendorId], references: [id])
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+
+  booking           Booking?
+  statusLogs        LeadStatusLog[]
+
+  // Matching engine's core lookup + admin/list filtering.
+  @@index([cityId, areaId, categoryId, status])
+  @@index([currentVendorId])
+  // Phase 17 audit: admin lead search filters on the denormalized citySlug
+  // directly (not the resolved cityId above), which had no index.
+  @@index([citySlug])
+  @@map("leads")
+}
+
+model LeadStatusLog {
+  id        String        @id @default(uuid())
+  leadId    String        @map("lead_id")
+  lead      Lead          @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  // Nullable: CREATED/CANCELLED aren't tied to a specific vendor, but
+  // ASSIGNED/ACCEPTED/REJECTED/EXPIRED (per-vendor outcomes) are.
+  vendorId  String?       @map("vendor_id")
+  vendor    VendorProfile? @relation(fields: [vendorId], references: [id])
+  event     LeadEventType
+  notes     String?
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  @@index([leadId])
+  @@map("lead_status_logs")
+}
+
+model Booking {
+  id               String           @id @default(uuid())
+  leadId           String?          @unique @map("lead_id")
+  lead             Lead?            @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  customerId       String           @map("customer_id")
+  customer         CustomerProfile  @relation(fields: [customerId], references: [id])
+  vendorId         String           @map("vendor_id")
+  vendor           VendorProfile    @relation(fields: [vendorId], references: [id])
+  citySlug         String           @map("city_slug")
+  serviceSlug      String           @map("service_slug")
+  // FKs (mirroring Lead's cityId/categoryId) so the Phase 15 commission
+  // engine can resolve rules without a slug lookup at completion time.
+  cityId           String           @map("city_id")
+  city             City             @relation(fields: [cityId], references: [id])
+  categoryId       String           @map("category_id")
+  category         ServiceCategory  @relation(fields: [categoryId], references: [id])
+  status           BookingStatus    @default(ASSIGNED)
+  scheduledAt      DateTime?        @map("scheduled_at")
+  totalAmount      Float?           @map("total_amount")
+  commissionAmount Float?           @map("commission_amount")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  deletedAt        DateTime?        @map("deleted_at")
+
+  statusLogs       BookingStatusLog[]
+  items            BookingItem[]
+  review           Review?
+  disputes         Dispute[]
+
+  // Vendor's job list ("my active bookings") and customer's booking history.
+  @@index([vendorId, status])
+  @@index([customerId])
+  @@map("bookings")
+}
+
+model BookingStatusLog {
+  id        String        @id @default(uuid())
+  bookingId String        @map("booking_id")
+  booking   Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  status    BookingStatus
+  changedBy String        @map("changed_by")
+  notes     String?
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  @@map("booking_status_logs")
+}
+
+model BookingItem {
+  id          String   @id @default(uuid())
+  bookingId   String   @map("booking_id")
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  description String
+  unitPrice   Float    @map("unit_price")
+  quantity    Int      @default(1)
+  totalPrice  Float    @map("total_price")
+
+  @@map("booking_items")
+}
+
+// Phase 9.1 decision preserved: balances are STORED (not derived via SUM),
+// updated only through a single write path with a guarded atomic update —
+// see server/modules/wallets/wallet.repository.ts. Phase 15 adds the
+// pending/settlement split on top of that same discipline.
+model Wallet {
+  id                String          @id @default(uuid())
+  ownerType         WalletOwnerType @map("owner_type")
+  vendorId          String?         @unique @map("vendor_id")
+  vendor            VendorProfile?  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  customerId        String?         @unique @map("customer_id")
+  customer          CustomerProfile? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  availableBalance  Float           @default(0) @map("available_balance")
+  pendingBalance    Float           @default(0) @map("pending_balance")
+  settlementBalance Float           @default(0) @map("settlement_balance")
+  currency          String          @default("PKR")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  ledgerEntries LedgerEntry[]
+  settlements   Settlement[]
+
+  @@map("wallets")
+}
+
+/** One LedgerTransaction groups the LedgerEntry rows for a single financial event. Never deleted. */
+model LedgerTransaction {
+  id          String                @id @default(uuid())
+  type        LedgerTransactionType
+  description String
+  bookingId   String?               @map("booking_id")
+  referenceId String?               @map("reference_id") // e.g. a Settlement.id this transaction relates to
+  createdAt   DateTime              @default(now()) @map("created_at")
+
+  entries LedgerEntry[]
+
+  @@index([bookingId])
+  // Phase 17 audit: reporting queries (daily/monthly revenue, commission and
+  // refund totals) filter by type + a createdAt date range with no index.
+  @@index([type, createdAt])
+  @@map("ledger_transactions")
+}
+
+/**
+ * Double-entry line item. Invariant enforced in code (LedgerService), not
+ * the DB: for a given LedgerTransaction, sum(CREDIT amounts where
+ * isExternal=false) === sum(DEBIT amounts where isExternal=false). Entries
+ * marked isExternal represent value crossing the system boundary (COD cash
+ * from a customer, a payout to a vendor's bank) — there is no wallet on the
+ * other side of those by definition, so they're intentionally single-sided.
+ */
+model LedgerEntry {
+  id                  String                @id @default(uuid())
+  ledgerTransactionId String                @map("ledger_transaction_id")
+  ledgerTransaction   LedgerTransaction     @relation(fields: [ledgerTransactionId], references: [id], onDelete: Cascade)
+  walletId            String                @map("wallet_id")
+  wallet              Wallet                @relation(fields: [walletId], references: [id])
+  entryType           LedgerEntryType
+  amount              Float
+  balanceField        WalletBalanceField    @map("balance_field")
+  isExternal          Boolean               @default(false) @map("is_external")
+  createdAt           DateTime              @default(now()) @map("created_at")
+
+  @@index([walletId, createdAt])
+  @@index([ledgerTransactionId])
+  @@map("ledger_entries")
+}
+
+/**
+ * No hardcoded commission values — resolution priority in
+ * CommissionEngine.resolve(): (category+city) > category-only > city-only >
+ * global (both null) > SystemSetting "default_commission_percentage" as the
+ * final fallback if no rule row exists at all.
+ */
+model CommissionRule {
+  id         String          @id @default(uuid())
+  categoryId String?         @map("category_id")
+  category   ServiceCategory? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  cityId     String?         @map("city_id")
+  city       City?           @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  type       CommissionType
+  value      Float // percentage points (0-100) or a flat PKR amount, per `type`
+  isActive   Boolean         @default(true) @map("is_active")
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
+
+  @@index([categoryId, cityId])
+  @@map("commission_rules")
+}
+
+model Settlement {
+  id              String           @id @default(uuid())
+  vendorId        String           @map("vendor_id")
+  vendor          VendorProfile    @relation(fields: [vendorId], references: [id])
+  walletId        String           @map("wallet_id")
+  wallet          Wallet           @relation(fields: [walletId], references: [id])
+  referenceNumber String           @unique @map("reference_number")
+  amount          Float
+  status          SettlementStatus @default(PENDING)
+  notes           String?
+  completedAt     DateTime?        @map("completed_at")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  @@index([vendorId, status])
+  @@map("settlements")
+}
+
+model Review {
+  id         String          @id @default(uuid())
+  bookingId  String          @unique @map("booking_id")
+  booking    Booking         @relation(fields: [bookingId], references: [id])
+  customerId String          @map("customer_id")
+  customer   CustomerProfile @relation(fields: [customerId], references: [id])
+  vendorId   String          @map("vendor_id")
+  vendor     VendorProfile   @relation(fields: [vendorId], references: [id])
+  rating     Int
+  comment    String?
+  isHidden   Boolean         @default(false) @map("is_hidden")
+  hiddenReason String?       @map("hidden_reason")
+  createdAt  DateTime        @default(now()) @map("created_at")
+
+  @@map("reviews")
+}
+
+model Dispute {
+  id         String    @id @default(uuid())
+  bookingId  String    @map("booking_id")
+  booking    Booking   @relation(fields: [bookingId], references: [id])
+  raisedBy   String    @map("raised_by")
+  reason     String
+  status     String    @default("OPEN")
+  resolvedAt DateTime? @map("resolved_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  @@map("disputes")
+}
+
+/** The in-app notification a user actually sees in their inbox — one row per event, regardless of how many channels (SMS/WhatsApp/etc.) also fired for it. */
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  isRead    Boolean  @default(false) @map("is_read")
+  type      String   @default("GENERAL")
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}
+
+/**
+ * Reusable, versioned templates — never hardcode notification copy inside
+ * business logic. One row per (event key, channel, locale, version); the
+ * highest active version for a (key, channel, locale) is the one rendered.
+ */
+model NotificationTemplate {
+  id        String              @id @default(uuid())
+  key       String              // matches a NotificationEvent, e.g. "LEAD_CREATED"
+  channel   NotificationChannel
+  locale    String              @default("en")
+  version   Int                 @default(1)
+  subject   String?             // used by EMAIL only
+  body      String              // "{{variable}}" placeholders, rendered by TemplateService
+  isActive  Boolean             @default(true)
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+
+  @@unique([key, channel, locale, version])
+  @@map("notification_templates")
+}
+
+/** Per-user channel opt-in/out + language. Quiet hours are schema-ready only — no scheduler exists yet to honor them (see technical debt). */
+model NotificationPreference {
+  id              String   @id @default(uuid())
+  userId          String   @unique @map("user_id")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inAppEnabled    Boolean  @default(true) @map("in_app_enabled")
+  smsEnabled      Boolean  @default(true) @map("sms_enabled")
+  whatsappEnabled Boolean  @default(true) @map("whatsapp_enabled")
+  emailEnabled    Boolean  @default(true) @map("email_enabled")
+  pushEnabled     Boolean  @default(true) @map("push_enabled")
+  language        Language @default(EN)
+  quietHoursStart String?  @map("quiet_hours_start") // "22:00", future-ready
+  quietHoursEnd   String?  @map("quiet_hours_end")   // "08:00", future-ready
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("notification_preferences")
+}
+
+/**
+ * The queue. One row per (event, channel) delivery attempt-chain — this is
+ * what a future background worker drains (status=PENDING, nextAttemptAt<=now),
+ * not something processed inline on the request that published the event.
+ */
+model NotificationDispatch {
+  id            String                     @id @default(uuid())
+  userId        String                     @map("user_id")
+  user          User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event         String                     // NotificationEvent key
+  channel       NotificationChannel
+  status        NotificationDeliveryStatus @default(PENDING)
+  renderedSubject String?                  @map("rendered_subject")
+  renderedBody  String                     @map("rendered_body")
+  metadata      Json?
+  provider      String?                    // which provider adapter handled it (e.g. "mock-sms")
+  // Phase 17: higher = processed first. OTP/auth-critical sends should
+  // eventually use a higher priority than marketing-style notifications;
+  // nothing sets this above the default yet (no such distinction was made
+  // when events were defined in Phase 16) — the field and ordering exist so
+  // that decision is a one-line change wherever NotificationService.trigger
+  // enqueues, not a schema/architecture change.
+  priority      Int                        @default(0)
+  attempts      Int                        @default(0)
+  maxAttempts   Int                        @default(3) @map("max_attempts")
+  nextAttemptAt DateTime?                  @map("next_attempt_at")
+  lastError     String?                    @map("last_error")
+  sentAt        DateTime?                  @map("sent_at")
+  deliveredAt   DateTime?                  @map("delivered_at")
+  failedAt      DateTime?                  @map("failed_at")
+  createdAt     DateTime                   @default(now()) @map("created_at")
+  updatedAt     DateTime                   @updatedAt @map("updated_at")
+
+  // FAILED (terminal, maxAttempts exhausted) is this queue's dead-letter
+  // state — deliberately not a separate table, since that would just
+  // duplicate these same rows. The admin "failed" list + manual retry
+  // endpoints (Phase 16) are the DLQ inspection/requeue tooling.
+  @@index([status, priority, nextAttemptAt])
+  @@index([userId])
+  @@map("notification_dispatches")
+}
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  adminId       String   @map("admin_id")
+  admin         User     @relation("AdminAuditLogs", fields: [adminId], references: [id])
+  action        String
+  targetType    String   @map("target_type")
+  targetId      String   @map("target_id")
+  previousState Json?    @map("previous_state")
+  newState      Json?    @map("new_state")
+  ipAddress     String?  @map("ip_address")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Phase 17 audit: no admin "audit log viewer" endpoint exists yet, but this
+  // table is append-only and ever-growing — indexing the obvious future
+  // filters now is cheap insurance against a table scan later.
+  @@index([adminId])
+  @@index([targetType, targetId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}

@@ -1,0 +1,140 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { categories, cities, getCategory, getCity } from "@/lib/services";
+import { Container, Section, PageHeader } from "@/components/layout/Container";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
+import { LeadForm } from "@/components/domain/LeadForm";
+import { PricingTable, AreaCoverageList } from "@/components/domain/HowItWorksStep";
+import { TrustPoint } from "@/components/domain/TrustPoint";
+import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { BRAND_NAME } from "@/lib/constants";
+
+export async function generateStaticParams() {
+  return cities.flatMap((city) =>
+    categories.map((cat) => ({ city: city.slug, category: cat.slug }))
+  );
+}
+
+type Props = {
+  params: Promise<{ city: string; category: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { city: citySlug, category: categorySlug } = await params;
+  const city = getCity(citySlug);
+  const category = getCategory(categorySlug);
+  if (!city || !category) return {};
+
+  return {
+    title: category.metaTitleTemplate(city.name),
+    description: category.metaDescriptionTemplate(city.name),
+    alternates: {
+      canonical: `/${city.slug}/${category.slug}`,
+    },
+  };
+}
+
+export default async function ServiceCategoryCityPage({ params }: Props) {
+  const { city: citySlug, category: categorySlug } = await params;
+  const city = getCity(citySlug);
+  const category = getCategory(categorySlug);
+
+  if (!city || !category) notFound();
+
+  const whatsappMessage = `Hi ${BRAND_NAME}, I need ${category.shortName} in ${city.name}.`;
+
+  return (
+    <div>
+      <ServiceSchema city={city} category={category} />
+
+      <Container className="pt-6">
+        <Breadcrumbs
+          items={[
+            { label: city.name, href: `/${city.slug}` },
+            { label: category.shortName, href: `/${city.slug}/${category.slug}` },
+          ]}
+        />
+      </Container>
+
+      <PageHeader
+        title={category.h1Template(city.name)}
+        subtitle={category.intro(city.name)}
+      />
+
+      <div className="flex justify-center -mt-4 mb-8">
+        <WhatsAppCTA message={whatsappMessage} label={`Book ${category.shortName} via WhatsApp`} size="lg" />
+      </div>
+
+      <Section background="white">
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-10">
+            {/* Common Issues Solved */}
+            <div className="space-y-4">
+              <h2 className="text-xl font-extrabold text-gray-900">
+                What to Expect: Common {category.shortName} Issues We Fix in {city.name}
+              </h2>
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                {category.commonIssues.map((issue) => (
+                  <div
+                    key={issue}
+                    className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm font-semibold text-gray-800"
+                  >
+                    <span className="text-blue-600 font-bold">✓</span>
+                    <span>{issue}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pricing Section */}
+            {category.priceRanges && (
+              <div className="space-y-4">
+                <h2 className="text-xl font-extrabold text-gray-900">
+                  {category.shortName} Pricing Guide for {city.name}
+                </h2>
+                <PricingTable priceRanges={category.priceRanges} note={category.pricingNote} />
+              </div>
+            )}
+
+            {/* Local Area Coverage */}
+            <AreaCoverageList cityName={city.name} areas={city.areas} />
+
+            {/* Trust Points */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <TrustPoint
+                icon="shield"
+                title="CNIC Verified"
+                text={`Every ${category.shortName.toLowerCase()} is identity verified.`}
+              />
+              <TrustPoint
+                icon="phone"
+                title="Pay After Job"
+                text="Zero upfront payment. Pay when satisfied."
+              />
+              <TrustPoint
+                icon="check"
+                title="7-Day Guarantee"
+                text="Free re-work warranty on completed bookings."
+              />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="subtle">
+        <Container>
+          <div className="text-center max-w-xl mx-auto mb-6">
+            <h2 className="text-xl font-extrabold text-gray-900">
+              Get a Fast Callback for {category.shortName}
+            </h2>
+            <p className="text-xs text-gray-600">
+              Enter your details to connect with a technician in {city.name}.
+            </p>
+          </div>
+          <LeadForm city={city} service={category.slug} />
+        </Container>
+      </Section>
+    </div>
+  );
+}

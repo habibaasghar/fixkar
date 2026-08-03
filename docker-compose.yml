@@ -1,0 +1,62 @@
+# Local development compose — a local Postgres + Redis so the app can run
+# fully offline instead of depending on a live Supabase project. NOT RUN in
+# this environment (no Docker daemon here); verify with `docker compose up`
+# in an environment that has Docker.
+#
+# This does NOT replace Supabase for Auth/Storage — those still need a real
+# Supabase project (see .env.example). It only gives DATABASE_URL and
+# REDIS_URL something real to point at for local iteration on the parts that
+# don't need Supabase specifically.
+
+services:
+  app:
+    build:
+      context: .
+      target: builder # dev target: use the builder stage, not the slim runner, so `next dev` semantics are available if needed
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://fixkar:fixkar@db:5432/fixkar
+      DIRECT_URL: postgresql://fixkar:fixkar@db:5432/fixkar
+      REDIS_URL: redis://redis:6379
+    env_file:
+      - .env.local
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: npm run dev
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: fixkar
+      POSTGRES_PASSWORD: fixkar
+      POSTGRES_DB: fixkar
+    ports:
+      - "5432:5432"
+    volumes:
+      - fixkar_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fixkar"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - fixkar_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  fixkar_db_data:
+  fixkar_redis_data:

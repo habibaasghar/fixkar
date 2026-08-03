@@ -1,29 +1,66 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
-import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site-config";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { MobileNav } from "@/components/layout/MobileNav";
+import { FloatingWhatsApp } from "@/components/domain/FloatingWhatsApp";
+import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
+import { BRAND_NAME, BRAND_TAGLINE, BRAND_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  themeColor: "#2563eb",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(BRAND_URL),
   title: {
-    template: `%s | ${SITE_NAME}`,
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s | ${BRAND_NAME}`,
+    default: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
   },
   description:
-    "Book verified AC repair, electrician, plumbing, and cleaning professionals in Lahore. Fast response via WhatsApp.",
+    "Book background-checked electricians, plumbers, AC technicians, deep cleaning teams, and house painters in Lahore. Transparent pricing, pay after service.",
+  keywords: [
+    "home services Pakistan",
+    "electrician Lahore",
+    "plumber Lahore",
+    "AC repair Lahore",
+    "cleaning service Lahore",
+    "painter Lahore",
+    "handyman Lahore",
+    "FixKar",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_PK",
+    url: BRAND_URL,
+    title: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
+    description: "Reliable home repairs by CNIC-verified professionals in Lahore. No advance payments—pay only when the job is done.",
+    siteName: BRAND_NAME,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} Open Graph Image`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
+    description: "Reliable home repairs by CNIC-verified professionals in Lahore. No advance payments—pay only when the job is done.",
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default function RootLayout({
@@ -32,14 +69,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-white text-neutral-900">
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-white text-gray-900 font-sans pb-16 md:pb-0">
+        <OrganizationSchema />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <MobileNav />
         <FloatingWhatsApp />
       </body>
     </html>
