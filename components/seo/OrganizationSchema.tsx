@@ -12,7 +12,7 @@ export function OrganizationSchema() {
     description: "Pakistan's trusted home service marketplace connecting customers with verified professionals.",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+92-300-0000000",
+      telephone: "+92-306-4222367",
       contactType: "customer service",
       areaServed: "PK",
       availableLanguage: ["en", "ur"],

@@ -1,7 +1,7 @@
 export const BRAND_NAME = "FixKar.pk";
 export const BRAND_TAGLINE = "Verified Home Service Professionals in Pakistan";
 export const BRAND_URL = "https://fixkar.pk";
-export const DEFAULT_WHATSAPP_NUMBER = "923000000000";
+export const DEFAULT_WHATSAPP_NUMBER = "923064222367";
 export const DEFAULT_OG_IMAGE = `${BRAND_URL}/og-image.jpg`;
 
 export const VERIFICATION_TIERS = {

@@ -57,7 +57,7 @@ export function Header() {
               Book Service
             </Button>
           </Link>
-          <a href="tel:+923000000000" className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 sm:hidden">
+          <a href="tel:+923064222367" className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 sm:hidden">
             <IconPhone size={14} className="text-blue-600" />
             <span>Call</span>
           </a>

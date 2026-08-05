@@ -11,7 +11,7 @@ export function LocalBusinessSchema({ city }: { city: City }) {
     image: `${BRAND_URL}/icon.png`,
     "@id": `${BRAND_URL}/${city.slug}`,
     url: `${BRAND_URL}/${city.slug}`,
-    telephone: "+92-300-0000000",
+    telephone: "+92-306-4222367",
     priceRange: "PKR",
     address: {
       "@type": "PostalAddress",

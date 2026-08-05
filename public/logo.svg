@@ -1,0 +1,17 @@
+<svg width="360" height="96" viewBox="0 0 360 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FixKar.pk">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <!-- icon mark -->
+  <rect x="0" y="0" width="96" height="96" rx="22" fill="url(#lg)"/>
+  <rect x="33" y="24" width="13" height="48" rx="2.5" fill="#ffffff"/>
+  <rect x="33" y="24" width="35" height="12" rx="2.5" fill="#ffffff"/>
+  <rect x="33" y="44" width="25" height="11" rx="2.5" fill="#ffffff"/>
+  <circle cx="67.5" cy="67.5" r="8" fill="#f59e0b"/>
+  <rect x="63" y="63.5" width="9" height="3.2" rx="1.6" fill="#ffffff"/>
+  <!-- wordmark -->
+  <text x="116" y="60" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="700" fill="#0f766e">FixKar<tspan fill="#f59e0b">.pk</tspan></text>
+</svg>
