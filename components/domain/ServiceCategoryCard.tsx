@@ -16,6 +16,9 @@ export function ServiceCategoryCard({
     plumbing: "🪠",
     cleaning: "🧹",
     painter: "🎨",
+    "sofa-carpet-cleaning": "🛋️",
+    "sofa-cleaning": "🛋️",
+    "carpet-cleaning": "🧼",
   };
 
   const emoji = categoryIcons[category.slug] || "🔧";

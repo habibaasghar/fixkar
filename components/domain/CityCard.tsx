@@ -6,21 +6,28 @@ import type { City } from "@/lib/types";
 
 export function CityCard({ city }: { city: City }) {
   const isActive = city.status === "active";
+  const isPartiallyActive = !isActive && (city.activeCategories?.length ?? 0) > 0;
+
+  const badgeLabel = isActive
+    ? "🟢 Active Now"
+    : isPartiallyActive
+      ? "🟡 Select Services Live"
+      : "🔵 Coming Soon";
+
+  const subLabel = isActive
+    ? `${city.areas.length}+ Local Areas Active`
+    : isPartiallyActive
+      ? `${city.activeCategories!.length} service${city.activeCategories!.length > 1 ? "s" : ""} live now`
+      : "Waitlist open for early launch";
 
   return (
     <Link href={`/${city.slug}`} className="block">
       <Card hoverable className="flex items-center justify-between">
         <div className="space-y-1">
           <h4 className="text-base font-bold text-gray-900">{city.name}</h4>
-          <p className="text-xs text-gray-500">
-            {isActive
-              ? `${city.areas.length}+ Local Areas Active`
-              : "Waitlist open for early launch"}
-          </p>
+          <p className="text-xs text-gray-500">{subLabel}</p>
         </div>
-        <Badge variant={isActive ? "success" : "brand"}>
-          {isActive ? "🟢 Active Now" : "🔵 Coming Soon"}
-        </Badge>
+        <Badge variant={isActive || isPartiallyActive ? "success" : "brand"}>{badgeLabel}</Badge>
       </Card>
     </Link>
   );

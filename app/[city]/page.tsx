@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cities, getCity, categories } from "@/lib/services";
+import { cities, getCity, categories, isCategoryActiveInCity } from "@/lib/services";
 import { Container, Section, PageHeader } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
@@ -37,7 +37,10 @@ export default async function CityPage({ params }: Props) {
 
   if (!city) notFound();
 
-  if (city.status === "coming_soon") {
+  const activeCategories = categories.filter((cat) => isCategoryActiveInCity(city, cat.slug));
+  const comingSoonCategories = categories.filter((cat) => !isCategoryActiveInCity(city, cat.slug));
+
+  if (activeCategories.length === 0) {
     return (
       <Container className="py-12 sm:py-16">
         <Breadcrumbs items={[{ label: city.name, href: `/${city.slug}` }]} />
@@ -55,7 +58,11 @@ export default async function CityPage({ params }: Props) {
 
       <PageHeader
         title={`Verified Home Service Professionals in ${city.name}`}
-        subtitle={`Book electrician, plumber, AC repair, cleaning, and painter services in ${city.name}. Background-checked fixers, pay after job completion.`}
+        subtitle={
+          city.status === "active"
+            ? `Book electrician, plumber, AC repair, cleaning, and painter services in ${city.name}. Background-checked fixers, pay after job completion.`
+            : `FixKar.pk is live in ${city.name} for ${activeCategories.map((c) => c.shortName).join(" and ")}. Background-checked teams, pay after job completion.`
+        }
       />
 
       <Section background="white">
@@ -70,10 +77,22 @@ export default async function CityPage({ params }: Props) {
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => (
+            {activeCategories.map((cat) => (
               <ServiceCategoryCard key={cat.slug} category={cat} citySlug={city.slug} />
             ))}
           </div>
+
+          {city.status === "coming_soon" && comingSoonCategories.length > 0 && (
+            <div className="mt-10 rounded-2xl border border-dashed border-gray-200 bg-gray-50/50 p-5">
+              <p className="text-xs font-bold text-gray-700 mb-2">
+                Coming soon to {city.name}
+              </p>
+              <p className="text-xs text-gray-500">
+                {comingSoonCategories.map((c) => c.shortName).join(", ")} — join the
+                waitlist below to get notified.
+              </p>
+            </div>
+          )}
         </Container>
       </Section>
 

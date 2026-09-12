@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { BRAND_URL } from "@/lib/constants";
-import { cities, categories } from "@/lib/services";
+import { cities, categories, isCategoryActiveInCity } from "@/lib/services";
 
 /**
  * Programmatic sitemap (Phase 18 fix — this was missing). Mirrors the exact
@@ -37,18 +37,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const city of cities) {
     const isActive = city.status === "active";
+    const hasAnyActiveCategory = isActive || categories.some((c) => isCategoryActiveInCity(city, c.slug));
     entries.push({
       url: `${BRAND_URL}/${city.slug}`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: isActive ? 0.9 : 0.4,
+      priority: hasAnyActiveCategory ? 0.9 : 0.4,
     });
     for (const category of categories) {
+      const categoryActive = isCategoryActiveInCity(city, category.slug);
       entries.push({
         url: `${BRAND_URL}/${city.slug}/${category.slug}`,
         lastModified: now,
         changeFrequency: "weekly",
-        priority: isActive ? 0.8 : 0.3,
+        priority: categoryActive ? 0.8 : 0.3,
       });
     }
   }

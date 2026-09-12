@@ -4,6 +4,13 @@ export type City = {
   slug: string;
   name: string;
   status: CityStatus;
+  /**
+   * Category slugs that are live in this city even though `status` is
+   * "coming_soon" overall (e.g. a single vendor covers this city for one
+   * category before the city fully launches). Ignored when status is
+   * "active" (everything is active then). See isCategoryActiveInCity.
+   */
+  activeCategories?: string[];
   areas: string[];
   metaTitle: string;
   metaDescription: string;

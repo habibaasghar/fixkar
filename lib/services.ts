@@ -25,6 +25,7 @@ export const cities: City[] = [
     slug: "islamabad",
     name: "Islamabad",
     status: "coming_soon",
+    activeCategories: ["sofa-carpet-cleaning", "sofa-cleaning", "carpet-cleaning"],
     areas: ["F-6", "F-7", "F-8", "F-10", "G-11", "DHA Phase 2", "Bahria Town"],
     metaTitle: "Home Services in Islamabad | FixKar.pk — Coming Soon",
     metaDescription:
@@ -52,6 +53,7 @@ export const cities: City[] = [
     slug: "gujranwala",
     name: "Gujranwala",
     status: "coming_soon",
+    activeCategories: ["sofa-carpet-cleaning", "sofa-cleaning", "carpet-cleaning"],
     areas: ["DC Colony", "Wapda Town", "Model Town", "Garden Town"],
     metaTitle: "Home Services in Gujranwala | FixKar.pk — Coming Soon",
     metaDescription:
@@ -176,6 +178,80 @@ export const categories: ServiceCategory[] = [
       { item: "Dampness & Seepage Treatment", range: "Rs. 2,000 – 6,000" },
     ],
   },
+  {
+    slug: "sofa-carpet-cleaning",
+    name: "Sofa & Carpet Cleaning Services",
+    shortName: "Sofa & Carpet Cleaning",
+    h1Template: (city) => `Sofa & Carpet Cleaning Services in ${city}`,
+    metaTitleTemplate: (city) => `Sofa & Carpet Cleaning in ${city} | Verified Teams`,
+    metaDescriptionTemplate: (city) =>
+      `Doorstep sofa and carpet shampoo/steam cleaning in ${city}. Verified teams, transparent pricing, pay after the job. Book via WhatsApp.`,
+    intro: (city) =>
+      `Dusty sofas and carpets need more than a quick vacuum. FixKar.pk connects you with verified sofa and carpet cleaning teams in ${city} who use steam and shampoo cleaning to lift deep-set dirt, stains, and allergens — right at your doorstep. No advance payment, pay only once you're happy with the result.`,
+    commonIssues: [
+      "Sofa shampoo & steam cleaning (all fabric types)",
+      "Carpet deep cleaning & stain removal",
+      "Dust mite & allergen treatment",
+      "Pet odor and stain removal",
+      "Combined sofa + carpet package for full living rooms",
+    ],
+    pricingNote:
+      "Sofa pricing is per seat, carpet pricing is per room/sqft — the team confirms the exact quote before starting work.",
+    priceRanges: [
+      { item: "Sofa Cleaning (per seat)", range: "Rs. 350 – 500" },
+      { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
+      { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
+    ],
+  },
+  {
+    slug: "sofa-cleaning",
+    name: "Sofa Cleaning Services",
+    shortName: "Sofa Cleaning",
+    h1Template: (city) => `Sofa Cleaning Service in ${city}`,
+    metaTitleTemplate: (city) => `Sofa Cleaning Service in ${city} | Same-Day Booking`,
+    metaDescriptionTemplate: (city) =>
+      `Professional sofa shampoo & steam cleaning in ${city} — all fabric types. No advance payment, pay after the job is done.`,
+    intro: (city) =>
+      `Years of daily use leave sofas stained, dull, and full of trapped dust. FixKar.pk sends a verified sofa cleaning team to your home in ${city} for steam and shampoo cleaning that restores fabric without damaging it. Every job is quoted upfront — no surprises, no advance payment.`,
+    commonIssues: [
+      "Fabric sofa shampoo cleaning",
+      "Suede & velvet sofa cleaning",
+      "Stubborn stain & spot removal",
+      "Pet hair & odor removal",
+      "Dust mite / allergen treatment",
+    ],
+    pricingNote:
+      "Priced per seat — a team lead confirms the exact quote based on fabric type and condition before starting.",
+    priceRanges: [
+      { item: "Sofa Cleaning (per seat)", range: "Rs. 350 – 500" },
+      { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
+      { item: "7-Seater Sofa Set", range: "Rs. 2,500 – 3,500" },
+    ],
+  },
+  {
+    slug: "carpet-cleaning",
+    name: "Carpet Cleaning Services",
+    shortName: "Carpet Cleaning",
+    h1Template: (city) => `Carpet Cleaning Service in ${city}`,
+    metaTitleTemplate: (city) => `Carpet Cleaning Service in ${city} | Deep Shampoo & Stain Removal`,
+    metaDescriptionTemplate: (city) =>
+      `Deep carpet shampoo, stain and allergen removal in ${city}. Verified teams, transparent pricing, pay after service.`,
+    intro: (city) =>
+      `Carpets trap dust, allergens, and stains that a regular vacuum can't reach. FixKar.pk connects you with verified carpet cleaning teams in ${city} for deep shampoo cleaning that's safe for wall-to-wall carpets and area rugs alike. Pay only after you've inspected the result.`,
+    commonIssues: [
+      "Wall-to-wall carpet deep shampoo",
+      "Area rug & runner cleaning",
+      "Stain and spot treatment",
+      "Odor and allergen removal",
+      "Post-event / post-construction carpet cleaning",
+    ],
+    pricingNote:
+      "Priced per room or per square foot depending on carpet size — final quote confirmed on inspection.",
+    priceRanges: [
+      { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
+      { item: "Area Rug Cleaning", range: "Rs. 1,000 – 2,500" },
+    ],
+  },
 ];
 
 export function getCity(slug: string): City | undefined {
@@ -184,4 +260,14 @@ export function getCity(slug: string): City | undefined {
 
 export function getCategory(slug: string): ServiceCategory | undefined {
   return categories.find((c) => c.slug === slug);
+}
+
+/**
+ * A category can be live in a city either because the whole city is
+ * "active", or because it's individually listed in that city's
+ * `activeCategories` override (e.g. a single vendor covers Islamabad for
+ * sofa/carpet cleaning before Islamabad fully launches).
+ */
+export function isCategoryActiveInCity(city: City, categorySlug: string): boolean {
+  return city.status === "active" || (city.activeCategories?.includes(categorySlug) ?? false);
 }

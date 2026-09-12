@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { categories, cities, getCategory, getCity } from "@/lib/services";
+import { categories, cities, getCategory, getCity, isCategoryActiveInCity } from "@/lib/services";
 import { Container, Section, PageHeader } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
@@ -8,6 +8,7 @@ import { LeadForm } from "@/components/domain/LeadForm";
 import { PricingTable, AreaCoverageList } from "@/components/domain/HowItWorksStep";
 import { TrustPoint } from "@/components/domain/TrustPoint";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { ComingSoonState } from "@/components/ui/ComingSoonState";
 import { BRAND_NAME } from "@/lib/constants";
 
 export async function generateStaticParams() {
@@ -41,6 +42,20 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
   const category = getCategory(categorySlug);
 
   if (!city || !category) notFound();
+
+  if (!isCategoryActiveInCity(city, category.slug)) {
+    return (
+      <Container className="py-12 sm:py-16">
+        <Breadcrumbs
+          items={[
+            { label: city.name, href: `/${city.slug}` },
+            { label: category.shortName, href: `/${city.slug}/${category.slug}` },
+          ]}
+        />
+        <ComingSoonState cityName={`${city.name} (${category.shortName})`} />
+      </Container>
+    );
+  }
 
   const whatsappMessage = `Hi ${BRAND_NAME}, I need ${category.shortName} in ${city.name}.`;
 
