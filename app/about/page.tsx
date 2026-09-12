@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: `About Us | ${BRAND_NAME}`,
   description:
     "Learn how FixKar.pk is building Pakistan's most trusted home service marketplace with zero-trust CNIC background verification.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

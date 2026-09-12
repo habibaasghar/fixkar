@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: `How It Works | ${BRAND_NAME}`,
   description:
     "See how FixKar.pk connects homeowners with verified handymen in Lahore in 3 easy steps. Booking, dispatch, payment, and guarantee explained.",
+  alternates: {
+    canonical: "/how-it-works",
+  },
 };
 
 export default function HowItWorksPage() {

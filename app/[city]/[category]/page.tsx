@@ -7,7 +7,10 @@ import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
 import { LeadForm } from "@/components/domain/LeadForm";
 import { PricingTable, AreaCoverageList } from "@/components/domain/HowItWorksStep";
 import { TrustPoint } from "@/components/domain/TrustPoint";
+import { RelatedServices } from "@/components/domain/RelatedServices";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { FAQSchema } from "@/components/seo/FAQSchema";
+import { AccordionItem } from "@/components/ui/AccordionItem";
 import { ComingSoonState } from "@/components/ui/ComingSoonState";
 import { BRAND_NAME } from "@/lib/constants";
 
@@ -59,9 +62,14 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
 
   const whatsappMessage = `Hi ${BRAND_NAME}, I need ${category.shortName} in ${city.name}.`;
 
+  const relatedCategorySlugs = (category.relatedCategories ?? []).filter((slug) =>
+    isCategoryActiveInCity(city, slug)
+  );
+
   return (
     <div>
       <ServiceSchema city={city} category={category} />
+      {category.faqs && <FAQSchema faqs={category.faqs} />}
 
       <Container className="pt-6">
         <Breadcrumbs
@@ -84,6 +92,10 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
       <Section background="white">
         <Container>
           <div className="max-w-3xl mx-auto space-y-10">
+            {relatedCategorySlugs.length > 0 && (
+              <RelatedServices citySlug={city.slug} categorySlugs={relatedCategorySlugs} />
+            )}
+
             {/* Common Issues Solved */}
             <div className="space-y-4">
               <h2 className="text-xl font-extrabold text-gray-900">
@@ -136,6 +148,25 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
           </div>
         </Container>
       </Section>
+
+      {category.faqs && category.faqs.length > 0 && (
+        <Section background="white">
+          <Container>
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-xl font-extrabold text-gray-900 mb-2">
+                {category.shortName} FAQs in {city.name}
+              </h2>
+              <div className="divide-y divide-gray-200">
+                {category.faqs.map((faq, i) => (
+                  <AccordionItem key={faq.question} title={faq.question} defaultOpen={i === 0}>
+                    <p>{faq.answer}</p>
+                  </AccordionItem>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
 
       <Section background="subtle">
         <Container>

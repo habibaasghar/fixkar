@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BRAND_NAME } from "@/lib/constants";
 import { categories, cities } from "@/lib/services";
@@ -9,6 +10,12 @@ import { HowItWorksStep } from "@/components/domain/HowItWorksStep";
 import { LeadForm } from "@/components/domain/LeadForm";
 import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
 import { Button } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   const activeCity = cities[0]; // Lahore

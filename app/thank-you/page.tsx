@@ -6,6 +6,15 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `Thank You | ${BRAND_NAME}`,
   description: "Thank you for requesting a home service with FixKar.pk.",
+  alternates: {
+    canonical: "/thank-you",
+  },
+  // Post-conversion page — has no independent search value and shouldn't
+  // compete with real money pages in the index.
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function ThankYouPage() {

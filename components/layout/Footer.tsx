@@ -19,7 +19,7 @@ export function Footer() {
               {BRAND_TAGLINE}. Connecting households with background-verified electricians, plumbers, AC repairmen, cleaners, and painters.
             </p>
             <div className="text-xs text-gray-500">
-              <span className="font-bold text-gray-700">Operating City:</span> Lahore (Expanding to Islamabad & Karachi)
+              <span className="font-bold text-gray-700">Operating City:</span> Lahore (Sofa &amp; Carpet Cleaning also live in Islamabad &amp; Gujranwala)
             </div>
           </div>
 
@@ -42,23 +42,25 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Popular Areas in Lahore */}
+          {/* Col 3: Lahore service areas — plain text (no dedicated locality pages exist yet),
+              with a single honest link to the real city hub that lists coverage. */}
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
-              Lahore Service Areas
+              <Link href={`/${activeCity.slug}`} className="hover:text-blue-600 transition">
+                Lahore Service Areas
+              </Link>
             </h3>
-            <ul className="mt-4 space-y-2 text-sm font-medium">
+            <ul className="mt-4 space-y-2 text-sm font-medium text-gray-500">
               {activeCity.areas.slice(0, 6).map((area) => (
-                <li key={area}>
-                  <Link
-                    href={`/lahore/ac-repair`}
-                    className="hover:text-blue-600 transition"
-                  >
-                    {area} Lahore
-                  </Link>
-                </li>
+                <li key={area}>{area}, Lahore</li>
               ))}
             </ul>
+            <Link
+              href={`/${activeCity.slug}`}
+              className="mt-3 inline-block text-xs font-bold text-blue-600 hover:underline"
+            >
+              View full coverage in Lahore →
+            </Link>
           </div>
 
           {/* Col 4: Company & Legal */}

@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: `Frequently Asked Questions | ${BRAND_NAME}`,
   description:
     "Find answers to common questions about booking home services, CNIC verification, 7-day guarantee, rates, and cash payment on FixKar.pk.",
+  alternates: {
+    canonical: "/faq",
+  },
 };
 
 const faqs = [

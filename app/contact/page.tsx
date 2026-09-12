@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: `Contact Support | ${BRAND_NAME}`,
   description:
     "Need help or have questions about home services in Lahore? Contact FixKar.pk via WhatsApp or request a callback.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {

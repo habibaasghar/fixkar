@@ -85,6 +85,33 @@ export const categories: ServiceCategory[] = [
       { item: "General Service / Cleaning", range: "Rs. 1,500 – 3,500" },
       { item: "AC Installation (Split)", range: "Rs. 2,500 – 4,500" },
     ],
+    faqs: [
+      {
+        question: "Do you repair all AC brands and types?",
+        answer:
+          "Yes — our verified technicians work on split, window, and inverter AC units from all major brands. Mention the brand and issue when you book so the right technician is dispatched.",
+      },
+      {
+        question: "How is AC gas refill priced?",
+        answer:
+          "Gas refill pricing depends on tonnage and the refrigerant your unit uses (R22 vs R410A). The technician checks your unit on-site and confirms the exact price before starting work.",
+      },
+      {
+        question: "How soon can a technician reach me?",
+        answer:
+          "For most active service areas we aim to connect you with a technician the same day. Message us on WhatsApp for the fastest response.",
+      },
+      {
+        question: "Do I need to pay before the technician starts?",
+        answer:
+          "No. FixKar.pk works on a pay-after-service model — you pay the technician directly, in cash or via JazzCash/EasyPaisa, only after the job is done and you're satisfied.",
+      },
+      {
+        question: "What should I do before the technician arrives?",
+        answer:
+          "Keep the indoor and outdoor unit accessible, and have a rough idea of the issue (e.g. low cooling, noise, leakage) ready to describe.",
+      },
+    ],
   },
   {
     slug: "electrician",
@@ -107,6 +134,33 @@ export const categories: ServiceCategory[] = [
     priceRanges: [
       { item: "Socket / Switch Replacement", range: "Rs. 300 – 800" },
       { item: "UPS Wiring / Installation", range: "Rs. 1,500 – 3,500" },
+    ],
+    faqs: [
+      {
+        question: "Is it safe to book an electrician for urgent short-circuit issues?",
+        answer:
+          "Yes — every electrician on FixKar.pk is CNIC-verified before being listed. If it's safe to do so, turn off the main breaker and message us on WhatsApp for urgent dispatch.",
+      },
+      {
+        question: "Can you fix UPS/inverter wiring, not just building wiring?",
+        answer:
+          "Yes, our electricians handle both home wiring faults and UPS/inverter installation and wiring.",
+      },
+      {
+        question: "How is the price decided for electrical work?",
+        answer:
+          "Simple jobs like socket or switch replacement have a listed price range. For wiring faults or panel work, the electrician inspects the issue on-site and confirms the price before starting.",
+      },
+      {
+        question: "Do I pay in advance?",
+        answer:
+          "No advance payment is required — you pay directly to the electrician after the work is completed and tested.",
+      },
+      {
+        question: "What information should I share when booking?",
+        answer:
+          "Briefly describe the issue (e.g. \"socket not working\" or \"lights flickering\") and your area — this helps us match the right electrician faster.",
+      },
     ],
   },
   {
@@ -131,6 +185,33 @@ export const categories: ServiceCategory[] = [
       { item: "Geyser Repair", range: "Rs. 1,000 – 3,000" },
       { item: "Tap / Mixer Fitting", range: "Rs. 500 – 1,500" },
     ],
+    faqs: [
+      {
+        question: "Do you handle geyser repair as well as leakages?",
+        answer:
+          "Yes — our plumbers handle geyser/water heater repair and installation, water leakage detection, blocked drains, and tap/sanitary fitting.",
+      },
+      {
+        question: "Is this available for emergency leaks?",
+        answer:
+          "Yes, message us on WhatsApp for urgent leakage or blocked-drain issues and we'll prioritize dispatch in your area.",
+      },
+      {
+        question: "How is pricing decided for plumbing work?",
+        answer:
+          "Straightforward jobs like tap fitting have a listed price range. For leakage or blocked-line issues, the plumber inspects first and gives you a final quote before starting.",
+      },
+      {
+        question: "Do I need to buy parts myself?",
+        answer:
+          "You can discuss this with the plumber directly — some jobs use parts you already have, others may need a replacement part, which the plumber will quote separately before fitting it.",
+      },
+      {
+        question: "Do I pay before or after the job?",
+        answer:
+          "After. You inspect the completed repair first, then pay the plumber directly — no advance payment.",
+      },
+    ],
   },
   {
     slug: "cleaning",
@@ -139,21 +220,48 @@ export const categories: ServiceCategory[] = [
     h1Template: (city) => `Deep Cleaning Services in ${city}`,
     metaTitleTemplate: (city) => `Deep Cleaning Service in ${city}`,
     metaDescriptionTemplate: (city) =>
-      `Sofa, carpet, water tank or full home deep cleaning in ${city}. Verified cleaning teams, book via WhatsApp. No upfront payments.`,
+      `Book verified house & deep cleaning teams in ${city} — full home cleaning, water tank cleaning, and post-construction clean-up. No upfront payments.`,
     intro: (city) =>
-      `Whether you need your sofas shampooed or a full post-construction deep clean, FixKar.pk provides trained and trustworthy cleaning professionals in ${city}. Enjoy a spotless home with our hygienic, reliable teams.`,
+      `Keeping a home spotless takes more than a weekly sweep. FixKar.pk provides trained, trustworthy cleaning teams in ${city} for full home deep cleans, water tank cleaning, and post-construction clean-up. Looking for sofa or carpet cleaning specifically? See our dedicated Sofa & Carpet Cleaning service below for specialized equipment and pricing.`,
     commonIssues: [
       "Full home deep cleaning",
-      "Sofa & mattress shampooing",
+      "Move-in / move-out home cleaning",
       "Overhead & underground water tank cleaning",
       "Post-construction deep cleaning",
       "Kitchen & washroom deep sanitization",
     ],
     pricingNote: "Pricing varies based on square footage, room count, and condition. A team lead will provide an exact quote upon inspection.",
     priceRanges: [
-      { item: "Sofa Set Cleaning (5 Seater)", range: "Rs. 2,000 – 4,000" },
       { item: "Water Tank Cleaning", range: "Rs. 2,500 – 5,000" },
     ],
+    faqs: [
+      {
+        question: "What does a deep cleaning session usually include?",
+        answer:
+          "A typical deep clean covers full-home dusting and mopping plus kitchen and washroom sanitization, and can include add-ons like water tank cleaning or post-construction clean-up — let the team know what you need when booking.",
+      },
+      {
+        question: "Do you also clean sofas or carpets as part of house cleaning?",
+        answer:
+          "Sofa and carpet cleaning is its own dedicated service with specialized equipment — see our Sofa & Carpet Cleaning service for that. General cleaning bookings focus on the rest of the home.",
+      },
+      {
+        question: "How is the price calculated?",
+        answer:
+          "Pricing depends on square footage, number of rooms, and the home's condition. The team lead confirms an exact quote after a quick inspection or a description of your space.",
+      },
+      {
+        question: "Do I need to provide cleaning supplies?",
+        answer:
+          "No — the cleaning team brings its own equipment and supplies. Let us know if you have specific product preferences.",
+      },
+      {
+        question: "Can I book a one-time clean or only recurring service?",
+        answer:
+          "Both — most bookings are one-time deep cleans, but you can ask the team about recurring visits if you'd like ongoing service.",
+      },
+    ],
+    relatedCategories: ["sofa-carpet-cleaning"],
   },
   {
     slug: "painter",
@@ -176,6 +284,33 @@ export const categories: ServiceCategory[] = [
     priceRanges: [
       { item: "Single Room Paint (Labor only)", range: "Rs. 3,500 – 7,000" },
       { item: "Dampness & Seepage Treatment", range: "Rs. 2,000 – 6,000" },
+    ],
+    faqs: [
+      {
+        question: "Do you handle both interior and exterior painting?",
+        answer:
+          "Yes — our painters take on single-room touch-ups, full interior repaints, and exterior weather-sheet painting.",
+      },
+      {
+        question: "Can you fix wall dampness before painting?",
+        answer:
+          "Yes, dampness and seepage treatment is offered as a separate step before painting if your walls need it — mention this when booking so the right prep work is quoted.",
+      },
+      {
+        question: "How is painting priced?",
+        answer:
+          "Painting is priced mainly on labor plus material coverage, which varies by room size and paint quality. The painter visits to inspect the space and gives you a firm quote before starting.",
+      },
+      {
+        question: "Do you supply the paint or do I buy it?",
+        answer:
+          "Either way works — some customers buy their own paint brand/color, others ask the painter to source it. Confirm this upfront when you get your quote.",
+      },
+      {
+        question: "Is payment required before work starts?",
+        answer:
+          "No advance payment is required for labor — you pay after inspecting the finished work. If paint or material is purchased on your behalf, that cost is usually settled separately at the time of purchase.",
+      },
     ],
   },
   {
@@ -202,6 +337,34 @@ export const categories: ServiceCategory[] = [
       { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
       { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
     ],
+    faqs: [
+      {
+        question: "Can I book sofa and carpet cleaning together in one visit?",
+        answer:
+          "Yes — this combined service is for exactly that. The team brings equipment for both and cleans your sofas and carpets in the same visit.",
+      },
+      {
+        question: "What if I only need one of the two done?",
+        answer:
+          "You can also book Sofa Cleaning or Carpet Cleaning separately if you only need one — this combined page is for when you want both done together.",
+      },
+      {
+        question: "Is the cleaning safe for all fabric types?",
+        answer:
+          "The team checks the fabric/material type before starting and adjusts the shampoo/steam method accordingly to avoid damage.",
+      },
+      {
+        question: "How long does a typical session take?",
+        answer:
+          "This depends on how many seats and how much carpet area is involved — the team will give you a time estimate when confirming your booking.",
+      },
+      {
+        question: "How soon after cleaning can I use the sofa/carpet again?",
+        answer:
+          "Steam and shampoo cleaning needs some drying time — the team will tell you the expected drying time on the day based on humidity and fabric type.",
+      },
+    ],
+    relatedCategories: ["sofa-cleaning", "carpet-cleaning"],
   },
   {
     slug: "sofa-cleaning",
@@ -227,6 +390,34 @@ export const categories: ServiceCategory[] = [
       { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
       { item: "7-Seater Sofa Set", range: "Rs. 2,500 – 3,500" },
     ],
+    faqs: [
+      {
+        question: "How is sofa cleaning priced — per seat or per set?",
+        answer:
+          "Pricing is per seat, with typical 5-seater and 7-seater set totals shown above. The team confirms the exact price based on fabric type and condition before starting.",
+      },
+      {
+        question: "Can you remove old stains, not just dust?",
+        answer:
+          "The team assesses visible stains during the visit — many stains lift significantly with steam/shampoo cleaning, though very old or set-in stains may only partially improve.",
+      },
+      {
+        question: "Do you clean suede and velvet sofas too?",
+        answer:
+          "Yes, the cleaning method is adjusted for delicate fabrics like suede and velvet to avoid damaging the material.",
+      },
+      {
+        question: "Will my sofa be wet for a long time after cleaning?",
+        answer:
+          "There's a drying period after steam/shampoo cleaning — the team will tell you the expected drying time on the day depending on fabric and weather.",
+      },
+      {
+        question: "Do I need to move the sofa or clear the room first?",
+        answer:
+          "It helps to clear small items off and around the sofa beforehand so the team can work quickly, but moving heavy furniture isn't necessary.",
+      },
+    ],
+    relatedCategories: ["sofa-carpet-cleaning", "carpet-cleaning"],
   },
   {
     slug: "carpet-cleaning",
@@ -251,6 +442,34 @@ export const categories: ServiceCategory[] = [
       { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
       { item: "Area Rug Cleaning", range: "Rs. 1,000 – 2,500" },
     ],
+    faqs: [
+      {
+        question: "Do you clean wall-to-wall carpets or only area rugs?",
+        answer:
+          "Both — the team handles fitted wall-to-wall carpets as well as loose area rugs and runners.",
+      },
+      {
+        question: "How is carpet cleaning priced?",
+        answer:
+          "Pricing is per room or based on carpet size — the team confirms the exact price after seeing the space or the carpet dimensions.",
+      },
+      {
+        question: "Can you remove pet odor and stains?",
+        answer:
+          "Yes, odor and stain treatment is part of the standard carpet cleaning process — mention any specific problem areas when booking.",
+      },
+      {
+        question: "How long before I can walk on the carpet again?",
+        answer:
+          "Carpets need time to dry after shampoo cleaning — the team will confirm the expected drying time based on the carpet material and weather on the day.",
+      },
+      {
+        question: "Do you do post-construction carpet cleaning?",
+        answer:
+          "Yes, this is one of our common jobs — let the team know it's a post-construction clean so they bring the right equipment for heavier dust and debris.",
+      },
+    ],
+    relatedCategories: ["sofa-carpet-cleaning", "sofa-cleaning"],
   },
 ];
 

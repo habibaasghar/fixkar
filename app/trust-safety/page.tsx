@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: `Trust, Safety & Guarantee | ${BRAND_NAME}`,
   description:
     "Discover how FixKar.pk verifies service providers with CNIC checks, NADRA verification, police background certificates, and 7-day workmanship guarantees.",
+  alternates: {
+    canonical: "/trust-safety",
+  },
 };
 
 export default function TrustSafetyPage() {

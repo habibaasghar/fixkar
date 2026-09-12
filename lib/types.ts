@@ -21,6 +21,11 @@ export type PriceRangeItem = {
   range: string;
 };
 
+export type CategoryFAQ = {
+  question: string;
+  answer: string;
+};
+
 export type ServiceCategory = {
   slug: string;
   name: string;
@@ -32,6 +37,10 @@ export type ServiceCategory = {
   commonIssues: string[];
   pricingNote?: string;
   priceRanges?: PriceRangeItem[];
+  /** Service-specific FAQs, rendered visibly and mirrored 1:1 into FAQPage schema. */
+  faqs?: CategoryFAQ[];
+  /** Category slugs to cross-link to from this category's page (kept short, contextual — not a link dump). */
+  relatedCategories?: string[];
 };
 
 export type VerificationTier = "tier1" | "tier2";

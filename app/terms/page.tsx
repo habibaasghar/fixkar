@@ -5,6 +5,9 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `Terms of Service & 7-Day Guarantee Rules | ${BRAND_NAME}`,
   description: `Terms and conditions governing home service bookings, payment rules, and the 7-day workmanship warranty on ${BRAND_NAME}.`,
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {

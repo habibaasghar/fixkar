@@ -7,7 +7,10 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `All Home Services | ${BRAND_NAME}`,
   description:
-    "Explore electrician, plumber, AC repair, cleaning, and painting services in Lahore. Verified technicians, transparent rates, pay after service.",
+    "Explore electrician, plumber, AC repair, cleaning, sofa & carpet cleaning, and painting services in Lahore. Verified technicians, transparent rates, pay after service.",
+  alternates: {
+    canonical: "/services",
+  },
 };
 
 export default function ServicesPage() {

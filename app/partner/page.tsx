@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: `Join as a Service Partner | ${BRAND_NAME}`,
   description:
     "Grow your handyman business in Lahore. Join FixKar.pk as a verified electrician, plumber, AC technician, cleaner, or painter. Daily leads, full earnings.",
+  alternates: {
+    canonical: "/partner",
+  },
 };
 
 export default function PartnerPage() {
