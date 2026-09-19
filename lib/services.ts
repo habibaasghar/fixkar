@@ -490,3 +490,8 @@ export function getCategory(slug: string): ServiceCategory | undefined {
 export function isCategoryActiveInCity(city: City, categorySlug: string): boolean {
   return city.status === "active" || (city.activeCategories?.includes(categorySlug) ?? false);
 }
+
+/** True if the city has at least one real, bookable category (vs. showing only the generic ComingSoonState). */
+export function cityHasAnyActiveCategory(city: City): boolean {
+  return city.status === "active" || categories.some((c) => isCategoryActiveInCity(city, c.slug));
+}

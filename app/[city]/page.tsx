@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cities, getCity, categories, isCategoryActiveInCity } from "@/lib/services";
+import { cities, getCity, categories, isCategoryActiveInCity, cityHasAnyActiveCategory } from "@/lib/services";
 import { Container, Section, PageHeader } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
@@ -28,6 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `/${city.slug}`,
     },
+    // Cities with zero live categories render the same generic
+    // ComingSoonState (waitlist form, no unique content) — keep crawlable
+    // but out of the index until at least one category is real there.
+    ...(!cityHasAnyActiveCategory(city) && { robots: { index: false, follow: true } }),
   };
 }
 

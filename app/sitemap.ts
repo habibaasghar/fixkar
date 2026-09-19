@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { BRAND_URL } from "@/lib/constants";
-import { cities, categories, isCategoryActiveInCity } from "@/lib/services";
+import { cities, categories, isCategoryActiveInCity, cityHasAnyActiveCategory } from "@/lib/services";
+import { posts } from "@/lib/blog";
 
 /**
  * Programmatic sitemap (Phase 18 fix — this was missing). Mirrors the exact
@@ -8,6 +9,10 @@ import { cities, categories, isCategoryActiveInCity } from "@/lib/services";
  * generated /[city] and /[city]/[category] page (same source as those pages'
  * generateStaticParams — lib/services.ts). Active cities rank higher than
  * coming-soon ones. Regenerated on each deploy; served at /sitemap.xml.
+ *
+ * Coming-soon city/category combinations are `noindex`ed on the page itself
+ * (see their generateMetadata) — a sitemap should only list indexable URLs,
+ * so those are excluded here entirely rather than listed at low priority.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -35,22 +40,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }));
 
+  for (const post of posts) {
+    entries.push({
+      url: `${BRAND_URL}/blog/${post.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+  }
+
   for (const city of cities) {
-    const isActive = city.status === "active";
-    const hasAnyActiveCategory = isActive || categories.some((c) => isCategoryActiveInCity(city, c.slug));
+    // Cities with zero live categories are noindexed on the page itself — skip them here.
+    if (!cityHasAnyActiveCategory(city)) continue;
+
     entries.push({
       url: `${BRAND_URL}/${city.slug}`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: hasAnyActiveCategory ? 0.9 : 0.4,
+      priority: 0.9,
     });
+
     for (const category of categories) {
-      const categoryActive = isCategoryActiveInCity(city, category.slug);
+      // Coming-soon combinations are noindexed on the page itself — skip them here too.
+      if (!isCategoryActiveInCity(city, category.slug)) continue;
+
       entries.push({
         url: `${BRAND_URL}/${city.slug}/${category.slug}`,
         lastModified: now,
         changeFrequency: "weekly",
-        priority: categoryActive ? 0.8 : 0.3,
+        priority: 0.8,
       });
     }
   }

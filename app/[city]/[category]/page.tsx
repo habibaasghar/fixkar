@@ -30,12 +30,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = getCategory(categorySlug);
   if (!city || !category) return {};
 
+  const isActive = isCategoryActiveInCity(city, category.slug);
+
   return {
     title: category.metaTitleTemplate(city.name),
     description: category.metaDescriptionTemplate(city.name),
     alternates: {
       canonical: `/${city.slug}/${category.slug}`,
     },
+    // Coming-soon combinations render the same generic ComingSoonState with
+    // no unique content — keep them crawlable (follow) but out of the index
+    // until a real vendor exists, instead of indexing 26 near-duplicate pages.
+    ...(!isActive && { robots: { index: false, follow: true } }),
   };
 }
 

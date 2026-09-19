@@ -32,7 +32,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
       <nav aria-label="Breadcrumb" className="my-4">
         <ol className="flex items-center gap-1.5 text-xs text-gray-500 flex-wrap">
           <li>
-            <Link href="/" className="hover:text-blue-600 font-medium">
+            <Link href="/" className="hover:text-blue-600 font-medium py-1.5 -my-1.5 inline-block">
               Home
             </Link>
           </li>
@@ -44,7 +44,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
                 {isLast ? (
                   <span className="font-bold text-gray-900">{item.label}</span>
                 ) : (
-                  <Link href={item.href} className="hover:text-blue-600 font-medium">
+                  <Link href={item.href} className="hover:text-blue-600 font-medium py-1.5 -my-1.5 inline-block">
                     {item.label}
                   </Link>
                 )}
