@@ -1,5 +1,12 @@
 # FixKar.pk — Vendor Operations V1 (Master Plan)
 
+> **SUPERSEDED 2026-09-19** as the primary status reference —
+> `docs/FIXKAR-SOURCE-OF-TRUTH.md` and `docs/FIXKAR-EXECUTION-ROADMAP.md`
+> (Task 7) now own current status. This file's implementation plan (§12-17:
+> the 4 new endpoints, admin page list, implementation order) is still the
+> valid spec to build from when Task 7 starts — it is not stale, just no
+> longer the place to log new status.
+
 > Planning document only. No code, migrations, or pages created by this document.
 > Grounded against the actual codebase as of 2026-08-16 (Prisma schema, dispatch
 > engine, vendor validators, admin vendor routes, file storage, `/partner/register`).

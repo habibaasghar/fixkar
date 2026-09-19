@@ -1,5 +1,12 @@
 # FixKar.pk — SEO Money-Page Architecture Roadmap (Phase 1: Audit + Architecture)
 
+> **SUPERSEDED 2026-09-19.** `docs/FIXKAR-SOURCE-OF-TRUTH.md` and
+> `docs/FIXKAR-EXECUTION-ROADMAP.md` are now the primary references for
+> current status and next tasks. Kept here for historical detail (the
+> Phase 1/2/3 analysis and implementation logs below remain accurate as a
+> record of what happened) — do not add further phase logs to this file;
+> log new work in the execution roadmap instead.
+
 > **Audit + architecture only.** No components, routes, metadata, database,
 > sitemap, navigation, or content were changed to produce this document —
 > per explicit instruction. Full raw URL inventory lives in the companion

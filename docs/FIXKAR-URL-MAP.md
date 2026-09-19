@@ -1,5 +1,11 @@
 # FixKar.pk — URL Inventory & Action Map
 
+> **SUPERSEDED 2026-09-19.** `docs/FIXKAR-SOURCE-OF-TRUTH.md` is now the
+> primary reference for current URL/city/vendor status. Kept here for
+> historical detail (the original per-URL reasoning below is still
+> accurate as analysis, just not actively maintained) — do not update this
+> file further; update the source-of-truth doc instead.
+
 > Audit only. No routes, components, or content were changed to produce this
 > file. Grounded against the actual repo as of 2026-09-12: `app/` route tree,
 > `lib/services.ts` (5 cities × 8 categories), `app/sitemap.ts`, `app/robots.ts`,
