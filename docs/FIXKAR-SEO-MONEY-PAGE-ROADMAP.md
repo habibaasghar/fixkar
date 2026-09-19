@@ -509,3 +509,72 @@ session and should **only** cover, in this order:
    updated).
 7. Batch 2 pages only begin after (1)-(6) are done and Batch 1 has real
    lead data to prove the pattern.
+
+---
+
+## PHASE 3 — AUDIT + TECHNICAL SEO/MOBILE FIXES (2026-09-19)
+
+**Read-only audit performed first** (per standing instruction), covering
+routes, metadata, schema, images, lead flow, and the backend/DB layer.
+Summary of what the audit found beyond what Phase 1/2 already covered:
+
+- Batch 1 sofa-cleaning money pages (§C above) were already fully shipped
+  by Phase 2 — no new money-page work was needed this phase.
+- The repo's backend (`prisma/schema.prisma`, `server/modules/*`,
+  `app/api/v1/*`) is a **fully-built enterprise marketplace system** (OTP
+  auth, wallets/ledgers, commission rules, settlements, disputes, an
+  automated dispatch engine, 106 API endpoints) — built to completion in an
+  earlier, separate initiative before the SEO pivot. It has **no admin UI**
+  (`app/admin/*` does not exist). `docs/FIXKAR_VENDOR_OPERATIONS_V1.md`
+  (2026-08-16) already fully scopes closing that gap: reuse the existing
+  endpoints, add 4 new admin endpoints, build `/admin/vendors*` +
+  `/admin/leads` pages. Not yet implemented — scoped as its own next phase,
+  approved by founder 2026-09-19 (see task list below, not started this
+  session).
+- `prisma/seed.mjs` is stale vs. `lib/services.ts`: missing the
+  sofa/carpet-cluster categories, and lists Gujranwala as `COMING_SOON`
+  where the frontend already treats it as active for that cluster. No real
+  `VendorProfile` rows exist yet, so the dispatch engine has nothing to
+  match against today.
+- Email/Gmail notification (brief's Phase 9) is **not configured** — all
+  notification providers are mocks (`mock-email.provider.ts` etc.), no
+  SMTP/Gmail env vars anywhere. Needs founder-supplied credentials before
+  that phase can start; not attempted this session.
+- Found and fixed (this phase, in-place — see task table below) an
+  **uncommitted, unlogged working-tree diff** from a prior session that had
+  never been committed: thin coming-soon page noindexing, sitemap cleanup,
+  mobile tap-target sizing, floating-WhatsApp mobile overlap fix.
+- `docs/FIXKAR-IMAGE-PLAN.md` (new, was untracked) proposes AI-generated
+  hero/parallax imagery for the homepage/3 city pages/5 category banners —
+  planning only, no images generated or code wired yet. Flagged against the
+  "real photos prioritized" instruction; plan already self-restricts to
+  hands/tools-only, no fake faces, but founder should confirm before
+  generating.
+
+| # | Task | Change | Affected files | Verification |
+|---|---|---|---|---|
+| 1 | Commit prior session's pending mobile/technical-SEO diff | Noindex (follow, don't index) city/category combos with zero live categories; sitemap now skips noindexed URLs and includes the 3 real blog posts; larger tap targets on breadcrumbs/accordion/header call link; floating WhatsApp button hidden on mobile (`md:flex` only) since it duplicated the bottom nav's shortcut | `app/[city]/page.tsx`, `app/[city]/[category]/page.tsx`, `app/sitemap.ts`, `components/seo/Breadcrumbs.tsx`, `components/ui/AccordionItem.tsx`, `components/layout/Header.tsx`, `components/domain/FloatingWhatsApp.tsx`, `lib/services.ts` (added `cityHasAnyActiveCategory` helper) | ✅ `npx tsc --noEmit` clean, `npm run build` succeeds, `npm run lint` clean (1 pre-existing unrelated warning). Committed as `cde0836`. |
+
+Primary keyword / secondary keywords / search intent: unchanged this phase
+(no content or metadata changes, purely technical/UX). Internal links added:
+none new. Images added: none (plan doc only). Schema added/changed: none.
+CTA changes: floating WhatsApp CTA scoped to desktop only, mobile keeps its
+existing bottom-nav CTA. Lead-form changes: none. Backend changes: none.
+
+### Unresolved issues carried forward
+
+1. No admin UI for providers/leads (approved next phase, not started).
+2. Seed data stale vs. frontend city/category list; zero real vendors in DB.
+3. No real email/notification provider configured (Gmail/SMTP) — blocked on
+   founder-supplied credentials.
+4. AI hero/parallax image plan awaiting founder go-ahead before generation.
+5. Items 6 in the Phase 2 log above (Painter vendor-status confirmation)
+   still open.
+
+### Next approved phase
+
+Admin UI + 4 new endpoints on the existing backend, per
+`docs/FIXKAR_VENDOR_OPERATIONS_V1.md` §12-17 (implementation order:
+auth-gated shell → vendor CRUD pages → leads page + confirm-acceptance →
+fix `/partner/register` → public vendor profile). To be scoped and executed
+as its own session/chunk, not bundled into this one.
