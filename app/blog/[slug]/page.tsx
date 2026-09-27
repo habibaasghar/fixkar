@@ -56,19 +56,19 @@ export default async function BlogArticlePage({ params }: Props) {
 
             <h2 className="text-xl font-bold text-gray-900 mt-6">Key Things to Check Before Hiring a Handyman</h2>
             <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base">
-              <li>Always verify the technician&apos;s NADRA CNIC identity card.</li>
-              <li>Demand a upfront estimate before any parts are replaced.</li>
-              <li>Ensure the technician provides a minimum 7-day workmanship warranty.</li>
+              <li>Ask who you&apos;re dealing with — get a name and confirm contact details before anyone comes to your home.</li>
+              <li>Demand an upfront estimate before any parts are replaced.</li>
+              <li>Ask about workmanship warranty terms directly with the technician before the job starts.</li>
             </ul>
 
             <h2 className="text-xl font-bold text-gray-900 mt-6">Why Use FixKar.pk in Lahore?</h2>
             <p>
-              FixKar.pk pre-screens every electrician, plumber, and technician in Lahore before listing them. You get transparent market pricing and pay cash only after inspecting the job.
+              FixKar.pk connects you with vetted vendor partners in Lahore that our team has personally spoken to and confirmed. You get transparent market pricing and pay cash only after inspecting the job.
             </p>
 
             <div className="my-8 rounded-2xl bg-blue-50 border border-blue-100 p-6 text-center space-y-3">
               <h3 className="text-lg font-bold text-gray-900">Need Immediate Help with Your Repair?</h3>
-              <p className="text-xs text-gray-600">Connect with a CNIC-verified handyman in Lahore on WhatsApp.</p>
+              <p className="text-xs text-gray-600">Connect with a vetted vendor partner in Lahore on WhatsApp.</p>
               <div className="flex justify-center pt-1">
                 <WhatsAppCTA message={`Hi FixKar, I read your article "${post.title}" and need help.`} />
               </div>

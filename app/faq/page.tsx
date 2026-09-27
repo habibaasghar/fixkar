@@ -7,7 +7,7 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `Frequently Asked Questions | ${BRAND_NAME}`,
   description:
-    "Find answers to common questions about booking home services, CNIC verification, 7-day guarantee, rates, and cash payment on FixKar.pk.",
+    "Find answers to common questions about booking home services, how we vet vendor partners, rates, and cash payment on FixKar.pk.",
   alternates: {
     canonical: "/faq",
   },
@@ -15,19 +15,19 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    question: "How does FixKar.pk verify technicians?",
+    question: "How does FixKar.pk vet its vendor partners?",
     answer:
-      "Every service provider on FixKar.pk passes a multi-step check including NADRA CNIC document verification, mobile identity confirmation, local character references, and for Master Fixers, a Police Character Certificate + physical shop/home audit.",
+      "We don't list anonymous strangers. Every vendor partner is someone our team has personally spoken to and confirmed — their trade, service area, and pricing — before we connect them with a customer.",
   },
   {
     question: "Do I have to pay anything upfront?",
     answer:
-      "No. FixKar.pk operates on a strict pay-after-service model. You inspect the completed job first and then pay cash, JazzCash, or EasyPaisa directly to the technician.",
+      "No. FixKar.pk operates on a pay-after-service model. You inspect the completed job first and then pay cash, JazzCash, or EasyPaisa directly to the vendor partner.",
   },
   {
-    question: "What is the 7-Day FixKar Guarantee?",
+    question: "Is there a warranty on the work?",
     answer:
-      "If the exact technical fault recurs within 7 days of an on-platform booking, we will re-dispatch a technician to inspect and fix the issue at no additional service cost.",
+      "Any workmanship warranty is provided directly by the vendor partner who did the job — the terms vary by service and vendor, so ask about it when you get your quote.",
   },
   {
     question: "Which cities and areas do you cover?",
@@ -42,7 +42,7 @@ const faqs = [
   {
     question: "Can I book emergency electrical or plumbing repairs?",
     answer:
-      "Yes. You can message us on WhatsApp anytime for fast dispatch within 15 minutes across our active Lahore service zones.",
+      "Yes. Message us on WhatsApp anytime and we'll get back to you with a confirmed vendor partner and quote, typically within the hour during business hours, across our active Lahore service zones.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function FAQPage() {
 
       <PageHeader
         title="Frequently Asked Questions"
-        subtitle={`Everything you need to know about booking, payments, verification, and guarantees on ${BRAND_NAME}.`}
+        subtitle={`Everything you need to know about booking, payments, and vendor partners on ${BRAND_NAME}.`}
       />
 
       <Section background="white">

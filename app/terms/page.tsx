@@ -3,8 +3,8 @@ import { Container, Section, PageHeader } from "@/components/layout/Container";
 import { BRAND_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Terms of Service & 7-Day Guarantee Rules | ${BRAND_NAME}`,
-  description: `Terms and conditions governing home service bookings, payment rules, and the 7-day workmanship warranty on ${BRAND_NAME}.`,
+  title: `Terms of Service | ${BRAND_NAME}`,
+  description: `Terms and conditions governing how ${BRAND_NAME} connects customers with independent vendor partners.`,
   alternates: {
     canonical: "/terms",
   },
@@ -15,7 +15,7 @@ export default function TermsPage() {
     <div>
       <PageHeader
         title="Terms of Service"
-        subtitle={`Platform terms, cancellation guidelines, and 7-day warranty rules for ${BRAND_NAME}.`}
+        subtitle={`Platform terms and how ${BRAND_NAME} connects you with vendor partners.`}
       />
 
       <Section background="white">
@@ -23,22 +23,22 @@ export default function TermsPage() {
           <div className="max-w-3xl mx-auto prose sm:prose-lg text-gray-700 leading-relaxed space-y-6 text-sm sm:text-base">
             <h2 className="text-xl font-bold text-gray-900">1. Platform Service Nature</h2>
             <p>
-              {BRAND_NAME} operates as an online marketplace connecting independent verified service providers (&quot;Fixers&quot;) with residential and commercial customers. Customers pay service providers directly post-completion via Cash, JazzCash, or EasyPaisa.
+              {BRAND_NAME} operates as an online service that connects customers with independent vendor partners (&quot;vendors&quot;) for home services. {BRAND_NAME} does not employ vendors and is not the party performing the work. Customers pay vendors directly for completed work via Cash, JazzCash, or EasyPaisa — {BRAND_NAME} does not collect or hold customer payments.
             </p>
 
-            <h2 className="text-xl font-bold text-gray-900">2. The 7-Day FixKar Guarantee Rules</h2>
+            <h2 className="text-xl font-bold text-gray-900">2. Workmanship Warranty</h2>
             <p>
-              Every completed booking logged through {BRAND_NAME} includes a 7-Day Workmanship Warranty. If the exact technical issue recurs within 7 days, {BRAND_NAME} will dispatch a re-inspection at zero additional platform labor fee. The warranty applies strictly to on-platform logged bookings.
+              Any workmanship warranty on completed work is provided directly by the vendor who performed the job. Warranty terms vary by vendor and service category — ask the vendor about their specific terms before the job begins. {BRAND_NAME} does not itself provide an independent guarantee on work performed by vendors.
             </p>
 
-            <h2 className="text-xl font-bold text-gray-900">3. Off-Platform Bypass Policy</h2>
+            <h2 className="text-xl font-bold text-gray-900">3. Quotes & Confirmation</h2>
             <p>
-              To maintain warranty protection and safety guarantees, all work and payments must remain recorded on-platform. Any off-platform private arrangements between clients and technicians void the 7-Day Guarantee and property damage coverage.
+              {BRAND_NAME} relays a quotation from a vendor partner for your specific job. Pricing is confirmed with the vendor before you commit. Once you confirm, {BRAND_NAME} connects you with the vendor to finalize scheduling and any remaining details directly.
             </p>
 
             <h2 className="text-xl font-bold text-gray-900">4. Cancellations & Conduct</h2>
             <p>
-              Customers and service partners are expected to treat each other with mutual respect. Late cancellations (&gt;30 minutes after confirmed dispatch) may incur penalty fees logged against user accounts.
+              Customers and vendor partners are expected to treat each other with mutual respect. If you need to cancel or reschedule a confirmed job, please let us know as early as possible so we can inform the vendor.
             </p>
           </div>
         </Container>

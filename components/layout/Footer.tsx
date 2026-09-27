@@ -16,7 +16,7 @@ export function Footer() {
               {BRAND_NAME}
             </Link>
             <p className="text-xs leading-relaxed text-gray-500 max-w-xs">
-              {BRAND_TAGLINE}. Connecting households with background-verified electricians, plumbers, AC repairmen, cleaners, and painters.
+              {BRAND_TAGLINE}. Connecting households with vetted vendor partners for electrical, plumbing, AC, cleaning, and painting work.
             </p>
             <div className="text-xs text-gray-500">
               <span className="font-bold text-gray-700">Operating City:</span> Lahore (Sofa &amp; Carpet Cleaning also live in Islamabad &amp; Gujranwala)
@@ -115,7 +115,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
           <p>&copy; {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.</p>
-          <p>Built for Pakistan with zero-trust background verification.</p>
+          <p>Built for Pakistan, working with vetted vendor partners in every active city.</p>
         </div>
       </div>
     </footer>

@@ -9,7 +9,7 @@ export function OrganizationSchema() {
     name: BRAND_NAME,
     url: BRAND_URL,
     logo: `${BRAND_URL}/icon.png`,
-    description: "Pakistan's trusted home service marketplace connecting customers with verified professionals.",
+    description: "Pakistan-focused home services platform connecting customers with vetted vendor partners.",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+92-306-4222367",

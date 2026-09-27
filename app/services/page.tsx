@@ -7,7 +7,7 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `All Home Services | ${BRAND_NAME}`,
   description:
-    "Explore electrician, plumber, AC repair, cleaning, sofa & carpet cleaning, and painting services in Lahore. Verified technicians, transparent rates, pay after service.",
+    "Explore electrician, plumber, AC repair, cleaning, sofa & carpet cleaning, and painting services in Lahore. Vetted vendor partners, transparent rates, pay after service.",
   alternates: {
     canonical: "/services",
   },
@@ -20,7 +20,7 @@ export default function ServicesPage() {
     <div>
       <PageHeader
         title="All Home Services"
-        subtitle={`Browse our 5 core launch categories in ${activeCity.name}. Every handyman is identity verified with CNIC checks.`}
+        subtitle={`Browse our core launch categories in ${activeCity.name}. Every vendor partner is personally vetted by our team.`}
       />
 
       <Section background="white">

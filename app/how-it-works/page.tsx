@@ -9,7 +9,7 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `How It Works | ${BRAND_NAME}`,
   description:
-    "See how FixKar.pk connects homeowners with verified handymen in Lahore in 3 easy steps. Booking, dispatch, payment, and guarantee explained.",
+    "See how FixKar.pk connects homeowners with vetted vendor partners in Lahore in 3 easy steps. Booking, quoting, and payment explained.",
   alternates: {
     canonical: "/how-it-works",
   },
@@ -45,8 +45,8 @@ export default function HowItWorksPage() {
                 />
                 <HowItWorksStep
                   stepNumber={2}
-                  title="Technician Dispatched"
-                  description="We match your booking with a nearby CNIC-verified fixer who confirms arrival time and estimated market rates."
+                  title="We Confirm a Vendor Partner"
+                  description="We get a quote from a nearby vetted vendor partner and follow up with you directly, typically within the hour."
                 />
                 <HowItWorksStep
                   stepNumber={3}
@@ -84,12 +84,12 @@ export default function HowItWorksPage() {
                 <HowItWorksStep
                   stepNumber={2}
                   title="Receive Nearby Leads"
-                  description="Once approved, receive instant alerts for job bookings in DHA, Gulberg, Johar Town, and nearby Lahore areas."
+                  description="Once onboarded, our team reaches out directly with job leads in DHA, Gulberg, Johar Town, and nearby Lahore areas."
                 />
                 <HowItWorksStep
                   stepNumber={3}
                   title="Keep 100% Cash Earnings"
-                  description="Collect payment directly from customers. Platform fees or flat lead fees are settled seamlessly via prepaid wallet."
+                  description="Collect payment directly from customers. Pay our flat completion fee via JazzCash/EasyPaisa after the job is done."
                 />
               </div>
 

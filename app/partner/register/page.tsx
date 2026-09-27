@@ -52,7 +52,7 @@ export default function PartnerRegistrationPage() {
     <div>
       <PageHeader
         title="FixKar Partner Registration"
-        subtitle="Submit your CNIC and trade skills to become a verified handyman on FixKar.pk."
+        subtitle="Submit your CNIC and trade skills to become a vendor partner on FixKar.pk."
       />
 
       <Section background="white">

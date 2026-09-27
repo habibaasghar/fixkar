@@ -8,7 +8,7 @@ import { cities } from "@/lib/services";
 export const metadata: Metadata = {
   title: `Request a Service | ${BRAND_NAME}`,
   description:
-    "Request an electrician, plumber, AC repair, cleaning, sofa & carpet cleaning, or painter in Lahore. Fast response via phone or WhatsApp within 15 minutes.",
+    "Request an electrician, plumber, AC repair, cleaning, sofa & carpet cleaning, or painter in Lahore. We'll follow up with a confirmed quote via phone or WhatsApp, typically within the hour.",
   alternates: {
     canonical: "/request",
   },
@@ -21,7 +21,7 @@ export default function RequestServicePage() {
     <div>
       <PageHeader
         title="Request a Home Service"
-        subtitle="Fill out the form below or message us directly on WhatsApp to get connected with a background-verified handyman in Lahore."
+        subtitle="Fill out the form below or message us directly on WhatsApp to get connected with a vetted vendor partner in Lahore."
       />
 
       <Section background="white">

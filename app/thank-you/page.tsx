@@ -22,7 +22,7 @@ export default function ThankYouPage() {
     <Container className="py-16 sm:py-24">
       <SuccessState
         title="Thank You for Choosing FixKar.pk!"
-        description="Your service inquiry has been logged. Our dispatch coordinator in Lahore will contact you via WhatsApp or phone call within 15 minutes."
+        description="Your service inquiry has been logged. Our team in Lahore will contact you via WhatsApp or phone call, typically within the hour, with a confirmed quote."
         homeHref="/"
       />
     </Container>

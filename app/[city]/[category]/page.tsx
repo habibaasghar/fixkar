@@ -137,8 +137,8 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <TrustPoint
                 icon="shield"
-                title="CNIC Verified"
-                text={`Every ${category.shortName.toLowerCase()} is identity verified.`}
+                title="Vetted Partner"
+                text={`Every ${category.shortName.toLowerCase()} is personally checked by our team before we connect you.`}
               />
               <TrustPoint
                 icon="phone"
@@ -147,8 +147,8 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
               />
               <TrustPoint
                 icon="check"
-                title="7-Day Guarantee"
-                text="Free re-work warranty on completed bookings."
+                title="Vendor Warranty"
+                text="Any workmanship warranty is provided by the vendor partner — ask about their terms with your quote."
               />
             </div>
           </div>

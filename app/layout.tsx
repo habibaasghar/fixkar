@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
   },
   description:
-    "Book background-checked electricians, plumbers, AC technicians, deep cleaning teams, and house painters in Lahore. Transparent pricing, pay after service.",
+    "Book vetted electricians, plumbers, AC technicians, deep cleaning teams, and house painters in Lahore. Transparent pricing, pay after service.",
   keywords: [
     "home services Pakistan",
     "electrician Lahore",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     locale: "en_PK",
     url: BRAND_URL,
     title: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
-    description: "Reliable home repairs by CNIC-verified professionals in Lahore. No advance payments—pay only when the job is done.",
+    description: "Reliable home repairs by vetted vendor partners in Lahore. No advance payments—pay only when the job is done.",
     siteName: BRAND_NAME,
     images: [
       {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
-    description: "Reliable home repairs by CNIC-verified professionals in Lahore. No advance payments—pay only when the job is done.",
+    description: "Reliable home repairs by vetted vendor partners in Lahore. No advance payments—pay only when the job is done.",
     images: [DEFAULT_OG_IMAGE],
   },
 };

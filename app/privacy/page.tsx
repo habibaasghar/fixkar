@@ -28,12 +28,12 @@ export default function PrivacyPage() {
 
             <h2 className="text-xl font-bold text-gray-900">2. How We Use Your Data</h2>
             <p>
-              Customer data is strictly used to match you with a nearby verified technician and facilitate job execution. We do not sell customer databases or share personal contact information with unauthorized third-party advertisers.
+              Customer data is strictly used to connect you with a nearby vetted vendor partner and facilitate job execution. We do not sell customer databases or share personal contact information with unauthorized third-party advertisers.
             </p>
 
             <h2 className="text-xl font-bold text-gray-900">3. CNIC & Document Security</h2>
             <p>
-              Technician CNIC copies and identity verification records are encrypted and stored in restricted administrative vaults accessible only to authorized FixKar verification officers.
+              Vendor partner CNIC copies and reference details are stored securely and are only accessible to our team, used solely for confirming who we're connecting customers with.
             </p>
 
             <h2 className="text-xl font-bold text-gray-900">4. Contacting Privacy Support</h2>

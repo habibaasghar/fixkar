@@ -44,7 +44,7 @@ export function LeadForm({
     return (
       <SuccessState
         title={`Thank You, ${name}!`}
-        description="We've successfully received your request. A verified team member will call or WhatsApp you within 15 minutes to confirm details."
+        description="We've successfully received your request. Our team will call or WhatsApp you, typically within the hour, with a confirmed quote."
         referenceCode={refCode}
       />
     );
@@ -58,7 +58,7 @@ export function LeadForm({
   return (
     <Card className="max-w-md mx-auto">
       <div className="space-y-1">
-        <h3 className="text-xl font-extrabold text-gray-900">Request a Verified Pro</h3>
+        <h3 className="text-xl font-extrabold text-gray-900">Request a Vendor Partner</h3>
         <p className="text-xs text-gray-500">
           Leave your details below. We&apos;ll only call to coordinate your service, and you pay nothing upfront.
         </p>

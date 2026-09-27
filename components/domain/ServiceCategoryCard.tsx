@@ -33,7 +33,7 @@ export function ServiceCategoryCard({
               <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">
                 {category.name}
               </h3>
-              <p className="text-xs text-gray-500 font-medium">Verified Professionals</p>
+              <p className="text-xs text-gray-500 font-medium">Vetted Vendor Partners</p>
             </div>
           </div>
 

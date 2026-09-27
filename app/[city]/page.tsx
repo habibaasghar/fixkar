@@ -61,11 +61,11 @@ export default async function CityPage({ params }: Props) {
       </Container>
 
       <PageHeader
-        title={`Verified Home Service Professionals in ${city.name}`}
+        title={`Home Service Partners in ${city.name}`}
         subtitle={
           city.status === "active"
-            ? `Book electrician, plumber, AC repair, cleaning, and painter services in ${city.name}. Background-checked fixers, pay after job completion.`
-            : `FixKar.pk is live in ${city.name} for ${activeCategories.map((c) => c.shortName).join(" and ")}. Background-checked teams, pay after job completion.`
+            ? `Book electrician, plumber, AC repair, cleaning, and painter services in ${city.name}. Vetted vendor partners, pay after job completion.`
+            : `FixKar.pk is live in ${city.name} for ${activeCategories.map((c) => c.shortName).join(" and ")}. Vetted vendor partners, pay after job completion.`
         }
       />
 
@@ -113,7 +113,7 @@ export default async function CityPage({ params }: Props) {
               Request a Fixer in {city.name}
             </h2>
             <p className="text-xs text-gray-600">
-              Fill the quick form below to receive a response within 15 minutes.
+              Fill the quick form below and we'll follow up with a confirmed quote, typically within the hour.
             </p>
           </div>
           <LeadForm city={city} service="home-service" />

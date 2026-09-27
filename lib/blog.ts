@@ -12,9 +12,9 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "how-to-hire-verified-electrician-dha-lahore",
-    title: "How to Hire a CNIC-Verified Electrician in DHA Lahore",
+    title: "How to Hire a Trustworthy Electrician in DHA Lahore",
     excerpt:
-      "Home electrical faults require extreme care. Learn why verifying your handyman's CNIC and local references protects your family and appliances.",
+      "Home electrical faults require extreme care. Learn why checking your handyman's identity and local references protects your family and appliances.",
     category: "Safety & Wiring",
     publishedAt: "July 2026",
     readTimeMinutes: 5,

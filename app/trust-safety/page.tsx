@@ -6,9 +6,9 @@ import { BRAND_NAME } from "@/lib/constants";
 import { IconShield, IconCheck } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: `Trust, Safety & Guarantee | ${BRAND_NAME}`,
+  title: `Trust & Safety | ${BRAND_NAME}`,
   description:
-    "Discover how FixKar.pk verifies service providers with CNIC checks, NADRA verification, police background certificates, and 7-day workmanship guarantees.",
+    "Learn how FixKar.pk vets vendor partners and what to expect on pricing, payment, and warranty.",
   alternates: {
     canonical: "/trust-safety",
   },
@@ -18,14 +18,14 @@ export default function TrustSafetyPage() {
   return (
     <div>
       <PageHeader
-        title="Trust, Safety & 7-Day Guarantee"
-        subtitle={`Your safety and satisfaction are the non-negotiable core of ${BRAND_NAME}. Here is how we protect every homeowner.`}
+        title="Trust & Safety"
+        subtitle={`Your safety and satisfaction matter to us. Here's exactly how ${BRAND_NAME} works.`}
       />
 
       <Section background="white">
         <Container>
           <div className="max-w-4xl mx-auto space-y-12">
-            {/* The 7-Day FixKar Guarantee */}
+            {/* Quality issues */}
             <div className="rounded-3xl border border-blue-200 bg-blue-50/60 p-8 sm:p-10 space-y-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md">
@@ -33,73 +33,46 @@ export default function TrustSafetyPage() {
                 </div>
                 <div>
                   <Badge variant="brand">Platform Policy</Badge>
-                  <h2 className="text-2xl font-extrabold text-gray-900">The 7-Day FixKar Guarantee</h2>
+                  <h2 className="text-2xl font-extrabold text-gray-900">If Something Goes Wrong</h2>
                 </div>
               </div>
               <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                If the technical issue recurs within <strong>7 days</strong> of an on-platform completed booking, {BRAND_NAME} will re-dispatch a technician to inspect and resolve the problem at <strong>zero additional service cost</strong>.
+                Contact us if you&apos;re not satisfied with a completed job. We&apos;ll follow up directly with the vendor partner who did the work. Any workmanship warranty is provided by that vendor — terms vary by vendor and service, so ask about them when you get your quote.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-gray-800">
                 <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-blue-100">
                   <IconCheck className="text-green-600" size={18} />
-                  <span>Free Re-Inspection Guarantee</span>
+                  <span>We Follow Up on Complaints</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-blue-100">
                   <IconCheck className="text-green-600" size={18} />
-                  <span>Property Damage Protection Cover</span>
+                  <span>Vendor-Provided Workmanship Warranty</span>
                 </div>
               </div>
             </div>
 
-            {/* Verification Tiers Breakdown */}
+            {/* How we vet vendor partners */}
             <div className="space-y-6">
               <h2 className="text-2xl font-extrabold text-gray-900 text-center">
-                Our Two-Tier Fixer Verification Process
+                How We Vet Vendor Partners
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Tier 1 */}
-                <div className="rounded-2xl border border-gray-200 bg-white p-6 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="brand">Tier 1</Badge>
-                    <span className="text-xs font-bold text-gray-500">Entry Level</span>
-                  </div>
-                  <h3 className="text-xl font-extrabold text-gray-900">CNIC Verified</h3>
-                  <ul className="space-y-2 text-xs text-gray-600">
-                    <li className="flex items-center gap-2">
-                      <span className="text-blue-600 font-bold">✓</span> NADRA CNIC document check (Front/Back)
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-blue-600 font-bold">✓</span> Active mobile number registered under same CNIC
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-blue-600 font-bold">✓</span> Two physical community character references verified
-                    </li>
-                  </ul>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 space-y-4 max-w-2xl mx-auto">
+                <div className="flex items-center justify-between">
+                  <Badge variant="brand">Vetted Partner</Badge>
+                  <span className="text-xs font-bold text-gray-500">Every vendor we connect you with</span>
                 </div>
-
-                {/* Tier 2 */}
-                <div className="rounded-2xl border border-blue-200 bg-blue-50/30 p-6 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="success">Tier 2</Badge>
-                    <span className="text-xs font-bold text-green-700">Premium Pro</span>
-                  </div>
-                  <h3 className="text-xl font-extrabold text-gray-900">Master Fixer</h3>
-                  <ul className="space-y-2 text-xs text-gray-600">
-                    <li className="flex items-center gap-2">
-                      <span className="text-green-600 font-bold">✓</span> All Tier 1 verification requirements
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-green-600 font-bold">✓</span> Police Character Certificate (Pak Identity verified)
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-green-600 font-bold">✓</span> Physical shop/residential audit by FixKar team
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-green-600 font-bold">✓</span> Minimum 20 clean completed jobs with &ge; 4.8 rating
-                    </li>
-                  </ul>
-                </div>
+                <ul className="space-y-2 text-xs text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="text-blue-600 font-bold">✓</span> Personally introduced to and spoken with by our team
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-blue-600 font-bold">✓</span> Confirmed trade, service area, and pricing before the first job
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-blue-600 font-bold">✓</span> Followed up with customers after jobs to check on quality
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -108,17 +81,17 @@ export default function TrustSafetyPage() {
               <TrustPoint
                 icon="phone"
                 title="Pay After Service"
-                text="Never pay in advance. Pay cash or JazzCash/EasyPaisa only after inspecting the work."
+                text="Never pay in advance. Pay cash or JazzCash/EasyPaisa directly to the vendor only after inspecting the work."
               />
               <TrustPoint
                 icon="clock"
                 title="Direct Escalations"
-                text="Unsatisfied with a technician? Contact support immediately for instant resolution."
+                text="Unsatisfied with a job? Contact us and we'll follow up with the vendor partner on your behalf."
               />
               <TrustPoint
                 icon="check"
-                title="Blacklisting Policy"
-                text="Strict strike system: any misconduct or bypass attempt results in permanent CNIC blacklisting."
+                title="Standards Matter"
+                text="Vendors who don't meet our standards or treat customers poorly stop getting connected with new customers."
               />
             </div>
           </div>

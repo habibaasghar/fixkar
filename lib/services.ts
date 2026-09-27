@@ -17,9 +17,9 @@ export const cities: City[] = [
       "Iqbal Town",
       "Valencia",
     ],
-    metaTitle: "Verified Home Service Professionals in Lahore | FixKar.pk",
+    metaTitle: "Home Service Partners in Lahore | FixKar.pk",
     metaDescription:
-      "Book background-checked electricians, plumbers, AC technicians, cleaners, and painters in Lahore. Transparent rates, pay after service.",
+      "Book electricians, plumbers, AC technicians, cleaners, and painters in Lahore through vetted vendor partners. Transparent rates, pay after service.",
   },
   {
     slug: "islamabad",
@@ -29,7 +29,7 @@ export const cities: City[] = [
     areas: ["F-6", "F-7", "F-8", "F-10", "G-11", "DHA Phase 2", "Bahria Town"],
     metaTitle: "Home Services in Islamabad | FixKar.pk — Coming Soon",
     metaDescription:
-      "FixKar.pk is expanding to Islamabad. Join the waitlist for background-verified home service professionals.",
+      "FixKar.pk is expanding to Islamabad. Join the waitlist for vetted home service vendor partners.",
   },
   {
     slug: "rawalpindi",
@@ -38,7 +38,7 @@ export const cities: City[] = [
     areas: ["Saddar", "Satellite Town", "Bahria Town", "Gulraiz"],
     metaTitle: "Home Services in Rawalpindi | FixKar.pk — Coming Soon",
     metaDescription:
-      "FixKar.pk is coming soon to Rawalpindi. Verified electricians, plumbers, and technicians.",
+      "FixKar.pk is coming soon to Rawalpindi. Vetted electricians, plumbers, and technicians.",
   },
   {
     slug: "karachi",
@@ -47,7 +47,7 @@ export const cities: City[] = [
     areas: ["DHA", "Clifton", "PECHS", "Gulshan-e-Iqbal", "Nazimabad"],
     metaTitle: "Home Services in Karachi | FixKar.pk — Coming Soon",
     metaDescription:
-      "FixKar.pk is expanding to Karachi. Verified handymen and home service professionals.",
+      "FixKar.pk is expanding to Karachi. Vetted handymen and home service vendor partners.",
   },
   {
     slug: "gujranwala",
@@ -67,11 +67,11 @@ export const categories: ServiceCategory[] = [
     name: "AC Repair & Gas Refill",
     shortName: "AC Repair",
     h1Template: (city) => `AC Repair & Gas Refill Services in ${city}`,
-    metaTitleTemplate: (city) => `AC Repair in ${city} | Verified Technicians`,
+    metaTitleTemplate: (city) => `AC Repair in ${city} | Vetted Technicians`,
     metaDescriptionTemplate: (city) =>
-      `Need urgent AC repair or gas refill in ${city}? Book verified technicians via WhatsApp. No advance payment. Fast response, transparent pricing.`,
+      `Need urgent AC repair or gas refill in ${city}? Get a quote from a vetted technician via WhatsApp. No advance payment, transparent pricing.`,
     intro: (city) =>
-      `A broken AC in the middle of summer is unbearable. FixKar.pk connects you with CNIC-verified AC technicians in ${city} for gas refills, cooling issues, and fast installations. You don't pay anything upfront—only pay the technician directly once you're satisfied with the repair.`,
+      `A broken AC in the middle of summer is unbearable. FixKar.pk connects you with vetted AC technicians in ${city} for gas refills, cooling issues, and fast installations. You don't pay anything upfront—only pay the technician directly once you're satisfied with the repair.`,
     commonIssues: [
       "AC gas refill / low cooling",
       "AC not turning on",
@@ -89,7 +89,7 @@ export const categories: ServiceCategory[] = [
       {
         question: "Do you repair all AC brands and types?",
         answer:
-          "Yes — our verified technicians work on split, window, and inverter AC units from all major brands. Mention the brand and issue when you book so the right technician is dispatched.",
+          "Yes — our vendor partners work on split, window, and inverter AC units from all major brands. Mention the brand and issue when you book so the right technician is matched.",
       },
       {
         question: "How is AC gas refill priced?",
@@ -118,11 +118,11 @@ export const categories: ServiceCategory[] = [
     name: "Electrician Services",
     shortName: "Electrician",
     h1Template: (city) => `Certified Electrician Services in ${city}`,
-    metaTitleTemplate: (city) => `Electrician in ${city} | Verified Professionals`,
+    metaTitleTemplate: (city) => `Electrician in ${city} | Vetted Partners`,
     metaDescriptionTemplate: (city) =>
-      `Home wiring fault, UPS repair, or new installation in ${city}? Get a verified electrician via WhatsApp. Safe, fast, and no advance payments.`,
+      `Home wiring fault, UPS repair, or new installation in ${city}? Get a quote from a vetted electrician via WhatsApp. Safe, and no advance payments.`,
     intro: (city) =>
-      `Electrical faults can be dangerous to risk on your own. FixKar.pk connects you with background-checked electricians in ${city} for safe and fast repairs. We dispatch a verified professional to your location, and you only pay after the fault is fixed.`,
+      `Electrical faults can be dangerous to risk on your own. FixKar.pk connects you with vetted electricians in ${city} for safe repairs. We confirm a vendor partner for your location, and you only pay after the fault is fixed.`,
     commonIssues: [
       "Home wiring fault fixing",
       "UPS / inverter repair & wiring",
@@ -139,7 +139,7 @@ export const categories: ServiceCategory[] = [
       {
         question: "Is it safe to book an electrician for urgent short-circuit issues?",
         answer:
-          "Yes — every electrician on FixKar.pk is CNIC-verified before being listed. If it's safe to do so, turn off the main breaker and message us on WhatsApp for urgent dispatch.",
+          "Yes — every electrician we connect you with is a vetted vendor partner. If it's safe to do so, turn off the main breaker and message us on WhatsApp so we can get you a partner urgently.",
       },
       {
         question: "Can you fix UPS/inverter wiring, not just building wiring?",
@@ -170,9 +170,9 @@ export const categories: ServiceCategory[] = [
     h1Template: (city) => `Emergency Plumber Services in ${city}`,
     metaTitleTemplate: (city) => `Emergency Plumber in ${city}`,
     metaDescriptionTemplate: (city) =>
-      `Water leakage, geyser repair, or blocked drain in ${city}? Book a verified plumber via WhatsApp. No advance payment. Same-day service.`,
+      `Water leakage, geyser repair, or blocked drain in ${city}? Get a quote from a vetted plumber via WhatsApp. No advance payment.`,
     intro: (city) =>
-      `A sudden water leak or broken geyser needs immediate attention. FixKar.pk sends a CNIC-verified plumber directly to your door in ${city}. You only pay once the leakage is stopped or the installation is completed.`,
+      `A sudden water leak or broken geyser needs immediate attention. FixKar.pk connects you with a vetted plumber vendor partner in ${city}. You only pay once the leakage is stopped or the installation is completed.`,
     commonIssues: [
       "Water leakage detection & repair",
       "Geyser / water heater repair & installation",
@@ -220,7 +220,7 @@ export const categories: ServiceCategory[] = [
     h1Template: (city) => `Deep Cleaning Services in ${city}`,
     metaTitleTemplate: (city) => `Deep Cleaning Service in ${city}`,
     metaDescriptionTemplate: (city) =>
-      `Book verified house & deep cleaning teams in ${city} — full home cleaning, water tank cleaning, and post-construction clean-up. No upfront payments.`,
+      `Book vetted house & deep cleaning teams in ${city} — full home cleaning, water tank cleaning, and post-construction clean-up. No upfront payments.`,
     intro: (city) =>
       `Keeping a home spotless takes more than a weekly sweep. FixKar.pk provides trained, trustworthy cleaning teams in ${city} for full home deep cleans, water tank cleaning, and post-construction clean-up. Looking for sofa or carpet cleaning specifically? See our dedicated Sofa & Carpet Cleaning service below for specialized equipment and pricing.`,
     commonIssues: [
@@ -268,11 +268,11 @@ export const categories: ServiceCategory[] = [
     name: "House Painting Services",
     shortName: "Painter",
     h1Template: (city) => `Professional House Painting Services in ${city}`,
-    metaTitleTemplate: (city) => `House Painter in ${city} | Verified Painters`,
+    metaTitleTemplate: (city) => `House Painter in ${city} | Vetted Painters`,
     metaDescriptionTemplate: (city) =>
-      `Interior and exterior house painting in ${city}. Verified painters, transparent pricing. Book via WhatsApp.`,
+      `Interior and exterior house painting in ${city}. Vetted painters, transparent pricing. Book via WhatsApp.`,
     intro: (city) =>
-      `Don't let peeling paint or dampness ruin your home's look. FixKar.pk connects you with experienced, verified painters in ${city} for single rooms or full home repaints. Quality work with zero advance payments required.`,
+      `Don't let peeling paint or dampness ruin your home's look. FixKar.pk connects you with experienced, vetted painters in ${city} for single rooms or full home repaints. Quality work with zero advance payments required.`,
     commonIssues: [
       "Full home interior painting",
       "Exterior weather-sheet painting",
@@ -318,11 +318,11 @@ export const categories: ServiceCategory[] = [
     name: "Sofa & Carpet Cleaning Services",
     shortName: "Sofa & Carpet Cleaning",
     h1Template: (city) => `Sofa & Carpet Cleaning Services in ${city}`,
-    metaTitleTemplate: (city) => `Sofa & Carpet Cleaning in ${city} | Verified Teams`,
+    metaTitleTemplate: (city) => `Sofa & Carpet Cleaning in ${city} | Vetted Teams`,
     metaDescriptionTemplate: (city) =>
-      `Doorstep sofa and carpet shampoo/steam cleaning in ${city}. Verified teams, transparent pricing, pay after the job. Book via WhatsApp.`,
+      `Doorstep sofa and carpet shampoo/steam cleaning in ${city}. Vetted teams, transparent pricing, pay after the job. Book via WhatsApp.`,
     intro: (city) =>
-      `Dusty sofas and carpets need more than a quick vacuum. FixKar.pk connects you with verified sofa and carpet cleaning teams in ${city} who use steam and shampoo cleaning to lift deep-set dirt, stains, and allergens — right at your doorstep. No advance payment, pay only once you're happy with the result.`,
+      `Dusty sofas and carpets need more than a quick vacuum. FixKar.pk connects you with vetted sofa and carpet cleaning teams in ${city} who use steam and shampoo cleaning to lift deep-set dirt, stains, and allergens — right at your doorstep. No advance payment, pay only once you're happy with the result.`,
     commonIssues: [
       "Sofa shampoo & steam cleaning (all fabric types)",
       "Carpet deep cleaning & stain removal",
@@ -375,7 +375,7 @@ export const categories: ServiceCategory[] = [
     metaDescriptionTemplate: (city) =>
       `Professional sofa shampoo & steam cleaning in ${city} — all fabric types. No advance payment, pay after the job is done.`,
     intro: (city) =>
-      `Years of daily use leave sofas stained, dull, and full of trapped dust. FixKar.pk sends a verified sofa cleaning team to your home in ${city} for steam and shampoo cleaning that restores fabric without damaging it. Every job is quoted upfront — no surprises, no advance payment.`,
+      `Years of daily use leave sofas stained, dull, and full of trapped dust. FixKar.pk connects you with a vetted sofa cleaning team in ${city} for steam and shampoo cleaning that restores fabric without damaging it. Every job is quoted upfront — no surprises, no advance payment.`,
     commonIssues: [
       "Fabric sofa shampoo cleaning",
       "Suede & velvet sofa cleaning",
@@ -426,9 +426,9 @@ export const categories: ServiceCategory[] = [
     h1Template: (city) => `Carpet Cleaning Service in ${city}`,
     metaTitleTemplate: (city) => `Carpet Cleaning Service in ${city} | Deep Shampoo & Stain Removal`,
     metaDescriptionTemplate: (city) =>
-      `Deep carpet shampoo, stain and allergen removal in ${city}. Verified teams, transparent pricing, pay after service.`,
+      `Deep carpet shampoo, stain and allergen removal in ${city}. Vetted teams, transparent pricing, pay after service.`,
     intro: (city) =>
-      `Carpets trap dust, allergens, and stains that a regular vacuum can't reach. FixKar.pk connects you with verified carpet cleaning teams in ${city} for deep shampoo cleaning that's safe for wall-to-wall carpets and area rugs alike. Pay only after you've inspected the result.`,
+      `Carpets trap dust, allergens, and stains that a regular vacuum can't reach. FixKar.pk connects you with vetted carpet cleaning teams in ${city} for deep shampoo cleaning that's safe for wall-to-wall carpets and area rugs alike. Pay only after you've inspected the result.`,
     commonIssues: [
       "Wall-to-wall carpet deep shampoo",
       "Area rug & runner cleaning",

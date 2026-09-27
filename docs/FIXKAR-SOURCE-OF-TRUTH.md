@@ -155,17 +155,28 @@ Islamabad/Gujranwala/Gujrat ship) has no real work imagery.
 
 ---
 
-## 7. Trust claims — what's actually true (founder-confirmed, 2026-09-19)
+## 7. Trust claims — what's actually true (founder-confirmed, 2026-09-19; response time & warranty confirmed 2026-09-28)
 
 | Claim currently live | Status |
 |---|---|
-| "NADRA CNIC verification" | **CONFIRMED FALSE** — no formal CNIC/NADRA check happens today. Must not ship unchanged. |
-| "15-Minute Dispatch" | **PENDING** — not yet confirmed either way. Do not assume a real response-time number; ask before writing replacement copy. |
-| "7-Day Fixer Warranty" | **PENDING** — not yet confirmed either way. Same rule. |
+| "NADRA CNIC verification" | **CONFIRMED FALSE** — no formal CNIC/NADRA check happens today. **Fixed 2026-09-28** — replaced site-wide with "vetted vendor partner" framing (personal introduction + confirmed trade/pricing, not a formal document-verification pipeline). |
+| "15-Minute Dispatch" | **CONFIRMED (2026-09-28):** founder personally calls/WhatsApps within roughly 30-60 minutes. No automated dispatch exists. **Fixed** — replaced "15 minutes" with "typically within the hour" across the site. |
+| "7-Day Fixer Warranty" | **CONFIRMED (2026-09-28):** there is no fixed platform-wide warranty. Any workmanship warranty is provided by the vendor partner for that job, and terms vary by vendor/category. **Fixed** — replaced with "warranty is provided by the vendor partner, ask when you get your quote" framing site-wide, including removing an unconfirmed "property damage protection cover" claim from `/trust-safety`. |
 | "Pay Directly After Service" | Not challenged — treat as still accurate unless told otherwise. |
 
 **Rule going forward:** do not publish any trust/guarantee claim without an
 explicit `CONFIRMED` entry in this table.
+
+**2026-09-28 remediation:** a full site-wide pass replaced every instance of
+the false/unconfirmed claims above (homepage, about, FAQ, terms, trust-safety,
+privacy, how-it-works, partner pages, blog, `lib/services.ts` per-category
+copy, `lib/constants.ts`, `Footer.tsx`, `LeadForm.tsx`, `SuccessState.tsx`,
+`ServiceCategoryCard.tsx`, `OrganizationSchema.tsx`) with honest "vetted
+vendor partner" / "quote relay" language matching the real broker operating
+model (see root `BUSINESS_PLAN.md` → "Operating model clarification").
+`lib/constants.ts`'s `VERIFICATION_TIERS` was simplified from a fictional
+two-tier NADRA/police-certificate system to a single honest "Vetted Partner"
+tier (it was unused in any render, so this was a definition-only change).
 
 ---
 

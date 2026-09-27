@@ -1,17 +1,13 @@
 export const BRAND_NAME = "FixKar.pk";
-export const BRAND_TAGLINE = "Verified Home Service Professionals in Pakistan";
+export const BRAND_TAGLINE = "Home Service Partners in Pakistan";
 export const BRAND_URL = "https://fixkar.pk";
 export const DEFAULT_WHATSAPP_NUMBER = "923064222367";
 export const DEFAULT_OG_IMAGE = `${BRAND_URL}/og-image.jpg`;
 
 export const VERIFICATION_TIERS = {
   tier1: {
-    label: "CNIC Verified",
-    description: "CNIC document, phone identity, and references background checked.",
-  },
-  tier2: {
-    label: "Master Fixer",
-    description: "Police Character Certificate + Physical home/shop audit verified.",
+    label: "Vetted Partner",
+    description: "Personally introduced to our team and checked before we connect you with a job.",
   },
 } as const;
 

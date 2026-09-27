@@ -8,7 +8,7 @@ import { BRAND_NAME } from "@/lib/constants";
 export const metadata: Metadata = {
   title: `Join as a Service Partner | ${BRAND_NAME}`,
   description:
-    "Grow your handyman business in Lahore. Join FixKar.pk as a verified electrician, plumber, AC technician, cleaner, or painter. Daily leads, full earnings.",
+    "Grow your handyman business in Lahore. Join FixKar.pk as an electrician, plumber, AC technician, cleaner, or painter vendor partner. Daily leads, full earnings.",
   alternates: {
     canonical: "/partner",
   },
@@ -18,7 +18,7 @@ export default function PartnerPage() {
   return (
     <div>
       <PageHeader
-        title={`Join ${BRAND_NAME} as a Verified Service Partner`}
+        title={`Join ${BRAND_NAME} as a Service Partner`}
         subtitle="Get a steady stream of high-quality customer leads in DHA, Gulberg, Johar Town, and across Lahore."
       />
 
@@ -30,7 +30,7 @@ export default function PartnerPage() {
               <TrustPoint
                 icon="phone"
                 title="Steady Customer Leads"
-                text="No more waiting at local markets. Get instant job alerts sent straight to your phone."
+                text="No more waiting at local markets. We reach out directly with job leads that match your trade and area."
               />
               <TrustPoint
                 icon="check"
@@ -39,8 +39,8 @@ export default function PartnerPage() {
               />
               <TrustPoint
                 icon="shield"
-                title="Verified Badge Status"
-                text="Build your digital reputation with verified badges and authentic customer ratings."
+                title="Build a Track Record"
+                text="Deliver good work consistently and you'll keep getting matched with new customers."
               />
             </div>
 
@@ -75,7 +75,7 @@ export default function PartnerPage() {
             <div className="rounded-3xl bg-blue-600 p-8 sm:p-10 text-white text-center space-y-4">
               <h2 className="text-2xl sm:text-3xl font-extrabold">Ready to Grow Your Earnings?</h2>
               <p className="text-sm text-blue-100 max-w-xl mx-auto">
-                Registration takes only 2 minutes. Submit your CNIC and basic details to get screened by our verification team.
+                Registration takes only 2 minutes. Submit your CNIC and basic details and our team will personally reach out to confirm you.
               </p>
               <div className="pt-2">
                 <Link href="/partner/register">

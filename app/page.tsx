@@ -37,7 +37,11 @@ export default function Home() {
             </h1>
 
             <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
-              Reliable home repairs by CNIC-verified professionals in Lahore. No advance payments—pay only when the job is done.
+              Reliable home repairs by vetted vendor partners in Lahore. No advance payments—pay only when the job is done.
+            </p>
+
+            <p className="mx-auto max-w-2xl text-sm font-medium text-gray-500">
+              We work with professional vendor partners across Pakistan to get your job done right.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
@@ -65,7 +69,7 @@ export default function Home() {
                 Our Core Services in Lahore
               </h2>
               <p className="mt-1 text-sm text-gray-600">
-                Select a category to view instant market rates and verified technicians.
+                Select a category to view market rates and get connected with a vetted vendor partner.
               </p>
             </div>
             <Link href="/services" className="text-sm font-bold text-blue-600 hover:underline">
@@ -101,8 +105,8 @@ export default function Home() {
             />
             <HowItWorksStep
               stepNumber={2}
-              title="Matched With Verified Fixer"
-              description="We dispatch a background-checked, CNIC-verified professional in your area within 15 mins."
+              title="We Confirm With a Vendor Partner"
+              description="We get a real quote from a vetted vendor partner in your area and call or WhatsApp you back within the hour."
             />
             <HowItWorksStep
               stepNumber={3}
@@ -128,13 +132,13 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <TrustPoint
               icon="shield"
-              title="CNIC Verified Fixers"
-              text="Every technician undergoes NADRA CNIC document check and local community reference verification."
+              title="Vetted Vendor Partners"
+              text="We personally know and check the vendor partners we connect you with — no anonymous strangers."
             />
             <TrustPoint
               icon="check"
-              title="7-Day Fixer Warranty"
-              text="Free re-work if the same technical issue recurs within 7 days of on-platform service."
+              title="Warranty From Your Vendor"
+              text="Any workmanship warranty is provided directly by the vendor partner handling your job — ask about their terms when you get your quote."
             />
             <TrustPoint
               icon="phone"
@@ -143,8 +147,8 @@ export default function Home() {
             />
             <TrustPoint
               icon="clock"
-              title="15-Minute Dispatch"
-              text="Emergency electrician or plumbing issue? Get paired with an active fixer in your neighborhood fast."
+              title="Fast Response"
+              text="We personally follow up with a confirmed quote — typically within the hour during business hours."
             />
           </div>
         </Container>
@@ -178,7 +182,7 @@ export default function Home() {
               Need a Fixer Right Now?
             </h2>
             <p className="text-sm text-gray-600">
-              Leave your details below and a verified professional will contact you shortly.
+              Leave your details below and our team will follow up shortly with a confirmed quote.
             </p>
           </div>
           <LeadForm city={activeCity} service="home-service" />

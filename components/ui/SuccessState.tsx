@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export function SuccessState({
   title = "Request Received!",
-  description = "Our verified team will call or WhatsApp you within 15 minutes to confirm details.",
+  description = "Our team will call or WhatsApp you to confirm details.",
   referenceCode,
   homeHref = "/",
 }: {
