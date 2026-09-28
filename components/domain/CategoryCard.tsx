@@ -2,37 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
-import type { TaxonomyGroup, IconName } from "@/lib/serviceTaxonomy";
+import type { TaxonomyGroup } from "@/lib/serviceTaxonomy";
 import { isTaxonomyGroupLive } from "@/lib/serviceTaxonomy";
-import {
-  IconSnow,
-  IconBolt,
-  IconDroplet,
-  IconSparkle,
-  IconPaint,
-  IconLeaf,
-  IconWrench,
-  IconHome,
-  IconShield,
-} from "@/components/icons";
-
-/**
- * Icon lookup keyed by TaxonomyGroup.icon. This indirection is the "asset
- * abstraction" layer called for in the Phase 2 brief: when real category
- * illustrations exist, swap the render here (or add an `imageUrl` branch)
- * without touching any card usage elsewhere.
- */
-const iconMap: Record<IconName, React.ComponentType<{ className?: string; size?: number }>> = {
-  snow: IconSnow,
-  bolt: IconBolt,
-  droplet: IconDroplet,
-  sparkle: IconSparkle,
-  paint: IconPaint,
-  leaf: IconLeaf,
-  wrench: IconWrench,
-  home: IconHome,
-  shield: IconShield,
-};
+import { CategoryIllustration } from "@/components/illustrations/CategoryIllustration";
 
 export function CategoryCard({
   group,
@@ -41,29 +13,26 @@ export function CategoryCard({
   group: TaxonomyGroup;
   citySlug?: string;
 }) {
-  const Icon = iconMap[group.icon];
   const live = isTaxonomyGroupLive(group);
   const primaryHref = live ? `/${citySlug}/${group.liveCategorySlugs[0]}` : undefined;
 
   const content = (
     <>
-      <div className="flex items-start justify-between gap-3">
-        <div className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-sm", group.accent.iconBg)}>
-          <Icon size={24} />
-        </div>
+      <div className={cn("relative", !live && "grayscale opacity-80")}>
+        <CategoryIllustration icon={group.icon} iconColorClass={group.accent.text} blobColor={group.accent.blob} />
         {!live && (
-          <Badge variant="neutral" className="shrink-0">
+          <Badge variant="neutral" className="absolute top-2 right-2 shadow-sm">
             Coming Soon
           </Badge>
         )}
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 px-6">
         <h3 className="text-lg font-bold text-gray-900">{group.name}</h3>
         <p className="mt-1.5 text-sm text-gray-600 leading-relaxed">{group.description}</p>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-1.5">
+      <div className="mt-4 px-6 flex flex-wrap gap-1.5">
         {group.representativeServices.map((service) => (
           <span
             key={service}
@@ -75,11 +44,12 @@ export function CategoryCard({
       </div>
 
       {live && (
-        <div className={cn("mt-5 flex items-center justify-between border-t border-gray-100 pt-4 text-xs font-bold", group.accent.text)}>
+        <div className={cn("mx-6 mt-5 flex items-center justify-between border-t border-gray-100 pt-4 pb-6 text-xs font-bold", group.accent.text)}>
           <span>View Services</span>
-          <span aria-hidden="true">→</span>
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
         </div>
       )}
+      {!live && <div className="pb-6" />}
     </>
   );
 
@@ -88,7 +58,7 @@ export function CategoryCard({
       <Link
         href={primaryHref}
         className={cn(
-          "group block h-full rounded-2xl border bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
+          "group block h-full overflow-hidden rounded-2xl border bg-white shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
           group.accent.border
         )}
       >
@@ -98,7 +68,7 @@ export function CategoryCard({
   }
 
   return (
-    <div className="h-full rounded-2xl border border-gray-200 bg-gray-50/50 p-6 opacity-90">
+    <div className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50/50">
       {content}
     </div>
   );

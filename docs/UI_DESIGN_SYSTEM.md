@@ -146,29 +146,31 @@ cleanup pass, not done now to avoid touching unrelated working pages.
 
 ## 6. Illustration system
 
-**No custom illustrations exist yet.** Real assets on the site today: 5
-real vendor before/after photos for the Sofa & Carpet Cleaning vertical
-(`public/images/sofa-carpet-cleaning/gallery/`) — nothing else.
+**Updated in the visual enhancement pass (2026-09-28).** No image-generation
+tool was available that session, so rather than leaving hero/category
+sections empty, a coded-SVG illustration system was built:
+`components/illustrations/*.tsx`, sharing a few reused primitives
+(`HouseShape`, `PersonShape`, `ToolBadge`, `BlobBackground` in
+`primitives.tsx`) so every scene reads as one family. Full component →
+usage map, design rationale, and the real-artwork replacement procedure
+live in **`docs/VISUAL_ASSETS.md`** — read that before adding or replacing
+any illustration.
 
-Rather than commissioning or AI-generating illustrations now (which the
-Phase 1 brief explicitly warns against doing carelessly — no copied styles,
-no generic AI human figures), Phase 1 establishes the **abstraction layer**
-so real illustrations can be added later without touching component code:
-`CategoryCard.tsx`'s `iconMap` indirection and `lib/serviceTaxonomy.ts`'s
-per-group `icon`/`accent` fields are the seam — add an `imageUrl` field to
-`TaxonomyGroup` and a conditional render branch in `CategoryCard` when real
-assets exist, nothing else needs to change.
+Real (non-coded) assets on the site today: still just the 5 real vendor
+before/after photos for the Sofa & Carpet Cleaning vertical
+(`public/images/sofa-carpet-cleaning/gallery/`).
 
-**Naming convention for future illustrations** (not yet in use, documented
-for when real assets are produced):
+**Naming convention for future real illustrations** (folder structure
+already created, empty, in `public/images/illustrations/` — see the
+README there):
 ```
-public/images/illustrations/{category-slug}-{variant}.webp
+public/images/illustrations/{section}/{slug}-{variant}.webp
 ```
-e.g. `public/images/illustrations/ac-cooling-hero.webp`,
-`public/images/illustrations/plumbing-icon.webp`. Style direction when
-produced: Pakistani homes/environments, technicians mid-task, premium/
-friendly/slightly-dimensional, consistent stroke weight and color treatment
-across all categories — not cartoonish, not generic AI stock-figure style.
+e.g. `public/images/illustrations/categories/ac-cooling.webp`. Style
+direction when produced: Pakistani homes/environments, technicians
+mid-task, premium/friendly/slightly-dimensional, consistent stroke weight
+and color treatment across all categories — not cartoonish, not generic
+AI stock-figure style.
 
 ---
 
@@ -178,13 +180,17 @@ Minimal, deliberate motion only — matches the "no excessive animation"
 rule:
 - Buttons: `active:scale-[0.98]`, `transition-all duration-150`
 - Cards: `hover:-translate-y-0.5 hover:shadow-md`, `transition-all duration-200`
+- Category icons: `group-hover:scale-110` on the icon only (not the whole
+  card), `transition-transform duration-200`
+- **Scroll-triggered reveal** (added 2026-09-28): `RevealOnScroll`
+  (`components/domain/RevealOnScroll.tsx`) — a single shared
+  `IntersectionObserver`-based fade+slide-up, used to wrap major homepage/
+  services sections. No animation library. Automatically renders content
+  fully visible (no animation) if `prefers-reduced-motion: reduce` is set,
+  or if `IntersectionObserver` isn't available — motion is decorative only,
+  never required to perceive content.
 - No parallax, no auto-playing carousels, no floating decorative elements,
-  no scroll-triggered reveal animations.
-- Respect `prefers-reduced-motion`: none of the above transitions are
-  essential to understanding content, so no explicit media query override
-  was needed — but if a future animation is added that IS load-bearing
-  (e.g. a progress indicator), gate it behind
-  `@media (prefers-reduced-motion: no-preference)`.
+  no heavy animation libraries (Framer Motion, Lottie, GSAP, etc.).
 
 ---
 

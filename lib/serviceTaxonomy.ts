@@ -23,6 +23,8 @@ export type TaxonomyGroup = {
     border: string;
     text: string;
     iconBg: string;
+    /** Raw CSS color (not a Tailwind class) for the CategoryIllustration blob fill/SVG use. */
+    blob: string;
   };
   /** Real category slugs (from lib/services.ts) live under this group, in display order. Empty = not launched yet. */
   liveCategorySlugs: string[];
@@ -35,7 +37,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Repair, gas refill, and installation for home cooling systems.",
     representativeServices: ["AC Repair", "Gas Refilling", "Installation", "General Service"],
     icon: "snow",
-    accent: { bg: "bg-sky-50", border: "border-sky-200", text: "text-sky-700", iconBg: "bg-sky-600" },
+    accent: { bg: "bg-sky-50", border: "border-sky-200", text: "text-sky-700", iconBg: "bg-sky-600", blob: "#f0f9ff" },
     liveCategorySlugs: ["ac-repair"],
   },
   {
@@ -44,7 +46,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Wiring faults, installations, and electrical repairs done safely.",
     representativeServices: ["Wiring Repair", "Switchboard Install", "UPS Wiring", "Breaker Panel"],
     icon: "bolt",
-    accent: { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", iconBg: "bg-amber-500" },
+    accent: { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", iconBg: "bg-amber-500", blob: "#fffbeb" },
     liveCategorySlugs: ["electrician"],
   },
   {
@@ -53,7 +55,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Leak repairs, geyser fixes, and water system installation.",
     representativeServices: ["Leak Repair", "Geyser Repair", "Tap Installation", "Drain Unblocking"],
     icon: "droplet",
-    accent: { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", iconBg: "bg-cyan-600" },
+    accent: { bg: "bg-cyan-50", border: "border-cyan-200", text: "text-cyan-700", iconBg: "bg-cyan-600", blob: "#ecfeff" },
     liveCategorySlugs: ["plumbing"],
   },
   {
@@ -62,7 +64,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Home, deep, and specialized sofa & carpet cleaning at your doorstep.",
     representativeServices: ["Deep Cleaning", "Sofa Cleaning", "Carpet Cleaning", "Water Tank Cleaning"],
     icon: "sparkle",
-    accent: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", iconBg: "bg-emerald-600" },
+    accent: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", iconBg: "bg-emerald-600", blob: "#ecfdf5" },
     liveCategorySlugs: ["cleaning", "sofa-carpet-cleaning", "sofa-cleaning", "carpet-cleaning"],
   },
   {
@@ -71,7 +73,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Interior and exterior painting, texture work, and wall treatments.",
     representativeServices: ["Interior Painting", "Exterior Painting", "Dampness Treatment", "Wall Texture"],
     icon: "paint",
-    accent: { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", iconBg: "bg-rose-600" },
+    accent: { bg: "bg-rose-50", border: "border-rose-200", text: "text-rose-700", iconBg: "bg-rose-600", blob: "#fff1f2" },
     liveCategorySlugs: ["painter"],
   },
   {
@@ -80,7 +82,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Garden upkeep and landscaping for homes and properties.",
     representativeServices: ["Garden Maintenance", "Lawn Care", "Tree Trimming", "Landscaping"],
     icon: "leaf",
-    accent: { bg: "bg-lime-50", border: "border-lime-200", text: "text-lime-700", iconBg: "bg-lime-600" },
+    accent: { bg: "bg-lime-50", border: "border-lime-200", text: "text-lime-700", iconBg: "bg-lime-600", blob: "#f7fee7" },
     liveCategorySlugs: [],
   },
   {
@@ -89,7 +91,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Furniture repair, custom woodwork, and door/cabinet fixes.",
     representativeServices: ["Furniture Repair", "Door Repair", "Cabinets", "Custom Woodwork"],
     icon: "wrench",
-    accent: { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", iconBg: "bg-orange-600" },
+    accent: { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", iconBg: "bg-orange-600", blob: "#fff7ed" },
     liveCategorySlugs: [],
   },
   {
@@ -98,7 +100,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Ceiling, flooring, and renovation work for homes and offices.",
     representativeServices: ["False Ceiling", "Flooring", "Home Renovation", "Wall Construction"],
     icon: "home",
-    accent: { bg: "bg-stone-50", border: "border-stone-200", text: "text-stone-700", iconBg: "bg-stone-600" },
+    accent: { bg: "bg-stone-50", border: "border-stone-200", text: "text-stone-700", iconBg: "bg-stone-600", blob: "#fafaf9" },
     liveCategorySlugs: [],
   },
   {
@@ -107,7 +109,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Treatment for termites, cockroaches, and other household pests.",
     representativeServices: ["General Pest Control", "Termite Control", "Mosquito Control", "Fumigation"],
     icon: "shield",
-    accent: { bg: "bg-teal-50", border: "border-teal-200", text: "text-teal-700", iconBg: "bg-teal-600" },
+    accent: { bg: "bg-teal-50", border: "border-teal-200", text: "text-teal-700", iconBg: "bg-teal-600", blob: "#f0fdfa" },
     liveCategorySlugs: [],
   },
   {
@@ -116,7 +118,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "Repairs for refrigerators, washing machines, and home appliances.",
     representativeServices: ["Refrigerator Repair", "Washing Machine", "Microwave Repair", "Geyser Repair"],
     icon: "wrench",
-    accent: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", iconBg: "bg-indigo-600" },
+    accent: { bg: "bg-indigo-50", border: "border-indigo-200", text: "text-indigo-700", iconBg: "bg-indigo-600", blob: "#eef2ff" },
     liveCategorySlugs: [],
   },
   {
@@ -125,7 +127,7 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     description: "CCTV, smart locks, and home networking installation.",
     representativeServices: ["CCTV Installation", "Smart Door Lock", "Intercom", "Wi-Fi Setup"],
     icon: "shield",
-    accent: { bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", iconBg: "bg-violet-600" },
+    accent: { bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", iconBg: "bg-violet-600", blob: "#f5f3ff" },
     liveCategorySlugs: [],
   },
 ];

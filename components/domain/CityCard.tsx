@@ -11,14 +11,14 @@ export function CityCard({ city }: { city: City }) {
   const badgeLabel = isActive
     ? "🟢 Active Now"
     : isPartiallyActive
-      ? "🟡 Select Services Live"
-      : "🔵 Coming Soon";
+      ? "🟡 Some Services Available"
+      : "🔵 Message Us";
 
   const subLabel = isActive
     ? `${city.areas.length}+ Local Areas Active`
     : isPartiallyActive
-      ? `${city.activeCategories!.length} service${city.activeCategories!.length > 1 ? "s" : ""} live now`
-      : "Waitlist open for early launch";
+      ? `${city.activeCategories!.length} service${city.activeCategories!.length > 1 ? "s" : ""} available now`
+      : "Tell us what you need — we'll see what we can arrange";
 
   return (
     <Link href={`/${city.slug}`} className="block">

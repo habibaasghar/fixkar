@@ -19,7 +19,7 @@ export function Footer() {
               {BRAND_TAGLINE}. Connecting households with vetted vendor partners for electrical, plumbing, AC, cleaning, and painting work.
             </p>
             <div className="text-xs text-gray-500">
-              <span className="font-bold text-gray-700">Operating City:</span> Lahore (Sofa &amp; Carpet Cleaning also live in Islamabad &amp; Gujranwala)
+              <span className="font-bold text-gray-700">Serving:</span> Customers across Pakistan — select your city to see what&apos;s active near you.
             </div>
           </div>
 

@@ -4,13 +4,16 @@ export function HowItWorksStep({
   stepNumber,
   title,
   description,
+  illustration,
 }: {
   stepNumber: number;
   title: string;
   description: string;
+  illustration?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm relative">
+    <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm relative transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      {illustration && <div className="h-20 w-20 mb-3">{illustration}</div>}
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white font-extrabold text-lg shadow-sm mb-4">
         0{stepNumber}
       </div>

@@ -3,31 +3,25 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { BRAND_NAME } from "@/lib/constants";
-import { cities } from "@/lib/services";
-import { IconMapPin, IconChevron, IconMenu, IconPhone } from "@/components/icons";
+import { IconMenu, IconPhone } from "@/components/icons";
 import { Drawer } from "@/components/ui/Drawer";
 import { Button } from "@/components/ui/Button";
+import { LocationSelector } from "@/components/domain/LocationSelector";
 
 export function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedCity, setSelectedCity] = useState(cities[0]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 h-16 sm:h-20">
-        {/* Brand & City Dropdown */}
+        {/* Brand & City Selector */}
         <div className="flex items-center gap-4 sm:gap-6">
           <Link href="/" className="flex items-center gap-1.5 text-xl sm:text-2xl font-extrabold tracking-tight text-primary">
             {BRAND_NAME}
           </Link>
 
-          {/* City Selector */}
-          <div className="relative hidden sm:block">
-            <div className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:border-primary-hover transition cursor-pointer">
-              <IconMapPin size={14} className="text-primary" />
-              <span>{selectedCity.name}</span>
-              <IconChevron size={12} className="text-gray-400" />
-            </div>
+          <div className="hidden sm:block">
+            <LocationSelector variant="desktop" />
           </div>
         </div>
 
@@ -74,17 +68,7 @@ export function Header() {
       {/* Mobile Menu Drawer */}
       <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} title="Menu">
         <div className="flex flex-col space-y-4">
-          <div className="p-3 rounded-xl bg-primary-light border border-primary-subtle">
-            <p className="text-xs font-bold text-primary-hover">Selected City</p>
-            <div className="mt-1 flex items-center justify-between text-sm font-semibold text-gray-900">
-              <span className="flex items-center gap-2">
-                <IconMapPin size={16} className="text-primary" /> {selectedCity.name}
-              </span>
-              <span className="text-xs font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
-                Active
-              </span>
-            </div>
-          </div>
+          <LocationSelector variant="mobile" />
 
           <div className="flex flex-col space-y-3 pt-2 text-base font-semibold text-gray-800">
             <Link href="/" onClick={() => setIsDrawerOpen(false)} className="hover:text-primary">

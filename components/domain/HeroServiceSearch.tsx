@@ -67,7 +67,7 @@ export function HeroServiceSearch({ citySlug = "lahore" }: { citySlug?: string }
 
       <div className="mt-3 flex items-center justify-center gap-1.5 text-xs font-semibold text-gray-500">
         <IconMapPin size={14} className="text-secondary" />
-        <span>Currently serving Lahore</span>
+        <span>Use the location selector above to set your city</span>
       </div>
     </div>
   );

@@ -6,10 +6,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { CategoryDiscovery } from "@/components/domain/CategoryDiscovery";
 import { TrustPoint } from "@/components/domain/TrustPoint";
 import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
+import { RevealOnScroll } from "@/components/domain/RevealOnScroll";
 import { Button } from "@/components/ui/Button";
 import { taxonomyGroups } from "@/lib/serviceTaxonomy";
 import { categories, cities } from "@/lib/services";
 import { BRAND_NAME, BRAND_URL } from "@/lib/constants";
+import { ServicesHeroIllustration } from "@/components/illustrations/ServicesHeroIllustration";
+import { PathwayIllustration } from "@/components/illustrations/PathwayIllustration";
+import { IconWrench, IconSparkle, IconPaint, IconHome as IconHomeGlyph, IconShield } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -34,24 +38,34 @@ const problemPathways = [
   {
     question: "Something isn't working",
     groupSlugs: ["ac-cooling", "electrical", "plumbing", "appliance-repair"],
+    icon: IconWrench,
+    color: "text-primary bg-primary-light",
   },
   {
     question: "Need your home cleaned",
     groupSlugs: ["cleaning"],
+    icon: IconSparkle,
+    color: "text-secondary bg-secondary-light",
   },
   {
     question: "Want to improve your property",
     groupSlugs: ["painting", "gardening", "carpentry", "renovation"],
+    icon: IconPaint,
+    color: "text-accent-hover bg-accent-light",
   },
   {
     question: "Planning a larger project",
     groupSlugs: ["renovation"],
     note: "See Projects & Contracts below",
+    icon: IconHomeGlyph,
+    color: "text-primary bg-primary-light",
   },
   {
     question: "Need business or facility maintenance",
     groupSlugs: [],
     note: "See Business Services below",
+    icon: IconShield,
+    color: "text-secondary bg-secondary-light",
   },
 ];
 
@@ -83,32 +97,36 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="border-b border-gray-200 bg-gradient-to-b from-primary-light/60 via-white to-white py-14 sm:py-20">
         <Container>
-          <div className="mx-auto max-w-3xl text-center space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary-subtle px-3.5 py-1 text-xs font-bold text-primary-hover">
-              <span>📍 Active in Lahore</span>
-              <span>•</span>
-              <span>Sofa &amp; Carpet Cleaning also in Islamabad &amp; Gujranwala</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="text-center lg:text-left space-y-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-primary-hover">
+                FixKar Services
+              </span>
+
+              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl sm:leading-tight">
+                Home &amp; Property Services, All in One Place
+              </h1>
+
+              <p className="mx-auto lg:mx-0 max-w-2xl text-base text-gray-600 sm:text-lg">
+                Discover repair, maintenance, cleaning, improvement, and project services — and get connected with a vetted vendor partner across Pakistan.
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 pt-2">
+                <Link href="/request">
+                  <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                    Get a Quote
+                  </Button>
+                </Link>
+                <a href="#browse">
+                  <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                    Explore Services
+                  </Button>
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl sm:leading-tight">
-              Services for Your Home, Property &amp; Business
-            </h1>
-
-            <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
-              FixKar connects you with vetted vendor partners for repairs, maintenance, cleaning, home improvement, and larger property projects.
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
-              <Link href="/request">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                  Get a Quote
-                </Button>
-              </Link>
-              <a href="#browse">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                  Explore Services
-                </Button>
-              </a>
+            <div className="hidden lg:block">
+              <ServicesHeroIllustration className="w-full h-auto max-w-md mx-auto" />
             </div>
           </div>
         </Container>
@@ -167,9 +185,16 @@ export default function ServicesPage() {
                 .map((slug) => taxonomyGroups.find((g) => g.slug === slug))
                 .filter((g): g is NonNullable<typeof g> => Boolean(g));
 
+              const Icon = pathway.icon;
+
               return (
                 <div key={pathway.question} className="rounded-2xl border border-gray-200 bg-gray-50/50 p-5">
-                  <p className="text-sm font-bold text-gray-900 mb-3">{pathway.question}</p>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${pathway.color}`}>
+                      <Icon size={18} />
+                    </span>
+                    <p className="text-sm font-bold text-gray-900">{pathway.question}</p>
+                  </div>
                   {groups.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
                       {groups.map((group) => {
@@ -207,35 +232,49 @@ export default function ServicesPage() {
       <Section background="subtle">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 space-y-4">
-              <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">
-                For Businesses
-              </span>
-              <h3 className="text-xl font-extrabold text-gray-900">Business &amp; Commercial Services</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Office cleaning, facility maintenance, commercial electrical/AC/plumbing, and maintenance contracts for businesses and property managers.
-              </p>
-              <Link href="/request">
-                <Button variant="secondary" className="mt-2">
-                  Request a Business Quote
-                </Button>
-              </Link>
-            </div>
+            <RevealOnScroll>
+              <div className="h-full rounded-3xl border border-gray-200 bg-white overflow-hidden">
+                <div className="h-28 bg-primary-light flex items-center justify-center">
+                  <PathwayIllustration variant="business" className="h-24" />
+                </div>
+                <div className="p-8 space-y-4">
+                  <span className="inline-flex items-center rounded-full bg-primary-subtle px-3 py-1 text-xs font-bold text-primary-hover">
+                    For Businesses
+                  </span>
+                  <h3 className="text-xl font-extrabold text-gray-900">Business &amp; Commercial Services</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Office cleaning, facility maintenance, commercial electrical/AC/plumbing, and maintenance contracts for businesses and property managers.
+                  </p>
+                  <Link href="/request">
+                    <Button variant="secondary" className="mt-2">
+                      Explore Business Services
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </RevealOnScroll>
 
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 space-y-4">
-              <span className="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-xs font-bold text-indigo-700">
-                For Larger Projects
-              </span>
-              <h3 className="text-xl font-extrabold text-gray-900">Projects &amp; Contracts</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Home renovation, false ceiling, flooring, and full painting or property maintenance projects — larger in scope than a quick service booking.
-              </p>
-              <Link href="/request">
-                <Button variant="secondary" className="mt-2">
-                  Request a Project Quote
-                </Button>
-              </Link>
-            </div>
+            <RevealOnScroll delayMs={100}>
+              <div className="h-full rounded-3xl border border-gray-200 bg-white overflow-hidden">
+                <div className="h-28 bg-accent-light flex items-center justify-center">
+                  <PathwayIllustration variant="projects" className="h-24" />
+                </div>
+                <div className="p-8 space-y-4">
+                  <span className="inline-flex items-center rounded-full bg-accent-light px-3 py-1 text-xs font-bold text-accent-hover">
+                    For Larger Projects
+                  </span>
+                  <h3 className="text-xl font-extrabold text-gray-900">Projects &amp; Contracts</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Home renovation, false ceiling, flooring, and full painting or property maintenance projects — larger in scope than a quick service booking.
+                  </p>
+                  <Link href="/request">
+                    <Button variant="secondary" className="mt-2">
+                      Request a Project Quote
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </RevealOnScroll>
           </div>
         </Container>
       </Section>
