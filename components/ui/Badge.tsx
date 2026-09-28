@@ -16,7 +16,7 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants: Record<BadgeVariant, string> = {
-    brand: "bg-blue-50 text-blue-700 border-blue-100",
+    brand: "bg-primary-light text-primary-hover border-primary-subtle",
     success: "bg-green-50 text-green-700 border-green-100",
     warning: "bg-amber-50 text-amber-700 border-amber-100",
     error: "bg-red-50 text-red-700 border-red-100",

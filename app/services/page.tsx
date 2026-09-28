@@ -81,10 +81,10 @@ export default function ServicesPage() {
       </Container>
 
       {/* Hero */}
-      <section className="border-b border-gray-200 bg-gradient-to-b from-blue-50/60 via-white to-white py-14 sm:py-20">
+      <section className="border-b border-gray-200 bg-gradient-to-b from-primary-light/60 via-white to-white py-14 sm:py-20">
         <Container>
           <div className="mx-auto max-w-3xl text-center space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3.5 py-1 text-xs font-bold text-blue-700">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary-subtle px-3.5 py-1 text-xs font-bold text-primary-hover">
               <span>📍 Active in Lahore</span>
               <span>•</span>
               <span>Sofa &amp; Carpet Cleaning also in Islamabad &amp; Gujranwala</span>
@@ -125,7 +125,7 @@ export default function ServicesPage() {
               <Link
                 key={cat.slug}
                 href={`/${activeCity.slug}/${cat.slug}`}
-                className="rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 hover:border-blue-300 hover:text-blue-600 transition"
+                className="rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-700 hover:border-primary-hover hover:text-primary transition"
               >
                 {cat.shortName}
               </Link>
@@ -178,7 +178,7 @@ export default function ServicesPage() {
                           <Link
                             key={group.slug}
                             href={`/${activeCity.slug}/${group.liveCategorySlugs[0]}`}
-                            className="rounded-full bg-white border border-gray-200 px-3 py-1.5 text-xs font-semibold text-blue-600 hover:border-blue-300 transition"
+                            className="rounded-full bg-white border border-gray-200 px-3 py-1.5 text-xs font-semibold text-primary hover:border-primary-hover transition"
                           >
                             {group.name}
                           </Link>
@@ -268,12 +268,12 @@ export default function ServicesPage() {
         <Container>
           <div className="text-center max-w-xl mx-auto space-y-4">
             <h2 className="text-2xl font-extrabold sm:text-3xl">Ready to Get Started?</h2>
-            <p className="text-sm text-blue-100">
+            <p className="text-sm text-primary-subtle">
               Tell us what you need and we&apos;ll follow up with a confirmed quote, typically within the hour.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
               <Link href="/request">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white text-blue-600 hover:bg-gray-100 border-none">
+                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-gray-100 border-none">
                   Get a Quote
                 </Button>
               </Link>

@@ -13,9 +13,9 @@ export function TrustPoint({
 }) {
   const iconMap = {
     check: <IconCheck className="text-green-600" size={24} />,
-    shield: <IconShield className="text-blue-600" size={24} />,
+    shield: <IconShield className="text-primary" size={24} />,
     phone: <IconPhone className="text-amber-600" size={24} />,
-    clock: <IconClock className="text-blue-600" size={24} />,
+    clock: <IconClock className="text-primary" size={24} />,
   };
 
   return (

@@ -6,7 +6,7 @@ import { IconWrench } from "@/components/icons";
 export default function NotFound() {
   return (
     <Container className="py-20 sm:py-32 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 mx-auto mb-6">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-light text-primary mx-auto mb-6">
         <IconWrench size={32} />
       </div>
       <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">

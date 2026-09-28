@@ -51,35 +51,35 @@ export default function PartnerPage() {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-semibold text-gray-800">
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">⚡</span> Electricians & UPS Specialists
+                  <span className="text-primary font-bold">⚡</span> Electricians & UPS Specialists
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">❄️</span> AC Technicians & Gas Refillers
+                  <span className="text-primary font-bold">❄️</span> AC Technicians & Gas Refillers
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">🪠</span> Plumbers & Geyser Experts
+                  <span className="text-primary font-bold">🪠</span> Plumbers & Geyser Experts
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">🧹</span> Deep Cleaning Teams
+                  <span className="text-primary font-bold">🧹</span> Deep Cleaning Teams
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">🎨</span> House & Commercial Painters
+                  <span className="text-primary font-bold">🎨</span> House & Commercial Painters
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 flex items-center gap-2">
-                  <span className="text-blue-600 font-bold">🛠️</span> General Handymen
+                  <span className="text-primary font-bold">🛠️</span> General Handymen
                 </div>
               </div>
             </div>
 
             {/* Application CTA Box */}
-            <div className="rounded-3xl bg-blue-600 p-8 sm:p-10 text-white text-center space-y-4">
+            <div className="rounded-3xl bg-primary p-8 sm:p-10 text-white text-center space-y-4">
               <h2 className="text-2xl sm:text-3xl font-extrabold">Ready to Grow Your Earnings?</h2>
-              <p className="text-sm text-blue-100 max-w-xl mx-auto">
+              <p className="text-sm text-primary-subtle max-w-xl mx-auto">
                 Registration takes only 2 minutes. Submit your CNIC and basic details and our team will personally reach out to confirm you.
               </p>
               <div className="pt-2">
                 <Link href="/partner/register">
-                  <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100 border-none">
+                  <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-gray-100 border-none">
                     Start Partner Registration
                   </Button>
                 </Link>

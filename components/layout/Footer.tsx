@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:gap-12">
           {/* Col 1: Brand & Tagline */}
           <div className="space-y-4 md:col-span-1">
-            <Link href="/" className="text-2xl font-extrabold tracking-tight text-blue-600">
+            <Link href="/" className="text-2xl font-extrabold tracking-tight text-primary">
               {BRAND_NAME}
             </Link>
             <p className="text-xs leading-relaxed text-gray-500 max-w-xs">
@@ -33,7 +33,7 @@ export function Footer() {
                 <li key={cat.slug}>
                   <Link
                     href={`/${activeCity.slug}/${cat.slug}`}
-                    className="hover:text-blue-600 transition"
+                    className="hover:text-primary transition"
                   >
                     {cat.name}
                   </Link>
@@ -46,7 +46,7 @@ export function Footer() {
               with a single honest link to the real city hub that lists coverage. */}
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
-              <Link href={`/${activeCity.slug}`} className="hover:text-blue-600 transition">
+              <Link href={`/${activeCity.slug}`} className="hover:text-primary transition">
                 Lahore Service Areas
               </Link>
             </h3>
@@ -57,65 +57,68 @@ export function Footer() {
             </ul>
             <Link
               href={`/${activeCity.slug}`}
-              className="mt-3 inline-block text-xs font-bold text-blue-600 hover:underline"
+              className="mt-3 inline-block text-xs font-bold text-primary hover:underline"
             >
               View full coverage in Lahore →
             </Link>
           </div>
 
-          {/* Col 4: Company & Legal */}
-          <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
-              Company & Legal
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm font-medium">
-              <li>
-                <Link href="/about" className="hover:text-blue-600 transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/trust-safety" className="hover:text-blue-600 transition">
-                  Trust & Safety
-                </Link>
-              </li>
-              <li>
-                <Link href="/how-it-works" className="hover:text-blue-600 transition">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/partner" className="hover:text-blue-600 transition">
-                  Become a Partner
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-blue-600 transition">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-blue-600 transition">
-                  Contact Support
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-blue-600 transition">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-blue-600 transition">
-                  Privacy Policy
-                </Link>
-              </li>
-            </ul>
+          {/* Col 4: Company + For Providers + Support */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                Company
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm font-medium">
+                <li>
+                  <Link href="/about" className="hover:text-primary transition">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/trust-safety" className="hover:text-primary transition">
+                    Trust & Safety
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/how-it-works" className="hover:text-primary transition">
+                    How It Works
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="hover:text-primary transition">
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                For Providers &amp; Support
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm font-medium">
+                <li>
+                  <Link href="/partner" className="hover:text-primary transition">
+                    Become a Partner
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:text-primary transition">
+                    Contact Support
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <div className="mt-12 border-t border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
           <p>&copy; {new Date().getFullYear()} {BRAND_NAME}. All rights reserved.</p>
-          <p>Built for Pakistan, working with vetted vendor partners in every active city.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/terms" className="hover:text-primary transition">Terms</Link>
+            <Link href="/privacy" className="hover:text-primary transition">Privacy</Link>
+          </div>
         </div>
       </div>
     </footer>

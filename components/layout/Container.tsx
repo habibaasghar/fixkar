@@ -22,13 +22,14 @@ export function Section({
   ...props
 }: {
   className?: string;
-  background?: "white" | "subtle" | "brand";
+  background?: "white" | "subtle" | "brand" | "secondary";
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLElement>) {
   const bgStyles = {
     white: "bg-white",
-    subtle: "bg-gray-50/80 border-y border-gray-100",
-    brand: "bg-blue-600 text-white",
+    subtle: "bg-surface-subtle border-y border-gray-100",
+    brand: "bg-primary text-white",
+    secondary: "bg-secondary text-white",
   }[background];
 
   return (

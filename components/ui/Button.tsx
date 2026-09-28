@@ -32,11 +32,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]";
 
     const variants: Record<ButtonVariant, string> = {
-      primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600 shadow-sm",
-      secondary: "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 focus:ring-blue-600 shadow-sm",
+      primary: "bg-primary text-white hover:bg-primary-hover focus:ring-primary shadow-sm",
+      secondary: "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 focus:ring-primary shadow-sm",
       ghost: "bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-400",
-      whatsapp: "bg-[#25D366] text-white hover:bg-[#1ebe57] focus:ring-[#25D366] shadow-sm",
-      danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-600 shadow-sm",
+      whatsapp: "bg-whatsapp text-white hover:bg-whatsapp-hover focus:ring-whatsapp shadow-sm",
+      danger: "bg-error text-white hover:bg-red-700 focus:ring-error shadow-sm",
     };
 
     const sizes: Record<ButtonSize, string> = {

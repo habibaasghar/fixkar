@@ -45,7 +45,7 @@ export function CategoryDiscovery({
       {filtered.length === 0 ? (
         <p className="text-center text-sm text-gray-500 py-10">
           No services match &quot;{query}&quot;. Try a different word, or{" "}
-          <a href="/request" className="text-blue-600 font-semibold hover:underline">
+          <a href="/request" className="text-primary font-semibold hover:underline">
             tell us what you need
           </a>
           .

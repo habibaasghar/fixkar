@@ -113,7 +113,7 @@ export default async function ServiceCategoryCityPage({ params }: Props) {
                     key={issue}
                     className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm font-semibold text-gray-800"
                   >
-                    <span className="text-blue-600 font-bold">✓</span>
+                    <span className="text-primary font-bold">✓</span>
                     <span>{issue}</span>
                   </div>
                 ))}

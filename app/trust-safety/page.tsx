@@ -26,9 +26,9 @@ export default function TrustSafetyPage() {
         <Container>
           <div className="max-w-4xl mx-auto space-y-12">
             {/* Quality issues */}
-            <div className="rounded-3xl border border-blue-200 bg-blue-50/60 p-8 sm:p-10 space-y-4">
+            <div className="rounded-3xl border border-primary-subtle bg-primary-light/60 p-8 sm:p-10 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-md">
                   <IconShield size={28} />
                 </div>
                 <div>
@@ -40,11 +40,11 @@ export default function TrustSafetyPage() {
                 Contact us if you&apos;re not satisfied with a completed job. We&apos;ll follow up directly with the vendor partner who did the work. Any workmanship warranty is provided by that vendor — terms vary by vendor and service, so ask about them when you get your quote.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-gray-800">
-                <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-blue-100">
+                <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-primary-subtle">
                   <IconCheck className="text-green-600" size={18} />
                   <span>We Follow Up on Complaints</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-blue-100">
+                <div className="flex items-center gap-2 bg-white p-3 rounded-xl border border-primary-subtle">
                   <IconCheck className="text-green-600" size={18} />
                   <span>Vendor-Provided Workmanship Warranty</span>
                 </div>
@@ -64,13 +64,13 @@ export default function TrustSafetyPage() {
                 </div>
                 <ul className="space-y-2 text-xs text-gray-600">
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600 font-bold">✓</span> Personally introduced to and spoken with by our team
+                    <span className="text-primary font-bold">✓</span> Personally introduced to and spoken with by our team
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600 font-bold">✓</span> Confirmed trade, service area, and pricing before the first job
+                    <span className="text-primary font-bold">✓</span> Confirmed trade, service area, and pricing before the first job
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600 font-bold">✓</span> Followed up with customers after jobs to check on quality
+                    <span className="text-primary font-bold">✓</span> Followed up with customers after jobs to check on quality
                   </li>
                 </ul>
               </div>

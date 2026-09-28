@@ -11,7 +11,7 @@ export function HowItWorksStep({
 }) {
   return (
     <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm relative">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white font-extrabold text-lg shadow-sm mb-4">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white font-extrabold text-lg shadow-sm mb-4">
         0{stepNumber}
       </div>
       <h3 className="text-lg font-bold text-gray-900">{title}</h3>
@@ -41,7 +41,7 @@ export function PricingTable({
             {priceRanges.map((p) => (
               <tr key={p.item} className="hover:bg-gray-50/50">
                 <td className="px-4 py-3.5 font-medium text-gray-900">{p.item}</td>
-                <td className="px-4 py-3.5 text-right font-bold text-blue-600">{p.range}</td>
+                <td className="px-4 py-3.5 text-right font-bold text-primary">{p.range}</td>
               </tr>
             ))}
           </tbody>

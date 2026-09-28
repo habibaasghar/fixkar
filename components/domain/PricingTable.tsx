@@ -21,7 +21,7 @@ export function PricingTable({
             {priceRanges.map((p) => (
               <tr key={p.item} className="hover:bg-gray-50/50">
                 <td className="px-4 py-3.5 font-medium text-gray-900">{p.item}</td>
-                <td className="px-4 py-3.5 text-right font-bold text-blue-600">{p.range}</td>
+                <td className="px-4 py-3.5 text-right font-bold text-primary">{p.range}</td>
               </tr>
             ))}
           </tbody>

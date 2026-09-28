@@ -29,11 +29,11 @@ export default function BlogIndexPage() {
               <Link key={post.slug} href={`/blog/${post.slug}`} className="block h-full">
                 <Card hoverable className="h-full flex flex-col justify-between">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs font-bold text-blue-600">
+                    <div className="flex items-center justify-between text-xs font-bold text-primary">
                       <span>{post.category}</span>
                       <span className="text-gray-400 font-normal">{post.readTimeMinutes} min read</span>
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition leading-snug">
+                    <h2 className="text-lg font-bold text-gray-900 group-hover:text-primary transition leading-snug">
                       {post.title}
                     </h2>
                     <p className="text-xs text-gray-600 leading-relaxed">
@@ -43,7 +43,7 @@ export default function BlogIndexPage() {
 
                   <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
                     <span>{post.publishedAt}</span>
-                    <span className="font-bold text-blue-600">Read Article →</span>
+                    <span className="font-bold text-primary">Read Article →</span>
                   </div>
                 </Card>
               </Link>

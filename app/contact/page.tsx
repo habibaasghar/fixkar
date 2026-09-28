@@ -54,7 +54,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-4 rounded-2xl border border-gray-100 bg-gray-50/60 p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-subtle text-primary">
                     <IconPhone size={20} />
                   </div>
                   <div>
@@ -62,7 +62,7 @@ export default function ContactPage() {
                     <p className="text-xs text-gray-500">9:00 AM – 9:00 PM, 7 days a week</p>
                     <a
                       href={`tel:+${DEFAULT_WHATSAPP_NUMBER}`}
-                      className="mt-1 inline-block text-sm font-bold text-blue-600 hover:underline"
+                      className="mt-1 inline-block text-sm font-bold text-primary hover:underline"
                     >
                       +{DEFAULT_WHATSAPP_NUMBER}
                     </a>

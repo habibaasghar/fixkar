@@ -66,7 +66,7 @@ export default async function BlogArticlePage({ params }: Props) {
               FixKar.pk connects you with vetted vendor partners in Lahore that our team has personally spoken to and confirmed. You get transparent market pricing and pay cash only after inspecting the job.
             </p>
 
-            <div className="my-8 rounded-2xl bg-blue-50 border border-blue-100 p-6 text-center space-y-3">
+            <div className="my-8 rounded-2xl bg-primary-light border border-primary-subtle p-6 text-center space-y-3">
               <h3 className="text-lg font-bold text-gray-900">Need Immediate Help with Your Repair?</h3>
               <p className="text-xs text-gray-600">Connect with a vetted vendor partner in Lahore on WhatsApp.</p>
               <div className="flex justify-center pt-1">

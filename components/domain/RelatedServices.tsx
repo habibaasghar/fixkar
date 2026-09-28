@@ -21,7 +21,7 @@ export function RelatedServices({
       {related.map((cat, i) => (
         <React.Fragment key={cat.slug}>
           {i > 0 && ", "}
-          <Link href={`/${citySlug}/${cat.slug}`} className="text-blue-600 font-semibold hover:underline">
+          <Link href={`/${citySlug}/${cat.slug}`} className="text-primary font-semibold hover:underline">
             {cat.shortName}
           </Link>
         </React.Fragment>

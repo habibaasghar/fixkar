@@ -29,7 +29,7 @@ export default function HowItWorksPage() {
             {/* Customer Flow */}
             <div className="space-y-8">
               <div className="text-center">
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary-light px-3 py-1 rounded-full">
                   For Customers
                 </span>
                 <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold text-gray-900">

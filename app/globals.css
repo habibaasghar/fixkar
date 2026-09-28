@@ -4,10 +4,27 @@
   --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-brand: #2563eb;
-  --color-brand-hover: #1d4ed8;
-  --color-brand-light: #eff6ff;
-  --color-brand-subtle: #dbeafe;
+  /*
+   * FixKar brand system (Phase 1, 2026-09-28). Primary is a new deep navy
+   * chosen for the premium/trustworthy direction; secondary and accent are
+   * taken directly from the real logo (public/logo.svg, public/icon.svg —
+   * #0f766e teal, #f59e0b amber) rather than invented, so the site finally
+   * matches the brand mark instead of the old ad-hoc blue. See
+   * docs/UI_DESIGN_SYSTEM.md for the full rationale and usage rules.
+   */
+  --color-primary: #0e2a47;
+  --color-primary-hover: #163a5e;
+  --color-primary-light: #eaf0f5;
+  --color-primary-subtle: #d6e2ec;
+
+  --color-secondary: #0f766e;
+  --color-secondary-hover: #14b8a6;
+  --color-secondary-light: #f0fdfa;
+  --color-secondary-subtle: #ccfbf1;
+
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-accent-light: #fffbeb;
 
   --color-success: #16a34a;
   --color-success-light: #f0fdf4;
@@ -21,9 +38,9 @@
   --color-whatsapp: #25d366;
   --color-whatsapp-hover: #1ebe57;
 
-  --color-surface-bg: #ffffff;
-  --color-surface-subtle: #f8f9fa;
-  --color-surface-muted: #f1f3f5;
+  --color-surface-bg: #fafaf8;
+  --color-surface-subtle: #f5f4f1;
+  --color-surface-muted: #efede8;
 
   --color-text-main: #1a1d21;
   --color-text-muted: #5f6b7a;
@@ -34,7 +51,7 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #fafaf8;
   --foreground: #1a1d21;
 }
 

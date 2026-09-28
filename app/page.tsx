@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BRAND_NAME } from "@/lib/constants";
-import { categories, cities } from "@/lib/services";
+import { BRAND_NAME, BRAND_URL } from "@/lib/constants";
+import { cities } from "@/lib/services";
+import { taxonomyGroups } from "@/lib/serviceTaxonomy";
 import { Container, Section } from "@/components/layout/Container";
-import { ServiceCategoryCard } from "@/components/domain/ServiceCategoryCard";
+import { CategoryCard } from "@/components/domain/CategoryCard";
 import { CityCard } from "@/components/domain/CityCard";
 import { TrustPoint } from "@/components/domain/TrustPoint";
 import { HowItWorksStep } from "@/components/domain/HowItWorksStep";
+import { HeroServiceSearch } from "@/components/domain/HeroServiceSearch";
 import { LeadForm } from "@/components/domain/LeadForm";
 import { WhatsAppCTA } from "@/components/domain/WhatsAppCTA";
 import { Button } from "@/components/ui/Button";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   alternates: {
@@ -18,69 +21,100 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const activeCity = cities[0]; // Lahore
+  const activeCity = cities[0]; // Lahore — see lib/services.ts for full city status
+  const liveGroups = taxonomyGroups.filter((g) => g.liveCategorySlugs.length > 0);
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: BRAND_NAME,
+    url: BRAND_URL,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${BRAND_URL}/services?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="border-b border-gray-200 bg-gradient-to-b from-blue-50/60 via-white to-white py-16 sm:py-24">
+      <JsonLd data={websiteSchema} />
+
+      {/* Hero */}
+      <section className="border-b border-gray-200 bg-gradient-to-b from-primary-light/60 via-white to-white py-16 sm:py-24">
         <Container>
           <div className="mx-auto max-w-3xl text-center space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3.5 py-1 text-xs font-bold text-blue-700">
-              <span>📍 Currently Active in Lahore</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary-subtle px-3.5 py-1 text-xs font-bold text-primary-hover">
+              <span>📍 Live in Lahore</span>
               <span>•</span>
-              <span>Expanding to Islamabad & Karachi</span>
+              <span>Expanding city by city across Pakistan</span>
             </div>
 
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl sm:leading-tight">
-              Pakistan&apos;s Trusted Home Service Marketplace
+              Reliable Services for Your Home &amp; Property
             </h1>
 
             <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
-              Reliable home repairs by vetted vendor partners in Lahore. No advance payments—pay only when the job is done.
+              FixKar connects you with vetted vendor partners for repairs, maintenance, cleaning, home improvement, and larger property projects.
             </p>
 
-            <p className="mx-auto max-w-2xl text-sm font-medium text-gray-500">
-              We work with professional vendor partners across Pakistan to get your job done right.
-            </p>
+            <div className="pt-2">
+              <HeroServiceSearch citySlug={activeCity.slug} />
+            </div>
 
             <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2">
-              <WhatsAppCTA
-                message="Hi FixKar, I need a verified home service in Lahore."
-                label="Book via WhatsApp"
-                size="lg"
-              />
               <Link href="/request">
-                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                  Find a Fixer
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                  Get a Quote
                 </Button>
               </Link>
+              <WhatsAppCTA message="Hi FixKar, I need help finding a service." label="WhatsApp FixKar" size="lg" />
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Categories Section */}
+      {/* Trust strip — compact, factual only */}
+      <div className="border-b border-gray-100 bg-white py-5">
+        <Container>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs sm:text-sm font-semibold text-gray-600">
+            <span className="flex items-center gap-1.5">✅ Vetted Vendor Partners</span>
+            <span className="flex items-center gap-1.5">💳 Pay After Service</span>
+            <span className="flex items-center gap-1.5">📋 Clear Quotes Before You Commit</span>
+            <span className="flex items-center gap-1.5">💬 Real Support, Not a Directory</span>
+          </div>
+        </Container>
+      </div>
+
+      {/* Service discovery */}
       <Section background="white">
         <Container>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                Our Core Services in Lahore
+                What Do You Need Help With?
               </h2>
               <p className="mt-1 text-sm text-gray-600">
-                Select a category to view market rates and get connected with a vetted vendor partner.
+                Browse our service categories, or search above for something specific.
               </p>
             </div>
-            <Link href="/services" className="text-sm font-bold text-blue-600 hover:underline">
+            <Link href="/services" className="text-sm font-bold text-primary hover:underline shrink-0">
               View All Services →
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => (
-              <ServiceCategoryCard key={cat.slug} category={cat} citySlug={activeCity.slug} />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {liveGroups.map((group) => (
+              <CategoryCard key={group.slug} group={group} citySlug={activeCity.slug} />
             ))}
+            <Link
+              href="/services"
+              className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50/50 p-6 text-center hover:border-primary hover:bg-primary-light transition"
+            >
+              <span className="text-2xl mb-2">🧰</span>
+              <span className="text-sm font-bold text-gray-900">View All 11 Categories</span>
+              <span className="mt-1 text-xs text-gray-500">Including Painting, Gardening, Renovation &amp; more</span>
+            </Link>
           </div>
         </Container>
       </Section>
@@ -101,31 +135,31 @@ export default function Home() {
             <HowItWorksStep
               stepNumber={1}
               title="Tell Us What You Need"
-              description="Book instantly via WhatsApp or fill our 1-minute request form with your address and issue."
+              description="Search a service or message us on WhatsApp with your address and issue."
             />
             <HowItWorksStep
               stepNumber={2}
               title="We Confirm With a Vendor Partner"
-              description="We get a real quote from a vetted vendor partner in your area and call or WhatsApp you back within the hour."
+              description="We get a real quote from a vetted vendor partner in your area and follow up with you, typically within the hour."
             />
             <HowItWorksStep
               stepNumber={3}
               title="Pay Directly After Service"
-              description="Inspect the completed work and pay cash, EasyPaisa, or JazzCash directly to the technician."
+              description="Inspect the completed work and pay cash, EasyPaisa, or JazzCash directly to the vendor partner."
             />
           </div>
         </Container>
       </Section>
 
-      {/* Trust Signals */}
+      {/* Why FixKar */}
       <Section background="white">
         <Container>
           <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-              Why Homeowners Trust {BRAND_NAME}
+              Why FixKar Instead of Finding Someone Yourself?
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Built specifically to solve Pakistan&apos;s handyman reliability and security challenges.
+              Because a random contact from a neighbor or a signboard comes with no accountability. We personally know who we connect you with.
             </p>
           </div>
 
@@ -154,15 +188,74 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Cities Overview */}
+      {/* Residential + Business split */}
       <Section background="subtle">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="rounded-3xl border border-gray-200 bg-white p-8 space-y-4">
+              <span className="inline-flex items-center rounded-full bg-secondary-light px-3 py-1 text-xs font-bold text-secondary">
+                Home &amp; Property
+              </span>
+              <h3 className="text-xl font-extrabold text-gray-900">For Homeowners, Tenants &amp; Families</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Everyday repairs and maintenance for your home — AC, electrical, plumbing, cleaning, and painting.
+              </p>
+              <Link href="/request">
+                <Button variant="secondary" className="mt-2">
+                  Get a Home Service
+                </Button>
+              </Link>
+            </div>
+
+            <div className="rounded-3xl border border-gray-200 bg-white p-8 space-y-4">
+              <span className="inline-flex items-center rounded-full bg-primary-subtle px-3 py-1 text-xs font-bold text-primary-hover">
+                Business &amp; Commercial
+              </span>
+              <h3 className="text-xl font-extrabold text-gray-900">For Offices, Shops &amp; Property Managers</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Office cleaning, facility maintenance, and commercial AC/electrical/plumbing for businesses.
+              </p>
+              <Link href="/request">
+                <Button variant="secondary" className="mt-2">
+                  Request a Business Quote
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Projects preview */}
+      <Section background="brand">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
+              Larger Scope
+            </span>
+            <h2 className="text-2xl font-extrabold sm:text-3xl">Planning a Bigger Project?</h2>
+            <p className="text-sm text-primary-subtle max-w-xl mx-auto">
+              Home renovation, false ceiling, flooring, full painting, or office renovation — larger in scope than a quick service booking.
+            </p>
+            <div className="pt-2">
+              <Link href="/request">
+                <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-gray-100 border-none">
+                  Request a Project Quote
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Cities Overview */}
+      <Section background="white">
         <Container>
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-              Nationwide Expansion Plan
+              Serving Cities Across Pakistan
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Starting in Lahore, expanding city-by-city across Pakistan.
+              Starting in Lahore, expanding city-by-city as real vendor coverage is confirmed.
             </p>
           </div>
 
@@ -174,16 +267,19 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Quick Lead Form Section */}
-      <Section background="white">
+      {/* Final CTA + Quick Lead Form */}
+      <Section background="subtle">
         <Container>
           <div className="max-w-2xl mx-auto text-center space-y-3 mb-8">
             <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-              Need a Fixer Right Now?
+              Need Help With Your Home or Property?
             </h2>
             <p className="text-sm text-gray-600">
-              Leave your details below and our team will follow up shortly with a confirmed quote.
+              Tell us what you need and we&apos;ll help you find the right vendor partner.
             </p>
+            <div className="flex justify-center pt-1">
+              <WhatsAppCTA message="Hi FixKar, I need a home service in Lahore." label="Or WhatsApp Us Directly" />
+            </div>
           </div>
           <LeadForm city={activeCity} service="home-service" />
         </Container>

@@ -49,7 +49,7 @@ export function MobileNav() {
               key={item.label}
               href={item.href}
               className={`flex flex-col items-center justify-center text-[10px] font-semibold transition ${
-                isActive ? "text-blue-600 font-bold" : "text-gray-500 hover:text-gray-900"
+                isActive ? "text-primary font-bold" : "text-gray-500 hover:text-gray-900"
               }`}
             >
               {item.icon}

@@ -30,7 +30,7 @@ export function ServiceCategoryCard({
           <div className="flex items-center gap-3">
             <span className="text-3xl p-2 rounded-2xl bg-gray-50 border border-gray-100">{emoji}</span>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">
+              <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition">
                 {category.name}
               </h3>
               <p className="text-xs text-gray-500 font-medium">Vetted Vendor Partners</p>
@@ -40,14 +40,14 @@ export function ServiceCategoryCard({
           <ul className="mt-4 space-y-1.5 text-xs text-gray-600">
             {category.commonIssues.slice(0, 3).map((issue) => (
               <li key={issue} className="flex items-center gap-1.5">
-                <span className="text-blue-500 font-bold">•</span>
+                <span className="text-primary font-bold">•</span>
                 <span className="truncate">{issue}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4 text-xs font-bold text-blue-600">
+        <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4 text-xs font-bold text-primary">
           <span>View Rates & Details</span>
           <span>→</span>
         </div>
