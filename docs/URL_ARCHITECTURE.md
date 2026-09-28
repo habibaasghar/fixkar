@@ -29,38 +29,43 @@ FixKar.pk requires an information architecture capable of scaling across:
 ```
 ROOT (/)
  │
- ├── CONSUMER SERVICES HUB (/services/)
- │    ├── /services/ac-cooling/
- │    ├── /services/electrical/
- │    ├── /services/plumbing/
- │    ├── /services/cleaning/
- │    ├── /services/painting/
- │    ├── /services/gardening/
- │    ├── /services/carpentry/
- │    ├── /services/renovation/
- │    ├── /services/pest-control/
- │    ├── /services/appliance-repair/
- │    └── /services/security-smart-home/
+ ├── CONSUMER SERVICES HUB (/services/) — LIVE, rebuilt Phase 2 (2026-09-28)
+ │    ├── /services/ac-cooling/            [candidate — group has 1 live category today]
+ │    ├── /services/electrical/            [candidate — group has 1 live category today]
+ │    ├── /services/plumbing/              [candidate — group has 1 live category today]
+ │    ├── /services/cleaning/              [candidate — group has 4 live categories today]
+ │    ├── /services/painting/              [candidate — group has 1 live category today]
+ │    ├── /services/gardening/             [candidate — NOT live, no vendor coverage yet]
+ │    ├── /services/carpentry/             [candidate — NOT live, no vendor coverage yet]
+ │    ├── /services/renovation/            [candidate — NOT live, no vendor coverage yet]
+ │    ├── /services/pest-control/          [candidate — NOT live, no vendor coverage yet]
+ │    ├── /services/appliance-repair/      [candidate — NOT live, no vendor coverage yet]
+ │    └── /services/security-smart-home/   [candidate — NOT live, no vendor coverage yet]
  │
- ├── B2B COMMERCIAL PORTFOLIO (/business-services/)
+ ├── B2B COMMERCIAL PORTFOLIO (/business-services/) — NOT built. Entry CTA
+ │    on /services/ currently routes to /request until this exists.
  │    ├── /business-services/office-cleaning/
  │    ├── /business-services/commercial-ac-maintenance/
  │    ├── /business-services/facility-maintenance/
  │    └── /business-services/annual-maintenance-contracts/
  │
- ├── HIGH-VALUE PROJECTS (/projects/)
+ ├── HIGH-VALUE PROJECTS (/projects/) — NOT built. Entry CTA on /services/
+ │    currently routes to /request until this exists.
  │    ├── /projects/complete-home-renovation/
  │    ├── /projects/kitchen-renovation/
  │    ├── /projects/bathroom-renovation/
  │    ├── /projects/false-ceiling/
  │    └── /projects/commercial-fit-out/
  │
- ├── GEOGRAPHIC HUBS (/locations/)
- │    ├── /locations/lahore/
- │    ├── /locations/islamabad/
- │    ├── /locations/rawalpindi/
- │    ├── /locations/karachi/
- │    └── /locations/gujranwala/
+ ├── GEOGRAPHIC HUBS — NO separate /locations/ hierarchy.
+ │    `/[city]/` (e.g. `/lahore`, `/islamabad`) already IS the city hub and is
+ │    live/indexed today. A parallel `/locations/lahore/` would be a second
+ │    URL competing for the same search intent as the existing `/lahore` —
+ │    a direct duplicate-content risk (see DUPLICATE_CONTENT_POLICY.md).
+ │    Correction (2026-09-28): the `/locations/*` hierarchy from the original
+ │    draft of this doc is removed. Do not resurrect it. If a locations
+ │    *index* page (a directory of all cities) is ever wanted, it must link
+ │    to the existing `/[city]/` URLs, not mint new ones.
  │
  └── BRAND & LEGAL
       ├── /how-it-works/
@@ -73,6 +78,12 @@ ROOT (/)
       ├── /privacy/
       └── /terms/
 ```
+
+**What "candidate" means above:** none of the 11 `/services/[group]/` URLs
+exist yet and none are approved for implementation. This phase (Phase 2)
+only rebuilt the `/services/` hub itself — see `SERVICE_ARCHITECTURE.md` and
+`SERVICE_PAGE_ROADMAP.md` for the per-category status and the SEO quality
+gate each must pass before a URL is finalized and built.
 
 ---
 
@@ -94,7 +105,11 @@ Individual sub-service slugs will be finalized category-by-category only after:
 Today, FixKar.pk operates with a flat geo-service schema:
 - `/[city]/` (e.g., `/lahore`, `/islamabad`)
 - `/[city]/[category]/` (e.g., `/lahore/ac-repair`, `/lahore/electrician`, `/lahore/sofa-carpet-cleaning`)
-- `/services` (Current launch hub listing 5 core trades in Lahore)
+- `/services` (Phase 2, 2026-09-28: rebuilt as the master services hub —
+  11-category taxonomy discovery with search, problem-based pathways, and
+  Business/Projects entry points — see `SERVICE_ARCHITECTURE.md`. Links out
+  to the real `/[city]/[category]` pages; does not itself list category
+  URLs that don't exist.)
 
 ### Migration Safeguards
 - **DO NOT TOUCH EXISTING ROUTES NOW:** The existing flat structure is live, tested, and indexed in Google for active categories.

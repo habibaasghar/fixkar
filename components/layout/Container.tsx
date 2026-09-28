@@ -19,11 +19,12 @@ export function Section({
   className,
   background = "white",
   children,
+  ...props
 }: {
   className?: string;
   background?: "white" | "subtle" | "brand";
   children: React.ReactNode;
-}) {
+} & React.HTMLAttributes<HTMLElement>) {
   const bgStyles = {
     white: "bg-white",
     subtle: "bg-gray-50/80 border-y border-gray-100",
@@ -31,7 +32,7 @@ export function Section({
   }[background];
 
   return (
-    <section className={cn("py-12 sm:py-16 md:py-20", bgStyles, className)}>
+    <section className={cn("py-12 sm:py-16 md:py-20", bgStyles, className)} {...props}>
       {children}
     </section>
   );
