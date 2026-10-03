@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
-import { cn } from "@/lib/utils";
+import { cn, whatsappUrl } from "@/lib/utils";
 import type { TaxonomyGroup } from "@/lib/serviceTaxonomy";
 import { isTaxonomyGroupLive } from "@/lib/serviceTaxonomy";
 import { CategoryIllustration } from "@/components/illustrations/CategoryIllustration";
@@ -22,7 +22,7 @@ export function CategoryCard({
         <CategoryIllustration icon={group.icon} iconColorClass={group.accent.text} blobColor={group.accent.blob} />
         {!live && (
           <Badge variant="neutral" className="absolute top-2 right-2 shadow-sm">
-            Coming Soon
+            Message Us
           </Badge>
         )}
       </div>
@@ -43,13 +43,10 @@ export function CategoryCard({
         ))}
       </div>
 
-      {live && (
-        <div className={cn("mx-6 mt-5 flex items-center justify-between border-t border-gray-100 pt-4 pb-6 text-xs font-bold", group.accent.text)}>
-          <span>View Services</span>
-          <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-        </div>
-      )}
-      {!live && <div className="pb-6" />}
+      <div className={cn("mx-6 mt-5 flex items-center justify-between border-t border-gray-100 pt-4 pb-6 text-xs font-bold", live ? group.accent.text : "text-gray-500")}>
+        <span>{live ? "View Services" : "Ask About This"}</span>
+        <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+      </div>
     </>
   );
 
@@ -68,8 +65,13 @@ export function CategoryCard({
   }
 
   return (
-    <div className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50/50">
+    <a
+      href={whatsappUrl(`Hi FixKar, I need help with ${group.name}. Here's what I need: `)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block h-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50/50 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+    >
       {content}
-    </div>
+    </a>
   );
 }

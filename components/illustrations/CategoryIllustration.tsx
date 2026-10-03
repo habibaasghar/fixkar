@@ -11,6 +11,7 @@ import {
   IconWrench,
   IconHome,
   IconShield,
+  IconSun,
 } from "@/components/icons";
 
 const iconMap: Record<IconName, React.ComponentType<{ className?: string; size?: number }>> = {
@@ -23,12 +24,13 @@ const iconMap: Record<IconName, React.ComponentType<{ className?: string; size?:
   wrench: IconWrench,
   home: IconHome,
   shield: IconShield,
+  sun: IconSun,
 };
 
 /**
  * Larger category visual for CategoryCard — a soft accent-colored blob with
  * the category's icon centered over it, at a scale meant to occupy real
- * visual space (not a tiny badge). Consistent across all 11 categories:
+ * visual space (not a tiny badge). Consistent across every taxonomy group:
  * same blob shape, same icon-centering rule, only the accent color and
  * icon change.
  */

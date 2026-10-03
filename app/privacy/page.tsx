@@ -33,7 +33,7 @@ export default function PrivacyPage() {
 
             <h2 className="text-xl font-bold text-gray-900">3. CNIC & Document Security</h2>
             <p>
-              Vendor partner CNIC copies and reference details are stored securely and are only accessible to our team, used solely for confirming who we're connecting customers with.
+              Vendor partner CNIC copies and reference details are stored securely and are only accessible to our team, used solely for confirming who we&apos;re connecting customers with.
             </p>
 
             <h2 className="text-xl font-bold text-gray-900">4. Contacting Privacy Support</h2>

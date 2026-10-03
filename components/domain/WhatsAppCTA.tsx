@@ -19,13 +19,13 @@ export function WhatsAppCTA({
       href={whatsappUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block"
+      className={`inline-flex ${className}`}
     >
       <Button
         variant="whatsapp"
         size={size}
         leftIcon={<IconWhatsApp size={size === "lg" ? 22 : 18} />}
-        className={className}
+        className="w-full"
       >
         {label}
       </Button>

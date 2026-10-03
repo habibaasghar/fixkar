@@ -12,9 +12,11 @@ import { whatsappUrl } from "@/lib/utils";
 export function LocationSelector({
   variant = "desktop",
   className = "",
+  placeholder,
 }: {
   variant?: "desktop" | "mobile";
   className?: string;
+  placeholder?: string;
 }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +46,7 @@ export function LocationSelector({
         className={`flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:border-primary-hover transition ${className}`}
       >
         <IconMapPin size={14} className="text-primary" />
-        <span>{selectedName ?? "Select Location"}</span>
+        <span>{selectedName ?? placeholder ?? "Select Location"}</span>
         <IconChevron size={12} className="text-gray-400" />
       </button>
     ) : (
@@ -54,7 +56,7 @@ export function LocationSelector({
       >
         <span className="flex items-center gap-2 text-sm font-semibold text-gray-900">
           <IconMapPin size={16} className="text-primary" />
-          {selectedName ?? "Select Your Location"}
+          {selectedName ?? placeholder ?? "Select Your Location"}
         </span>
         <IconChevron size={14} className="text-primary-hover" />
       </button>

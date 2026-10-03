@@ -1,4 +1,4 @@
-export type IconName = "snow" | "bolt" | "droplet" | "sparkle" | "paint" | "leaf" | "wrench" | "home" | "shield";
+export type IconName = "snow" | "bolt" | "droplet" | "sparkle" | "paint" | "leaf" | "wrench" | "home" | "shield" | "sun";
 
 /**
  * Master service taxonomy for the /services/ hub — the 11 long-term
@@ -96,11 +96,20 @@ export const taxonomyGroups: TaxonomyGroup[] = [
   },
   {
     slug: "renovation",
-    name: "Renovation & Construction",
-    description: "Ceiling, flooring, and renovation work for homes and offices.",
-    representativeServices: ["False Ceiling", "Flooring", "Home Renovation", "Wall Construction"],
+    name: "Home Renovation & Construction",
+    description: "Kitchen, bathroom, flooring, false ceiling, and full home renovation projects.",
+    representativeServices: ["Kitchen Renovation", "Bathroom Renovation", "False Ceiling", "Flooring & Tiling", "Doors & Windows", "Home Renovation"],
     icon: "home",
     accent: { bg: "bg-stone-50", border: "border-stone-200", text: "text-stone-700", iconBg: "bg-stone-600", blob: "#fafaf9" },
+    liveCategorySlugs: [],
+  },
+  {
+    slug: "solar",
+    name: "Solar & Energy",
+    description: "Residential solar panel installation and related energy solutions.",
+    representativeServices: ["Solar Panel Installation", "Solar System Installation", "Inverter Setup"],
+    icon: "sun",
+    accent: { bg: "bg-orange-50", border: "border-orange-200", text: "text-orange-700", iconBg: "bg-orange-600", blob: "#fff7ed" },
     liveCategorySlugs: [],
   },
   {
@@ -128,6 +137,24 @@ export const taxonomyGroups: TaxonomyGroup[] = [
     representativeServices: ["CCTV Installation", "Smart Door Lock", "Intercom", "Wi-Fi Setup"],
     icon: "shield",
     accent: { bg: "bg-violet-50", border: "border-violet-200", text: "text-violet-700", iconBg: "bg-violet-600", blob: "#f5f3ff" },
+    liveCategorySlugs: [],
+  },
+  {
+    slug: "moving",
+    name: "Moving & Home Shifting",
+    description: "Residential moving, packing, and home shifting services.",
+    representativeServices: ["Home Shifting", "Packing & Loading", "Furniture Moving"],
+    icon: "wrench",
+    accent: { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", iconBg: "bg-blue-600", blob: "#eff6ff" },
+    liveCategorySlugs: [],
+  },
+  {
+    slug: "handyman",
+    name: "General Handyman",
+    description: "Smaller household repairs and maintenance that don't need a specialist trade.",
+    representativeServices: ["General Repairs", "Furniture Assembly", "Odd Jobs"],
+    icon: "wrench",
+    accent: { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", iconBg: "bg-slate-600", blob: "#f8fafc" },
     liveCategorySlugs: [],
   },
 ];

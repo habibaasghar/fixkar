@@ -113,7 +113,7 @@ export default async function CityPage({ params }: Props) {
               Request a Fixer in {city.name}
             </h2>
             <p className="text-xs text-gray-600">
-              Fill the quick form below and we'll follow up with a confirmed quote, typically within the hour.
+              Fill the quick form below and we&apos;ll follow up with a confirmed quote, typically within the hour.
             </p>
           </div>
           <LeadForm city={city} service="home-service" />

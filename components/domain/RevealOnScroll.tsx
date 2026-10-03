@@ -25,9 +25,9 @@ export function RevealOnScroll({
     const node = ref.current;
     if (!node) return;
 
-    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion || typeof IntersectionObserver === "undefined") {
-      setIsVisible(true);
+    if (typeof IntersectionObserver === "undefined") {
+      // Very old browsers: reveal on the next tick rather than synchronously in the effect body.
+      queueMicrotask(() => setIsVisible(true));
       return;
     }
 
@@ -47,7 +47,7 @@ export function RevealOnScroll({
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
+      className={`transition-all duration-700 ease-out motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       } ${className}`}
       style={{ transitionDelay: isVisible ? `${delayMs}ms` : "0ms" }}
