@@ -21,7 +21,7 @@ const nodes: ServiceNode[] = [
   }, // security
   {
     x: 205,
-    y: 262,
+    y: 256,
     color: "#57534e",
     children: <path d="M1 8 9 1l8 7M4 8v8h3v-5h4v5h3V8" />,
   }, // renovation
@@ -47,6 +47,40 @@ const nodes: ServiceNode[] = [
       </>
     ),
   }, // painting
+  {
+    x: 140,
+    y: 4,
+    color: "#b45309",
+    children: (
+      <>
+        <rect x="2" y="3" width="14" height="5" rx="1" />
+        <rect x="2" y="10" width="14" height="6" rx="1" />
+        <path d="M9 3v5" />
+      </>
+    ),
+  }, // kitchen
+  {
+    x: 265,
+    y: 6,
+    color: "#4f46e5",
+    children: (
+      <>
+        <path d="M1 8c2-2 4 2 6 0s4 2 6 0 3 1 4 0" />
+        <path d="M9 11v1M5 12v1M13 12v1" />
+      </>
+    ),
+  }, // waterproofing
+  {
+    x: 268,
+    y: 254,
+    color: "#0e7490",
+    children: (
+      <>
+        <path d="M3 16V5a3 3 0 0 1 6 0M9 5h3" />
+        <path d="M2 10h14v2a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" />
+      </>
+    ),
+  }, // bathroom
 ];
 
 /**
@@ -62,7 +96,7 @@ export function HomeServiceIllustration({ className = "" }: { className?: string
       viewBox="0 0 400 300"
       className={className}
       role="img"
-      aria-label="A FixKar home connected to icons for AC, electrical, plumbing, security, renovation, solar and painting services"
+      aria-label="A FixKar home connected to icons for AC, electrical, plumbing, security, renovation, solar, painting, kitchen, bathroom and waterproofing services"
     >
       <g stroke="var(--color-border-strong)" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.6">
         {nodes.map((n, i) => (

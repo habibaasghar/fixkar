@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { WhatsAppCTA } from "./WhatsAppCTA";
-import { taxonomyGroups } from "@/lib/serviceTaxonomy";
+import { hubServices } from "@/lib/servicesHub";
 import { allLocations } from "@/lib/allCities";
 
 const jobTypes = [
@@ -19,7 +19,7 @@ const jobTypes = [
 
 const serviceOptions = [
   { value: "", label: "Select a service..." },
-  ...taxonomyGroups.map((g) => ({ value: g.name, label: g.name })),
+  ...hubServices.map((s) => ({ value: s.name, label: s.name })),
   { value: "Something else", label: "Something else / Not sure" },
 ];
 
@@ -44,8 +44,8 @@ export function ProjectBriefBuilder() {
   const message = useMemo(() => {
     let msg = `Hi FixKar, I need help with ${service || "a home service"}`;
     msg += city ? ` in ${city}.` : ".";
-    if (jobType) msg += ` This is a ${jobType.toLowerCase()} job.`;
-    if (details.trim()) msg += ` ${details.trim()}`;
+    msg += jobType ? ` My requirement is ${jobType.toLowerCase()}.` : "";
+    msg += details.trim() ? ` Details: ${details.trim()}` : "";
     return msg;
   }, [service, city, jobType, details]);
 
