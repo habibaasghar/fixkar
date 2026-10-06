@@ -20,13 +20,15 @@ export function ServiceSchema({ city, category }: { city: City; category: Servic
     },
     description: category.metaDescriptionTemplate ? category.metaDescriptionTemplate(city.name) : "",
     url: `${BRAND_URL}/${city.slug}/${category.slug}`,
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "PKR",
-      // Infer low price from ranges if available, otherwise fallback
-      lowPrice: "500",
-      offerCount: category.priceRanges?.length || 1,
-    }
+    // Only describe an offer when the category actually publishes price ranges.
+    ...(category.priceRanges?.length && {
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "PKR",
+        lowPrice: "500",
+        offerCount: category.priceRanges.length,
+      },
+    }),
   };
 
   return <JsonLd data={schemaData} />;

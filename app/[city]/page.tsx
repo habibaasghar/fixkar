@@ -6,6 +6,9 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { LocalBusinessSchema } from "@/components/seo/LocalBusinessSchema";
 import { ServiceCategoryCard } from "@/components/domain/ServiceCategoryCard";
 import { AreaCoverageList } from "@/components/domain/AreaCoverageList";
+import Link from "next/link";
+import { sofaIntents } from "@/lib/sofaContent";
+import { isSofaPageLive } from "@/lib/sofaCluster";
 import { ComingSoonState } from "@/components/ui/ComingSoonState";
 import { LeadForm } from "@/components/domain/LeadForm";
 
@@ -85,6 +88,21 @@ export default async function CityPage({ params }: Props) {
               <ServiceCategoryCard key={cat.slug} category={cat} citySlug={city.slug} />
             ))}
           </div>
+
+          {isSofaPageLive(city.slug, "sofa-cleaning") && (
+            <nav aria-label={`Sofa and upholstery cleaning in ${city.name}`} className="mt-10 rounded-2xl border border-gray-200 bg-white p-5">
+              <h3 className="text-sm font-extrabold text-gray-900">Sofa and upholstery cleaning in {city.name}</h3>
+              <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {sofaIntents.map((i) => (
+                  <li key={i.slug}>
+                    <Link href={`/${city.slug}/${i.slug}`} className="text-sm font-semibold text-primary hover:underline">
+                      {i.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
 
           {city.status === "coming_soon" && comingSoonCategories.length > 0 && (
             <div className="mt-10 rounded-2xl border border-dashed border-gray-200 bg-gray-50/50 p-5">

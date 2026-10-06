@@ -13,11 +13,16 @@ import { FAQSchema } from "@/components/seo/FAQSchema";
 import { AccordionItem } from "@/components/ui/AccordionItem";
 import { ComingSoonState } from "@/components/ui/ComingSoonState";
 import { BRAND_NAME } from "@/lib/constants";
+import { SofaClusterPage } from "@/components/domain/SofaClusterPage";
+import { getSofaIntent } from "@/lib/sofaContent";
+import { isSofaPageLive, sofaIntentParams, sofaIntentSlugs } from "@/lib/sofaCluster";
 
 export async function generateStaticParams() {
-  return cities.flatMap((city) =>
-    categories.map((cat) => ({ city: city.slug, category: cat.slug }))
-  );
+  return [
+    ...cities.flatMap((city) => categories.map((cat) => ({ city: city.slug, category: cat.slug }))),
+    // Extra sofa-cluster intent pages, only for the cities where they are live.
+    ...sofaIntentParams(),
+  ];
 }
 
 type Props = {
@@ -27,6 +32,18 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city: citySlug, category: categorySlug } = await params;
   const city = getCity(citySlug);
+
+  if (city && isSofaPageLive(citySlug, categorySlug)) {
+    const intent = getSofaIntent(categorySlug);
+    if (intent) {
+      return {
+        title: intent.title(city.name),
+        description: intent.description(city.name),
+        alternates: { canonical: `/${city.slug}/${intent.slug}` },
+      };
+    }
+  }
+
   const category = getCategory(categorySlug);
   if (!city || !category) return {};
 
@@ -48,8 +65,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ServiceCategoryCityPage({ params }: Props) {
   const { city: citySlug, category: categorySlug } = await params;
   const city = getCity(citySlug);
-  const category = getCategory(categorySlug);
 
+  // Sofa & upholstery cluster: rich data-driven template. Intent pages that are
+  // not live in this city 404 rather than rendering a thin placeholder.
+  if (city && isSofaPageLive(citySlug, categorySlug)) {
+    const intent = getSofaIntent(categorySlug);
+    if (intent) return <SofaClusterPage city={city} intent={intent} />;
+  }
+  if ((sofaIntentSlugs as readonly string[]).includes(categorySlug)) notFound();
+
+  const category = getCategory(categorySlug);
   if (!city || !category) notFound();
 
   if (!isCategoryActiveInCity(city, category.slug)) {

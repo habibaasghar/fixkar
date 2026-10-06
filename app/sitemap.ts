@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { BRAND_URL } from "@/lib/constants";
 import { cities, categories, isCategoryActiveInCity, cityHasAnyActiveCategory } from "@/lib/services";
 import { posts } from "@/lib/blog";
+import { sofaIntentParams } from "@/lib/sofaCluster";
 
 /**
  * Programmatic sitemap (Phase 18 fix — this was missing). Mirrors the exact
@@ -20,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
     { path: "", priority: 1.0, changeFrequency: "daily" },
     { path: "/services", priority: 0.8, changeFrequency: "weekly" },
+    { path: "/sofa-cleaning", priority: 0.8, changeFrequency: "weekly" },
     { path: "/how-it-works", priority: 0.6, changeFrequency: "monthly" },
     { path: "/trust-safety", priority: 0.6, changeFrequency: "monthly" },
     { path: "/about", priority: 0.5, changeFrequency: "monthly" },
@@ -71,6 +73,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
       });
     }
+  }
+
+  // Sofa-cluster intent pages (live only in the cities listed in lib/sofaCluster.ts).
+  for (const { city, category } of sofaIntentParams()) {
+    entries.push({
+      url: `${BRAND_URL}/${city}/${category}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
   }
 
   return entries;

@@ -330,13 +330,6 @@ export const categories: ServiceCategory[] = [
       "Pet odor and stain removal",
       "Combined sofa + carpet package for full living rooms",
     ],
-    pricingNote:
-      "Sofa pricing is per seat, carpet pricing is per room/sqft — the team confirms the exact quote before starting work.",
-    priceRanges: [
-      { item: "Sofa Cleaning (per seat)", range: "Rs. 350 – 500" },
-      { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
-      { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
-    ],
     faqs: [
       {
         question: "Can I book sofa and carpet cleaning together in one visit?",
@@ -371,7 +364,7 @@ export const categories: ServiceCategory[] = [
     name: "Sofa Cleaning Services",
     shortName: "Sofa Cleaning",
     h1Template: (city) => `Sofa Cleaning Service in ${city}`,
-    metaTitleTemplate: (city) => `Sofa Cleaning Service in ${city} | Same-Day Booking`,
+    metaTitleTemplate: (city) => `Sofa Cleaning Services in ${city} for Homes & Offices`,
     metaDescriptionTemplate: (city) =>
       `Professional sofa shampoo & steam cleaning in ${city} — all fabric types. No advance payment, pay after the job is done.`,
     intro: (city) =>
@@ -382,13 +375,6 @@ export const categories: ServiceCategory[] = [
       "Stubborn stain & spot removal",
       "Pet hair & odor removal",
       "Dust mite / allergen treatment",
-    ],
-    pricingNote:
-      "Priced per seat — a team lead confirms the exact quote based on fabric type and condition before starting.",
-    priceRanges: [
-      { item: "Sofa Cleaning (per seat)", range: "Rs. 350 – 500" },
-      { item: "5-Seater Sofa Set", range: "Rs. 1,800 – 2,500" },
-      { item: "7-Seater Sofa Set", range: "Rs. 2,500 – 3,500" },
     ],
     faqs: [
       {
@@ -435,12 +421,6 @@ export const categories: ServiceCategory[] = [
       "Stain and spot treatment",
       "Odor and allergen removal",
       "Post-event / post-construction carpet cleaning",
-    ],
-    pricingNote:
-      "Priced per room or per square foot depending on carpet size — final quote confirmed on inspection.",
-    priceRanges: [
-      { item: "Carpet Cleaning (per room)", range: "Rs. 1,500 – 3,500" },
-      { item: "Area Rug Cleaning", range: "Rs. 1,000 – 2,500" },
     ],
     faqs: [
       {
